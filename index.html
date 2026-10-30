@@ -9,6 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="The Underworld">
     <title>The Underworld Command Center</title>
+    <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="pomegranate_source.png">
     <link rel="apple-touch-icon" href="pomegranate_source.png">
     <link rel="icon" type="image/svg+xml"
@@ -1118,6 +1119,9 @@ Key Domain Lore:
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#039;");
         }
+        if ('serviceWorker' in navigator) {
+         navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW:', err));
+     }
     </script>
 </body>
 </h
