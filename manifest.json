@@ -1,0 +1,19 @@
+{
+  "name": "The Underworld Command Center",
+  "short_name": "The Underworld",
+  "description": "Sanctuary of Persephone — Kept by Aidoneus",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a0b0e",
+  "theme_color": "#0a0b0e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "pomegranate_source.png",
+      "sizes": "192x192 512x512 1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
