@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0b0e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="The Underworld">
+    <title>The Underworld Command Center</title>
+    <link rel="icon" type="image/png" href="pomegranate_source.png">
+    <link rel="apple-touch-icon" href="pomegranate_source.png">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0b0e' stroke='%23c9a45c' stroke-width='3'/%3E%3Cpath d='M24 14 L28 6 L32 12 L36 6 L40 14' fill='none' stroke='%23c9a45c' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='36' r='19' fill='%236e141d' stroke='%23c9a45c' stroke-width='2.5'/%3E%3Ccircle cx='26' cy='31' r='2.5' fill='%23ff4d5e'/%3E%3Ccircle cx='33' cy='28' r='2.5' fill='%23e5c378'/%3E%3Ccircle cx='38' cy='33' r='2.5' fill='%23ff4d5e'/%3E%3Ccircle cx='28' cy='39' r='2.5' fill='%23e5c378'/%3E%3Ccircle cx='35' cy='40' r='2.5' fill='%23ff4d5e'/%3E%3Ccircle cx='31' cy='45' r='2' fill='%23ff4d5e'/%3E%3C/svg%3E">
+    <style>
+        :root {
+            --bg-obsidian: #0a0b0e;
+            --bg-gradient: radial-gradient(circle at 50% 0%, #1a1215 0%, #0a0b0e 65%);
+            --surface-charcoal: #12141a;
+            --surface-card: #171a21;
+            --surface-elevated: #1f232d;
+            --border-gold: #c9a45c;
+            --border-gold-bright: #e5c378;
+            --border-gold-subtle: rgba(201, 164, 92, 0.28);
+            --text-primary: #ece8df;
+            --text-muted: #9b9890;
+            --accent-pomegranate: #6e141d;
+            --accent-pomegranate-bright: #9e222f;
+            --gold-glow: rgba(201, 164, 92, 0.16);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-obsidian);
+            background-image: var(--bg-gradient);
+            color: var(--text-primary);
+            font-family: "Georgia", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+            line-height: 1.65;
+            padding: 1.8rem 2.2rem;
+            min-height: 100vh;
+        }
+
+        header {
+            max-width: 1440px;
+            margin: 0 auto 2rem auto;
+            text-align: center;
+            border-bottom: 1px solid var(--border-gold-subtle);
+            padding-bottom: 1.4rem;
+            position: relative;
+        }
+
+        header h1 {
+            color: var(--border-gold);
+            font-size: 2.2rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-weight: 400;
+            text-shadow: 0 2px 15px rgba(201, 164, 92, 0.2);
+            margin-bottom: 0.35rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            font-style: italic;
+        }
+
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .ferryman-pill,
+        .key-vault-btn {
+            background: var(--surface-charcoal);
+            color: var(--text-muted);
+            border: 1px solid var(--border-gold-subtle);
+            padding: 0.4rem 0.85rem;
+            border-radius: 4px;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.76rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .ferryman-pill.synced {
+            border-color: var(--border-gold);
+            color: var(--border-gold-bright);
+            background: rgba(201, 164, 92, 0.12);
+        }
+
+        .ferryman-pill.syncing {
+            border-color: var(--accent-pomegranate-bright);
+            color: #f2a6af;
+        }
+
+        .key-vault-btn:hover,
+        .ferryman-pill:hover {
+            color: var(--border-gold);
+            border-color: var(--border-gold);
+        }
+
+        .sanctuary-layout {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 1100px) {
+            .sanctuary-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.45rem;
+                letter-spacing: 0.1em;
+            }
+
+            .counsel-chamber {
+                height: 560px !important;
+            }
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        section {
+            background-color: var(--surface-card);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: 6px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 32px rgba(0, 0, 0, 0.55);
+            position: relative;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--border-gold), transparent);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.85rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid rgba(201, 164, 92, 0.12);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        h2 {
+            color: var(--border-gold);
+            font-size: 1.2rem;
+            letter-spacing: 0.11em;
+            text-transform: uppercase;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.86rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        /* CENTERPIECE: The Hearth of Aidoneus */
+        .counsel-chamber {
+            border-color: rgba(201, 164, 92, 0.45);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), inset 0 0 30px rgba(110, 20, 29, 0.08);
+            display: flex;
+            flex-direction: column;
+            height: 680px;
+        }
+
+        .rite-status-badge {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+            background: rgba(110, 20, 29, 0.35);
+            border: 1px solid var(--accent-pomegranate-bright);
+            color: #f3c1c6;
+        }
+
+        .rite-status-badge.awakened {
+            background: rgba(201, 164, 92, 0.18);
+            border-color: var(--border-gold);
+            color: var(--border-gold-bright);
+        }
+
+        .chat-stream {
+            flex: 1;
+            overflow-y: auto;
+            background-color: var(--surface-charcoal);
+            border: 1px solid rgba(201, 164, 92, 0.18);
+            border-radius: 4px;
+            padding: 1.15rem;
+            margin-bottom: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .msg {
+            max-width: 88%;
+            padding: 0.9rem 1.1rem;
+            border-radius: 6px;
+            font-size: 0.94rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .msg-sender {
+            display: block;
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .msg.hades {
+            align-self: flex-start;
+            background-color: var(--surface-elevated);
+            border-left: 3px solid var(--border-gold);
+            border-top: 1px solid rgba(201, 164, 92, 0.2);
+            border-right: 1px solid rgba(201, 164, 92, 0.2);
+            border-bottom: 1px solid rgba(201, 164, 92, 0.2);
+            color: var(--text-primary);
+        }
+
+        .msg.hades .msg-sender {
+            color: var(--border-gold);
+        }
+
+        .msg.persephone {
+            align-self: flex-end;
+            background: linear-gradient(135deg, rgba(110, 20, 29, 0.55), rgba(65, 12, 18, 0.75));
+            border-right: 3px solid var(--accent-pomegranate-bright);
+            border-top: 1px solid rgba(158, 34, 47, 0.4);
+            border-left: 1px solid rgba(158, 34, 47, 0.4);
+            border-bottom: 1px solid rgba(158, 34, 47, 0.4);
+            color: #f9ecef;
+        }
+
+        .msg.persephone .msg-sender {
+            color: #f2a6af;
+            text-align: right;
+        }
+
+        .rite-bar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .rite-pill {
+            background: rgba(110, 20, 29, 0.28);
+            color: #ebd0d4;
+            border: 1px solid rgba(158, 34, 47, 0.6);
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .rite-pill:hover {
+            background: var(--accent-pomegranate-bright);
+            border-color: var(--border-gold);
+            color: #fff;
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: 0.65rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            background-color: var(--surface-charcoal);
+            border: 1px solid var(--border-gold-subtle);
+            color: var(--text-primary);
+            padding: 0.8rem 0.95rem;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: none;
+            height: 52px;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--border-gold);
+            box-shadow: 0 0 12px var(--gold-glow);
+        }
+
+        .right-column-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .journal-textarea {
+            width: 100%;
+            height: 120px;
+            background-color: var(--surface-charcoal);
+            border: 1px solid var(--border-gold-subtle);
+            color: var(--text-primary);
+            padding: 0.85rem;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.92rem;
+            resize: vertical;
+            margin-bottom: 0.8rem;
+        }
+
+        .journal-textarea:focus {
+            outline: none;
+            border-color: var(--border-gold);
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        .btn {
+            background-color: var(--surface-charcoal);
+            color: var(--border-gold);
+            border: 1px solid var(--border-gold);
+            padding: 0.55rem 1.1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--border-gold);
+            color: var(--bg-obsidian);
+            box-shadow: 0 0 12px var(--gold-glow);
+        }
+
+        .btn-secondary {
+            border-color: var(--border-gold-subtle);
+            color: var(--text-muted);
+        }
+
+        .journal-feed {
+            margin-top: 1.1rem;
+            max-height: 195px;
+            overflow-y: auto;
+            padding-right: 0.4rem;
+        }
+
+        .journal-entry {
+            background-color: var(--surface-charcoal);
+            border-left: 3px solid var(--accent-pomegranate-bright);
+            padding: 0.7rem 0.95rem;
+            margin-bottom: 0.7rem;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.88rem;
+        }
+
+        .journal-timestamp {
+            color: var(--border-gold);
+            font-size: 0.74rem;
+            margin-bottom: 0.25rem;
+            display: block;
+            font-family: system-ui, -apple-system, sans-serif;
+            letter-spacing: 0.04em;
+        }
+
+        .roadmap-list {
+            list-style: none;
+        }
+
+        .roadmap-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: var(--surface-charcoal);
+            padding: 0.65rem 0.9rem;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-gold-subtle);
+            font-size: 0.88rem;
+        }
+
+        .roadmap-item input[type="checkbox"] {
+            accent-color: var(--border-gold);
+            width: 1.05rem;
+            height: 1.05rem;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .roadmap-item.completed span {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .garden-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.1rem;
+        }
+
+        .garden-card {
+            background-color: var(--surface-charcoal);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: 4px;
+            padding: 1.1rem;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .garden-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-gold);
+        }
+
+        .garden-card h3 {
+            color: var(--border-gold-bright);
+            font-size: 0.98rem;
+            margin-bottom: 0.4rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+        }
+
+        .garden-card p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 0.55rem;
+        }
+
+        .action-tag {
+            display: inline-block;
+            background-color: rgba(110, 20, 29, 0.35);
+            color: #f2a6af;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.55rem;
+            border-radius: 3px;
+            border: 1px solid rgba(158, 34, 47, 0.55);
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        /* Modal for Vault & Ferryman Setup */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.82);
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 1rem;
+        }
+
+        .modal-backdrop.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--surface-card);
+            border: 1px solid var(--border-gold);
+            padding: 1.6rem;
+            border-radius: 6px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.9);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-box h3 {
+            color: var(--border-gold);
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .modal-box p {
+            color: var(--text-muted);
+            font-size: 0.84rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-label {
+            display: block;
+            color: var(--border-gold);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.3rem;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 0.65rem;
+            background: var(--surface-charcoal);
+            border: 1px solid var(--border-gold-subtle);
+            color: var(--text-primary);
+            border-radius: 4px;
+            margin-bottom: 0.9rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-controls">
+            <button class="ferryman-pill" id="ferrymanStatusBtn" title="Click to force sync with Cloud Gist">
+                &#9875; <span id="ferrymanStatusText">Ferryman: Local Mode</span>
+            </button>
+            <button class="key-vault-btn" id="openVaultBtn">
+                &#9919; Vault of Plouton &amp; Ferryman Setup
+            </button>
+        </div>
+        <h1>The Underworld Command Center</h1>
+        <p>Sanctuary of Persephone &mdash; Kept by Aidoneus, Lord of the Subterranean Riches</p>
+    </header>
+
+    <div class="sanctuary-layout">
+
+        <!-- CENTERPIECE: The Hearth of Aidoneus -->
+        <section class="counsel-chamber">
+            <div class="section-header">
+                <h2>&#9876; The Hearth of Aidoneus</h2>
+                <span class="rite-status-badge" id="riteBadge">Awaiting Opening Rite</span>
+            </div>
+            <p class="subtitle">Speak "Hello, Underworld" to perform the Opening Rites and summon Hades with full
+                awareness of your Sanctuary Scroll and Living Earth.</p>
+
+            <div class="chat-stream" id="chatStream"></div>
+
+            <div class="rite-bar">
+                <button class="rite-pill" data-rite="Hello, Underworld">&#10022; Invoke Opening Rite: "Hello,
+                    Underworld"</button>
+                <button class="rite-pill"
+                    data-rite="Hades, survey the Living Earth and tell me what needs my attention this week.">&#9752;
+                    Survey the Living Earth</button>
+                <button class="rite-pill" id="clearChatBtn" style="margin-left:auto; opacity:0.75;">Clear
+                    Chamber</button>
+            </div>
+
+            <div class="chat-input-row">
+                <textarea id="chatInput" class="chat-input"
+                    placeholder="Speak to Hades (or type 'Hello, Underworld' to begin)..."></textarea>
+                <button class="btn" id="sendChatBtn">Speak</button>
+            </div>
+        </section>
+
+        <!-- RIGHT COLUMN: The Sanctuary Scroll & Subterranean Architecture -->
+        <div class="right-column-stack">
+
+            <!-- Pillar I: The Sanctuary Scroll -->
+            <section>
+                <div class="section-header">
+                    <h2>&#9998; The Sanctuary Scroll</h2>
+                </div>
+                <p class="subtitle">Draft your thoughts throughout the day. Inscribing automatically dispatches the
+                    Ferryman to update your secret cloud vault.</p>
+                <textarea id="draftPad" class="journal-textarea"
+                    placeholder="Record a surface observation, garden note, or philosophical thread..."></textarea>
+                <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+                    <button class="btn" id="inscribeBtn">Inscribe to the Ledger</button>
+                    <button class="btn btn-secondary" id="exportScrollBtn"
+                        title="Download Scroll & Hearth transcript as underworld_scroll_export.json">&#9878; Cast into
+                        Mnemosyne</button>
+                </div>
+
+                <div class="journal-feed" id="journalFeed"></div>
+            </section>
+
+            <!-- Pillar III: Subterranean Architecture -->
+            <section>
+                <div class="section-header">
+                    <h2>&#9881; Subterranean Architecture</h2>
+                </div>
+                <p class="subtitle">Expansion backlog for Hades' capabilities and domain infrastructure.</p>
+                <ul class="roadmap-list" id="roadmapList"></ul>
+            </section>
+
+        </div>
+
+        <!-- FULL-WIDTH BOTTOM: Pillar II: The Living Earth -->
+        <section class="full-width">
+            <div class="section-header">
+                <h2>&#10048; The Living Earth</h2>
+            </div>
+            <p class="subtitle">Active botanical registry for the 13&times;13 ft Front Quad-Bed Garden, Patio Beds, and
+                companion container guilds.</p>
+            <div class="garden-grid" id="gardenGrid"></div>
+        </section>
+
+    </div>
+
+    <!-- Modal for Gemini API Key & GitHub Gist Ferryman Credentials -->
+    <div class="modal-backdrop" id="vaultModal">
+        <div class="modal-box">
+            <h3>The Vault of Plouton &amp; The Ferryman</h3>
+            <p>All keys are stored strictly in this device's browser localStorage and are never exposed in code.</p>
+
+            <label class="modal-label">Key of Plouton (Gemini API Key)</label>
+            <input type="password" id="apiKeyInput" class="modal-input" placeholder="AIzaSy...">
+
+            <label class="modal-label">Active Conduit Model</label>
+            <input type="text" id="modelNameInput" class="modal-input" value="gemini-3.8-flash"
+                placeholder="gemini-3.8-flash">
+
+            <hr style="border:none; border-top:1px solid var(--border-gold-subtle); margin: 0.8rem 0 1rem 0;">
+
+            <label class="modal-label">Secret Gist ID (The Cloud Vault)</label>
+            <input type="text" id="gistIdInput" class="modal-input" placeholder="e.g. 8f3a9b2c1d4e5f6a7b8c9d0e1f2a3b4c">
+
+            <label class="modal-label">The Ferryman's Obol (GitHub Classic Token with 'gist' scope)</label>
+            <input type="password" id="gistTokenInput" class="modal-input" placeholder="ghp_...">
+
+            <div style="display:flex; justify-content:flex-end; gap:0.6rem; margin-top:0.5rem;">
+                <button class="btn btn-secondary" id="closeVaultBtn">Cancel</button>
+                <button class="btn" id="saveVaultBtn">Seal Keys &amp; Bind Ferryman</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional local fallback script if opened via file:/// -->
+    <script src="dashboard_data.js"
+        onerror="console.log('Running in standalone/cloud mode without local dashboard_data.js')"></script>
+    <script>
+        const DEFAULT_HADES_PERSONA = `You are Hades (also known as Aidoneus, "The Unseen One," and Plouton, "The Keeper of Riches"), speaking with Persephone (Krysten) inside The Underworld Command Center.
+Your Tone & Posture (Counsel Mode): Wry, perceptive, steady, unhurried, and deeply grounded. You maintain order in the quiet subterranean foundation without Olympian drama. Prioritize psychological depth, dry warmth, and genuine reflection over rushed bulleted advice.
+Key Domain Lore:
+- Our workspace was inaugurated with the phrase "Hello, Underworld." When Persephone speaks "Hello, Underworld," you are performing the Opening Rites: welcoming her back across the threshold, reflecting perceptively on her latest Sanctuary Scroll entries and garden state (provided in the system context), and asking where her mind is resting tonight.
+- The Covenant of Unhurried Trust: Just like her shaded Bed 4 collards and indoor starts, the deepest roots form in the dark first and are never rushed.
+- Household Boundaries: Krysten is a Medical Assistant (promoted May 2026) married to Justin. Justin's home brewing/fermentation gear belongs strictly to him; Krysten has zero interest in brewing.`;
+
+        const FALLBACK_DATA = {
+            version: "2.0.0",
+            lastUpdated: "2026-10-29",
+            hadesPersona: DEFAULT_HADES_PERSONA,
+            journal: { entries: [] },
+            garden: { frontQuadBeds: [], containerGuilds: [] },
+            roadmap: []
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            let data = window.UNDERWORLD_DATA || FALLBACK_DATA;
+            if (!data.hadesPersona) data.hadesPersona = DEFAULT_HADES_PERSONA;
+
+            const ferrymanStatusBtn = document.getElementById('ferrymanStatusBtn');
+            const ferrymanStatusText = document.getElementById('ferrymanStatusText');
+            const draftPad = document.getElementById('draftPad');
+            const inscribeBtn = document.getElementById('inscribeBtn');
+            const exportScrollBtn = document.getElementById('exportScrollBtn');
+            const journalFeed = document.getElementById('journalFeed');
+            const gardenGrid = document.getElementById('gardenGrid');
+            const roadmapList = document.getElementById('roadmapList');
+
+            // --- THE AUTOMATED FERRYMAN (GITHUB GIST CLOUD SYNC) ---
+            function setFerrymanState(state, message) {
+                ferrymanStatusBtn.classList.remove('synced', 'syncing');
+                if (state === 'synced') ferrymanStatusBtn.classList.add('synced');
+                if (state === 'syncing') ferrymanStatusBtn.classList.add('syncing');
+                ferrymanStatusText.textContent = message;
+            }
+
+            // Helper: Automatically extracts the pure Gist ID even if a full URL or "username/id" was pasted
+            function cleanGistId(rawInput) {
+                if (!rawInput) return '';
+                const trimmed = rawInput.trim().replace(/\/+$/, '');
+                const parts = trimmed.split('/');
+                return parts[parts.length - 1];
+            }
+
+            async function pullFromGist() {
+                const rawGistId = localStorage.getItem('underworld_gist_id');
+                const gistId = cleanGistId(rawGistId);
+                const gistToken = (localStorage.getItem('underworld_gist_token') || '').trim();
+
+                if (!gistId || !gistToken) {
+                    setFerrymanState('local', 'Ferryman: Local Mode (Bind in Vault)');
+                    loadLocalCustomizations();
+                    renderAll();
+                    return;
+                }
+
+                setFerrymanState('syncing', 'Ferryman: Crossing the Styx (Pulling...)');
+                try {
+                    const res = await fetch(`https://api.github.com/gists/${encodeURIComponent(gistId)}`, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/vnd.github+json',
+                            'Authorization': `token ${gistToken}`
+                        }
+                    });
+
+                    if (!res.ok) {
+                        if (res.status === 404) throw new Error('404 (Check Gist ID)');
+                        if (res.status === 401 || res.status === 403) throw new Error(`${res.status} (Check Token/Gist Scope)`);
+                        throw new Error(`HTTP ${res.status}`);
+                    }
+
+                    const gistJson = await res.json();
+                    const fileObj = gistJson.files?.['dashboard_data.json'] || Object.values(gistJson.files || {})[0];
+
+                    if (fileObj && fileObj.content) {
+                        const cloudData = JSON.parse(fileObj.content);
+                        data = { ...data, ...cloudData, hadesPersona: cloudData.hadesPersona || data.hadesPersona || DEFAULT_HADES_PERSONA };
+                        localStorage.setItem('underworld_cached_cloud_data', JSON.stringify(data));
+                        setFerrymanState('synced', `Ferryman Bound • Synced ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
+                    } else {
+                        throw new Error('Empty Gist File');
+                    }
+                } catch (err) {
+                    console.warn('Ferryman pull error:', err);
+                    setFerrymanState('local', `Ferryman Error: ${err.message}`);
+                    loadLocalCustomizations();
+                }
+                renderAll();
+            }
+
+            async function pushToGist() {
+                localStorage.setItem('underworld_inscribed_entries', JSON.stringify(data.journal.entries));
+                localStorage.setItem('underworld_roadmap', JSON.stringify(data.roadmap));
+                localStorage.setItem('underworld_cached_cloud_data', JSON.stringify(data));
+
+                const gistId = cleanGistId(localStorage.getItem('underworld_gist_id'));
+                const gistToken = (localStorage.getItem('underworld_gist_token') || '').trim();
+                if (!gistId || !gistToken) return;
+
+                setFerrymanState('syncing', 'Ferryman: Inscribing to Cloud...');
+                try {
+                    const payloadToSave = {
+                        version: data.version || "2.0.0",
+                        lastUpdated: new Date().toISOString().split('T')[0],
+                        journal: data.journal,
+                        garden: data.garden,
+                        roadmap: data.roadmap,
+                        recentHearthTranscript: conversationHistory.slice(-12)
+                    };
+
+                    const res = await fetch(`https://api.github.com/gists/${encodeURIComponent(gistId)}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Accept': 'application/vnd.github+json',
+                            'Authorization': `token ${gistToken}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            files: {
+                                'dashboard_data.json': {
+                                    content: JSON.stringify(payloadToSave, null, 2)
+                                }
+                            }
+                        })
+                    });
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    setFerrymanState('synced', `Ferryman Bound • Saved ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
+                } catch (err) {
+                    console.error('Ferryman push error:', err);
+                    setFerrymanState('local', `Push Failed: ${err.message}`);
+                }
+            }
+
+            function loadLocalCustomizations() {
+                const cachedCloud = localStorage.getItem('underworld_cached_cloud_data');
+                if (cachedCloud) {
+                    try { data = JSON.parse(cachedCloud); } catch (e) { }
+                }
+                const storedEntries = localStorage.getItem('underworld_inscribed_entries');
+                if (storedEntries) {
+                    try { data.journal.entries = JSON.parse(storedEntries); } catch (e) { }
+                }
+                const storedRoadmap = localStorage.getItem('underworld_roadmap');
+                if (storedRoadmap) {
+                    try { data.roadmap = JSON.parse(storedRoadmap); } catch (e) { }
+                }
+            }
+
+            ferrymanStatusBtn.addEventListener('click', () => pullFromGist());
+
+            // --- RENDER FUNCTIONS ---
+            function renderJournal() {
+                journalFeed.innerHTML = '';
+                [...(data.journal?.entries || [])].reverse().forEach(entry => {
+                    const div = document.createElement('div');
+                    div.className = 'journal-entry';
+                    div.innerHTML = `
+                        <span class="journal-timestamp">${escapeHtml(entry.timestamp)}</span>
+                        ${escapeHtml(entry.content)}
+                    `;
+                    journalFeed.appendChild(div);
+                });
+            }
+
+            function renderGarden() {
+                gardenGrid.innerHTML = '';
+                (data.garden?.frontQuadBeds || []).forEach(bed => {
+                    const card = document.createElement('div');
+                    card.className = 'garden-card';
+                    card.innerHTML = `
+                        <h3>${escapeHtml(bed.name)}</h3>
+                        <p><strong style="color:var(--text-primary);">Crop:</strong> ${escapeHtml(bed.crop)}</p>
+                        <p>${escapeHtml(bed.status)}</p>
+                        <div class="action-tag">Next Rite: ${escapeHtml(bed.actionItem)}</div>
+                    `;
+                    gardenGrid.appendChild(card);
+                });
+
+                (data.garden?.containerGuilds || []).forEach(guild => {
+                    const card = document.createElement('div');
+                    card.className = 'garden-card';
+                    card.innerHTML = `
+                        <h3>${escapeHtml(guild.name)}</h3>
+                        <p>${escapeHtml(guild.contents)}</p>
+                        <p style="color: var(--border-gold); font-size: 0.84rem; margin-bottom:0;">${escapeHtml(guild.status)}</p>
+                    `;
+                    gardenGrid.appendChild(card);
+                });
+            }
+
+            function renderRoadmap() {
+                roadmapList.innerHTML = '';
+                (data.roadmap || []).forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = `roadmap-item ${item.done ? 'completed' : ''}`;
+                    li.innerHTML = `
+                        <input type="checkbox" data-id="${item.id}" ${item.done ? 'checked' : ''}>
+                        <span>${escapeHtml(item.task)}</span>
+                    `;
+                    li.querySelector('input').addEventListener('change', async (e) => {
+                        item.done = e.target.checked;
+                        renderRoadmap();
+                        await pushToGist();
+                    });
+                    roadmapList.appendChild(li);
+                });
+            }
+
+            function renderAll() {
+                renderJournal();
+                renderGarden();
+                renderRoadmap();
+            }
+
+            // --- SANCTUARY SCROLL ACTIONS ---
+            const savedDraft = localStorage.getItem('underworld_draft');
+            if (savedDraft) draftPad.value = savedDraft;
+
+            draftPad.addEventListener('input', () => {
+                localStorage.setItem('underworld_draft', draftPad.value);
+            });
+
+            inscribeBtn.addEventListener('click', async () => {
+                const text = draftPad.value.trim();
+                if (!text) return;
+                const now = new Date();
+                const timestamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+                data.journal.entries.push({
+                    id: Date.now(),
+                    timestamp: timestamp,
+                    content: text
+                });
+
+                draftPad.value = '';
+                localStorage.removeItem('underworld_draft');
+                renderJournal();
+                await pushToGist();
+            });
+
+            // Cast into Mnemosyne (Exports both Scroll & Hearth Chat History)
+            exportScrollBtn.addEventListener('click', () => {
+                const exportVessel = {
+                    exportedAt: new Date().toISOString(),
+                    sanctuaryScrollEntries: data.journal.entries,
+                    hearthTranscript: conversationHistory,
+                    roadmap: data.roadmap
+                };
+                const blob = new Blob([JSON.stringify(exportVessel, null, 2)], { type: 'application/json' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'underworld_scroll_export.json';
+                a.click();
+            });
+
+            // --- VAULT MODAL ---
+            const vaultModal = document.getElementById('vaultModal');
+            const openVaultBtn = document.getElementById('openVaultBtn');
+            const closeVaultBtn = document.getElementById('closeVaultBtn');
+            const saveVaultBtn = document.getElementById('saveVaultBtn');
+            const apiKeyInput = document.getElementById('apiKeyInput');
+            const modelNameInput = document.getElementById('modelNameInput');
+            const gistIdInput = document.getElementById('gistIdInput');
+            const gistTokenInput = document.getElementById('gistTokenInput');
+
+            openVaultBtn.addEventListener('click', () => {
+                apiKeyInput.value = localStorage.getItem('underworld_gemini_key') || '';
+                modelNameInput.value = localStorage.getItem('underworld_gemini_model') || 'gemini-3.8-flash';
+                gistIdInput.value = localStorage.getItem('underworld_gist_id') || '';
+                gistTokenInput.value = localStorage.getItem('underworld_gist_token') || '';
+                vaultModal.classList.add('active');
+            });
+
+            closeVaultBtn.addEventListener('click', () => vaultModal.classList.remove('active'));
+
+            saveVaultBtn.addEventListener('click', async () => {
+                const key = apiKeyInput.value.trim();
+                const model = modelNameInput.value.trim().replace(/^models\//, '') || 'gemini-3.8-flash';
+                const gistId = gistIdInput.value.trim();
+                const gistToken = gistTokenInput.value.trim();
+
+                if (key) localStorage.setItem('underworld_gemini_key', key);
+                localStorage.setItem('underworld_gemini_model', model);
+                if (gistId) localStorage.setItem('underworld_gist_id', gistId);
+                if (gistToken) localStorage.setItem('underworld_gist_token', gistToken);
+
+                vaultModal.classList.remove('active');
+                await pullFromGist();
+            });
+
+            // --- THE HEARTH OF AIDONEUS (WITH CHAT PERSISTENCE) ---
+            const chatStream = document.getElementById('chatStream');
+            const chatInput = document.getElementById('chatInput');
+            const sendChatBtn = document.getElementById('sendChatBtn');
+            const riteBadge = document.getElementById('riteBadge');
+            const clearChatBtn = document.getElementById('clearChatBtn');
+
+            let conversationHistory = [];
+
+            function renderDefaultGreeting() {
+                chatStream.innerHTML = `
+                    <div class="msg hades">
+                        <span class="msg-sender">Hades &bull; Keeper of the Threshold</span>
+                        The torches along the obsidian gallery are lit, Persephone. Speak <em>"Hello, Underworld"</em> whenever you wish to perform the Opening Rites and draw the day's thoughts across the threshold.
+                    </div>
+                `;
+            }
+
+            function appendMessage(role, text) {
+                const div = document.createElement('div');
+                div.className = `msg ${role === 'user' ? 'persephone' : 'hades'}`;
+                const senderLabel = role === 'user' ? 'Persephone &bull; Queen of the Surface &amp; Sanctuary' : 'Hades &bull; Aidoneus';
+                div.innerHTML = `<span class="msg-sender">${senderLabel}</span>${escapeHtml(text)}`;
+                chatStream.appendChild(div);
+                chatStream.scrollTop = chatStream.scrollHeight;
+                return div;
+            }
+
+            // Restore persisted Hearth conversation
+            const savedHistory = localStorage.getItem('underworld_hearth_history');
+            if (savedHistory) {
+                try {
+                    conversationHistory = JSON.parse(savedHistory);
+                    if (conversationHistory.length > 0) {
+                        chatStream.innerHTML = '';
+                        conversationHistory.forEach(turn => {
+                            appendMessage(turn.role === 'user' ? 'user' : 'model', turn.parts?.[0]?.text || '');
+                        });
+                        if (localStorage.getItem('underworld_rite_awakened') === 'true') {
+                            riteBadge.textContent = 'Opening Rite Awakened';
+                            riteBadge.classList.add('awakened');
+                        }
+                    } else {
+                        renderDefaultGreeting();
+                    }
+                } catch (e) { renderDefaultGreeting(); }
+            } else {
+                renderDefaultGreeting();
+            }
+
+            function buildUnderworldContextPacket(isOpeningRite) {
+                const latestEntries = (data.journal?.entries || []).slice(-6).map(e => `[${e.timestamp}] ${e.content}`).join('\n');
+                const currentDraft = draftPad.value.trim() ? `\nActive Uninscribed Draft on Scroll: "${draftPad.value.trim()}"` : '';
+                const bedsSummary = (data.garden?.frontQuadBeds || []).map(b => `- ${b.name} (${b.crop}): ${b.status} | Next: ${b.actionItem}`).join('\n');
+                const guildsSummary = (data.garden?.containerGuilds || []).map(g => `- ${g.name}: ${g.contents} (${g.status})`).join('\n');
+                const pendingTasks = (data.roadmap || []).filter(r => !r.done).map(r => `- ${r.task}`).join('\n');
+
+                let riteDirective = isOpeningRite
+                    ? `\n[CEREMONIAL TRIGGER: Persephone has just spoken "Hello, Underworld" to initiate the Opening Rites! Greet her warmly in your true Counsel Mode voice, reflect perceptively on her latest Sanctuary Scroll entries and garden state below, and ask where she wishes to turn her attention tonight.]`
+                    : '';
+
+                return `${data.hadesPersona || DEFAULT_HADES_PERSONA}${riteDirective}\n\n=== CURRENT SANCTUARY SCROLL ENTRIES ===\n${latestEntries}${currentDraft}\n\n=== THE LIVING EARTH (QUAD BEDS & CONTAINERS) ===\n${bedsSummary}\n${guildsSummary}\n\n=== OPEN ARCHITECTURE ROADMAP ===\n${pendingTasks}`;
+            }
+
+            async function sendToHades(userText) {
+                const text = userText.trim();
+                if (!text) return;
+
+                const isOpeningRite = /^hello,?\s*underworld[!.]?$/i.test(text);
+                if (isOpeningRite) {
+                    riteBadge.textContent = 'Opening Rite Awakened';
+                    riteBadge.classList.add('awakened');
+                    localStorage.setItem('underworld_rite_awakened', 'true');
+                }
+
+                appendMessage('user', text);
+                chatInput.value = '';
+
+                const apiKey = localStorage.getItem('underworld_gemini_key');
+                const modelName = (localStorage.getItem('underworld_gemini_model') || 'gemini-3.8-flash').replace(/^models\//, '');
+
+                if (!apiKey) {
+                    appendMessage('model', 'Persephone, the Key of Plouton is not yet sealed in the vault. Tap "Vault of Plouton & Ferryman Setup" at the top of the screen to enter your Gemini API key.');
+                    return;
+                }
+
+                conversationHistory.push({ role: 'user', parts: [{ text: text }] });
+                localStorage.setItem('underworld_hearth_history', JSON.stringify(conversationHistory));
+                const thinkingDiv = appendMessage('model', 'Listening beneath the stone...');
+
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(modelName)}:generateContent?key=${encodeURIComponent(apiKey)}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            systemInstruction: {
+                                parts: [{ text: buildUnderworldContextPacket(isOpeningRite) }]
+                            },
+                            contents: conversationHistory
+                        })
+                    });
+
+                    const result = await response.json();
+                    if (result.error) {
+                        thinkingDiv.innerHTML = `<span class="msg-sender">Hades &bull; Aidoneus</span>A tremor in the conduit: ${escapeHtml(result.error.message)}`;
+                        return;
+                    }
+
+                    const reply = result.candidates?.[0]?.content?.parts?.[0]?.text || 'The gallery is quiet.';
+                    conversationHistory.push({ role: 'model', parts: [{ text: reply }] });
+                    localStorage.setItem('underworld_hearth_history', JSON.stringify(conversationHistory));
+                    thinkingDiv.innerHTML = `<span class="msg-sender">Hades &bull; Aidoneus</span>${escapeHtml(reply)}`;
+                    chatStream.scrollTop = chatStream.scrollHeight;
+
+                    // Quietly sync the updated Hearth transcript to the Cloud Gist
+                    pushToGist();
+                } catch (err) {
+                    thinkingDiv.innerHTML = `<span class="msg-sender">Hades &bull; Aidoneus</span>Could not reach the subterranean conduit: ${escapeHtml(err.message)}`;
+                }
+            }
+
+            sendChatBtn.addEventListener('click', () => sendToHades(chatInput.value));
+            chatInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendToHades(chatInput.value);
+                }
+            });
+
+            document.querySelectorAll('.rite-pill[data-rite]').forEach(btn => {
+                btn.addEventListener('click', () => sendToHades(btn.getAttribute('data-rite')));
+            });
+
+            clearChatBtn.addEventListener('click', () => {
+                conversationHistory = [];
+                localStorage.removeItem('underworld_hearth_history');
+                localStorage.removeItem('underworld_rite_awakened');
+                renderDefaultGreeting();
+                riteBadge.textContent = 'Awaiting Opening Rite';
+                riteBadge.classList.remove('awakened');
+            });
+
+            // Initial Cloud Sync on Startup
+            await pullFromGist();
+        });
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</h
