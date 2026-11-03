@@ -982,6 +982,281 @@
             font-family: monospace;
             font-size: 0.85rem;
         }
+
+        /* ==========================================================================
+           PILLAR IV: THE VAULTS OF PLOUTON (CASH FLOW & SUBSCRIPTION RADAR v2.2.0)
+           ========================================================================== */
+        .plouton-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.9rem;
+            margin-bottom: 1.1rem;
+        }
+
+        @media (max-width: 980px) {
+            .plouton-metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 560px) {
+            .plouton-metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .plouton-metric-card {
+            background: linear-gradient(145deg, rgba(22, 23, 29, 0.96), rgba(14, 15, 19, 0.98));
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: 6px;
+            padding: 0.9rem 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: border-color 0.2s ease, transform 0.15s ease;
+        }
+
+        .plouton-metric-card:hover {
+            border-color: var(--border-gold);
+            transform: translateY(-1px);
+        }
+
+        .plouton-metric-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--text-muted);
+            font-family: system-ui, -apple-system, sans-serif;
+            margin-bottom: 0.35rem;
+        }
+
+        .plouton-metric-value {
+            font-size: 1.32rem;
+            color: var(--border-gold-bright);
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .plouton-metric-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.35rem;
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .reclaimed-pill {
+            font-size: 0.68rem;
+            padding: 0.12rem 0.45rem;
+            border-radius: 999px;
+            background: rgba(74, 124, 89, 0.22);
+            border: 1px solid var(--accent-sprout);
+            color: #9de8b4;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .alert-7d-pill {
+            font-size: 0.68rem;
+            padding: 0.12rem 0.48rem;
+            border-radius: 999px;
+            background: rgba(139, 38, 53, 0.32);
+            border: 1px solid var(--accent-pomegranate);
+            color: #ff99a8;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-weight: 600;
+        }
+
+        .cashflow-bar-container {
+            background: var(--surface-charcoal);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: 6px;
+            padding: 0.85rem 1rem;
+            margin-bottom: 1.15rem;
+        }
+
+        .cashflow-bar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .cashflow-stacked-bar {
+            width: 100%;
+            height: 11px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 999px;
+            overflow: hidden;
+            display: flex;
+            border: 1px solid rgba(197, 160, 89, 0.25);
+        }
+
+        .cf-segment {
+            height: 100%;
+            transition: width 0.35s ease;
+        }
+
+        .cashflow-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            margin-top: 0.55rem;
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .plouton-radar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.95rem;
+        }
+
+        @media (max-width: 1024px) {
+            .plouton-radar-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .plouton-radar-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sub-radar-card {
+            background: var(--surface-charcoal);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: 6px;
+            padding: 0.95rem 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 0.65rem;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            position: relative;
+        }
+
+        .sub-radar-card:hover {
+            border-color: var(--border-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
+        }
+
+        .sub-radar-card.status-essential {
+            border-left: 3px solid var(--border-gold);
+        }
+
+        .sub-radar-card.status-active {
+            border-left: 3px solid var(--accent-sprout);
+        }
+
+        .sub-radar-card.status-review {
+            border-left: 3px solid var(--stage-germinating);
+            background: linear-gradient(145deg, rgba(212, 148, 58, 0.08), rgba(20, 21, 26, 0.96));
+        }
+
+        .sub-radar-card.status-banished {
+            border-left: 3px solid var(--accent-pomegranate);
+            opacity: 0.72;
+        }
+
+        .sub-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .sub-vendor-title {
+            font-size: 0.98rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .sub-category-tag {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-family: system-ui, -apple-system, sans-serif;
+            margin-top: 0.15rem;
+            display: block;
+        }
+
+        .sub-amount-box {
+            text-align: right;
+        }
+
+        .sub-amount-val {
+            font-size: 1.05rem;
+            color: var(--border-gold-bright);
+            font-weight: 600;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .sub-cadence-label {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            display: block;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .sub-draft-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            padding: 0.42rem 0.6rem;
+            background: rgba(13, 14, 17, 0.78);
+            border: 1px solid rgba(197, 160, 89, 0.16);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .sub-status-pills {
+            display: flex;
+            gap: 0.32rem;
+            flex-wrap: wrap;
+        }
+
+        .sub-status-btn {
+            background: rgba(13, 14, 17, 0.85);
+            color: var(--text-muted);
+            border: 1px solid rgba(197, 160, 89, 0.22);
+            padding: 0.2rem 0.48rem;
+            border-radius: 4px;
+            font-size: 0.68rem;
+            cursor: pointer;
+            font-family: system-ui, -apple-system, sans-serif;
+            transition: all 0.15s ease;
+        }
+
+        .sub-status-btn:hover {
+            border-color: var(--border-gold);
+            color: var(--text-primary);
+        }
+
+        .sub-status-btn.active {
+            background: rgba(197, 160, 89, 0.22);
+            border-color: var(--border-gold);
+            color: var(--border-gold-bright);
+            font-weight: 600;
+        }
     </style>
 </head>
 
@@ -1019,13 +1294,16 @@
                 <button class="rite-pill"
                     data-rite="Hades, survey the Wheel of Demeter & Persephone and tell me if any countdown timers should be adjusted for our current autumn sunlight.">&#9788;
                     Audit Sunlight &amp; Timers</button>
+                <button class="rite-pill"
+                    data-rite="Hades, survey The Vaults of Plouton—review our cash-flow outlook, upcoming recurring bills, and banished subscriptions, and share your counsel.">&#9878;
+                    Audit Vaults &amp; Cash Flow</button>
                 <button class="rite-pill" id="clearChatBtn" style="margin-left:auto; opacity:0.75;">Clear
                     Chamber</button>
             </div>
 
             <div class="chat-input-row">
                 <textarea id="chatInput" class="chat-input"
-                    placeholder="Speak to Hades (or ask him to shift any bed's countdown timer)..."></textarea>
+                    placeholder="Speak to Hades (or ask him to shift any garden timer or update a subscription/bill in Plouton's Vault)..."></textarea>
                 <button class="btn" id="sendChatBtn">Speak</button>
             </div>
         </section>
@@ -1063,7 +1341,7 @@
 
         </div>
 
-        <!-- FULL-WIDTH BOTTOM: Pillar II: The Wheel of Demeter & Persephone -->
+        <!-- FULL-WIDTH: Pillar II: The Wheel of Demeter & Persephone -->
         <section class="full-width" id="wheelSection">
             <div class="section-header">
                 <h2>&#10048; The Wheel of Demeter &amp; Persephone</h2>
@@ -1112,6 +1390,43 @@
                 </div>
                 <div class="alcove-grid" id="alcoveGrid"></div>
             </div>
+        </section>
+
+        <!-- FULL-WIDTH: Pillar IV: The Vaults of Plouton (v2.2.0) -->
+        <section class="full-width" id="ploutonSection">
+            <div class="section-header">
+                <h2>&#9878; The Vaults of Plouton</h2>
+                <span style="font-size:0.76rem; color:var(--border-gold); font-family:system-ui,sans-serif; letter-spacing:0.06em; text-transform:uppercase;">
+                    Sovereign Local Forge (Ollama qwen2.5:7b) &bull; Cash-Flow Outlook &amp; Subscription Radar
+                </span>
+            </div>
+            <p class="subtitle">Drop raw CSV statements into <code>C:\Underworld_Workspace\vault_inbox\</code> for private local assay, click any recurring item below to inspect or banish it, or ask Hades to recalibrate the ledger in the Hearth.</p>
+
+            <!-- 1. Burn-Rate & Cash-Flow Header Pillars -->
+            <div class="plouton-metrics-grid" id="ploutonMetricsGrid"></div>
+
+            <!-- 2. 30-Day Cash-Flow Category Distribution Bar -->
+            <div class="cashflow-bar-container" id="ploutonCashflowBar"></div>
+
+            <!-- 3. Filter Tabs & Action Bar -->
+            <div class="wheel-toolbar">
+                <div class="wheel-tabs">
+                    <button class="wheel-tab active" data-plouton-filter="all">&#10022; All Tracked Items</button>
+                    <button class="wheel-tab" data-plouton-filter="active">&#127963; Essential &amp; Active</button>
+                    <button class="wheel-tab" data-plouton-filter="review">&#9878; Under Review</button>
+                    <button class="wheel-tab" data-plouton-filter="banished">&#9876; Banished (Reclaimed Gold)</button>
+                </div>
+                <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                    <button class="mini-pill" id="calibrateCashFlowBtn">&#9878; Calibrate Cash Flow</button>
+                    <button class="mini-pill" id="addSubscriptionBtn" style="border-color:var(--border-gold); color:var(--border-gold-bright);">+ Inscribe Bill / Subscription</button>
+                </div>
+            </div>
+
+            <!-- 4. Interactive Plouton Assay Inspector Drawer -->
+            <div class="wheel-inspector" id="ploutonInspector"></div>
+
+            <!-- 5. Subscription & Recurring Bill Radar Grid -->
+            <div class="plouton-radar-grid" id="ploutonRadarGrid"></div>
         </section>
 
     </div>
@@ -1470,16 +1785,114 @@ Key Domain Lore:
             ]
         };
 
+        const DEFAULT_PLOUTON_VAULT = {
+            schemaRevision: "2.2.0",
+            lastAssayed: "2026-11-02 (Sovereign Local Baseline)",
+            assayerModel: "Ollama qwen2.5:7b (Local)",
+            cashFlow: {
+                periodLabel: "30-Day Autumn Sanctuary Outlook",
+                monthlyIncome: 3800.00,
+                monthlyOutflow: 2420.00,
+                netCashFlow: 1380.00,
+                categories: {
+                    "Fixed Bills/Utilities": 1620.00,
+                    "Subscriptions": 14.95,
+                    "Discretionary/Dining": 565.05,
+                    "Estate & Garden": 220.00
+                }
+            },
+            subscriptions: [
+                {
+                    id: "sub-audible",
+                    vendor: "Audible",
+                    category: "Subscriptions",
+                    amount: 14.95,
+                    cadence: "Monthly",
+                    nextDraftDate: "2026-11-15",
+                    status: "essential",
+                    sigil: "📚",
+                    note: "Commute literary sanctuary (Susanna Clarke's 'Piranesi' queued next)."
+                },
+                {
+                    id: "sub-electric",
+                    vendor: "Alabama Power (Electric)",
+                    category: "Fixed Bills/Utilities",
+                    amount: 165.00,
+                    cadence: "Monthly",
+                    nextDraftDate: "2026-11-08",
+                    status: "essential",
+                    sigil: "⚡",
+                    note: "Household power & indoor nursery grow-light conduit."
+                },
+                {
+                    id: "sub-internet",
+                    vendor: "Home Fiber / Internet",
+                    category: "Fixed Bills/Utilities",
+                    amount: 75.00,
+                    cadence: "Monthly",
+                    nextDraftDate: "2026-11-12",
+                    status: "essential",
+                    sigil: "🌐",
+                    note: "Underworld Command Center & household connectivity."
+                },
+                {
+                    id: "sub-mobile",
+                    vendor: "Wireless / Mobile Service",
+                    category: "Fixed Bills/Utilities",
+                    amount: 85.00,
+                    cadence: "Monthly",
+                    nextDraftDate: "2026-11-19",
+                    status: "essential",
+                    sigil: "📱",
+                    note: "Mobile PWA & Surface communications."
+                },
+                {
+                    id: "sub-coop-garden",
+                    vendor: "Homestead & Coop Feed Reserve",
+                    category: "Estate & Garden",
+                    amount: 55.00,
+                    cadence: "Monthly",
+                    nextDraftDate: "2026-11-22",
+                    status: "active",
+                    sigil: "🐓",
+                    note: "Layer feed & bedding for Chicken-Cake, Poop Butt, Chicken-Bingus & Nugget + indoor cat supplies for Bingus & Cake."
+                },
+                {
+                    id: "sub-scentbird",
+                    vendor: "Scentbird",
+                    category: "Subscriptions",
+                    amount: 16.95,
+                    cadence: "Monthly",
+                    nextDraftDate: "2026-10-05",
+                    status: "banished",
+                    sigil: "⚔️",
+                    note: "Pruned in early October 2026—reclaimed $16.95/mo back into the Vault."
+                },
+                {
+                    id: "sub-streaming-bundle",
+                    vendor: "Legacy Streaming Services",
+                    category: "Subscriptions",
+                    amount: 38.98,
+                    cadence: "Monthly",
+                    nextDraftDate: "2026-10-05",
+                    status: "banished",
+                    sigil: "⚔️",
+                    note: "Pruned in early October 2026—digital overhead eliminated ($38.98/mo reclaimed)."
+                }
+            ]
+        };
+
         const FALLBACK_DATA = {
-            version: "2.1.7",
+            version: "2.2.0",
             lastUpdated: "2026-11-02",
             hadesPersona: DEFAULT_HADES_PERSONA,
             journal: { entries: [] },
             garden: DEFAULT_WHEEL_GARDEN,
+            vaults: DEFAULT_PLOUTON_VAULT,
             roadmap: []
         };
 
-        // Ensures older Gist payloads without 4x4 `cells` or pre-2.1.7 layouts are seamlessly upgraded
+        // Ensures older Gist payloads without 4x4 `cells` or `vaults` are seamlessly upgraded
         function upgradeGardenSchema(dataObj) {
             if (!dataObj.garden) dataObj.garden = JSON.parse(JSON.stringify(DEFAULT_WHEEL_GARDEN));
             const needsCellRefresh = dataObj.garden.schemaRevision !== "2.1.7";
@@ -1541,10 +1954,24 @@ Key Domain Lore:
             }
             dataObj.garden.schemaRevision = "2.1.7";
 
-            // Ensure Task #7 is marked done if roadmap exists
+            // Upgrade or initialize The Vaults of Plouton (v2.2.0)
+            if (!dataObj.vaults || !Array.isArray(dataObj.vaults.subscriptions) || dataObj.vaults.subscriptions.length === 0) {
+                dataObj.vaults = JSON.parse(JSON.stringify(DEFAULT_PLOUTON_VAULT));
+            } else {
+                if (!dataObj.vaults.cashFlow) {
+                    dataObj.vaults.cashFlow = JSON.parse(JSON.stringify(DEFAULT_PLOUTON_VAULT.cashFlow));
+                }
+                if (!dataObj.vaults.cashFlow.categories) {
+                    dataObj.vaults.cashFlow.categories = JSON.parse(JSON.stringify(DEFAULT_PLOUTON_VAULT.cashFlow.categories));
+                }
+            }
+
+            // Ensure Tasks #7 & #8 are marked done if roadmap exists
             if (Array.isArray(dataObj.roadmap)) {
                 const t7 = dataObj.roadmap.find(r => r.id === 7);
                 if (t7) t7.done = true;
+                const t8 = dataObj.roadmap.find(r => r.id === 8);
+                if (t8) t8.done = true;
             }
             return dataObj;
         }
@@ -1568,8 +1995,18 @@ Key Domain Lore:
             const alcoveContainer = document.getElementById('alcoveContainer');
             const alcoveGrid = document.getElementById('alcoveGrid');
 
+            const ploutonMetricsGrid = document.getElementById('ploutonMetricsGrid');
+            const ploutonCashflowBar = document.getElementById('ploutonCashflowBar');
+            const ploutonInspector = document.getElementById('ploutonInspector');
+            const ploutonRadarGrid = document.getElementById('ploutonRadarGrid');
+            const calibrateCashFlowBtn = document.getElementById('calibrateCashFlowBtn');
+            const addSubscriptionBtn = document.getElementById('addSubscriptionBtn');
+
             let selectedBedId = null;
             let selectedCellIdx = null;
+            let ploutonFilter = 'all';
+            let selectedSubId = null;
+            let ploutonInspectorMode = null; // 'sub' | 'cashflow' | 'new'
 
             // --- THE AUTOMATED FERRYMAN (GITHUB GIST CLOUD SYNC) ---
             function setFerrymanState(state, message) {
@@ -1649,11 +2086,12 @@ Key Domain Lore:
                 setFerrymanState('syncing', 'Ferryman: Inscribing to Cloud...');
                 try {
                     const payloadToSave = {
-                        version: "2.1.0",
+                        version: "2.2.0",
                         lastUpdated: new Date().toISOString().split('T')[0],
                         hadesPersona: data.hadesPersona,
                         journal: data.journal,
                         garden: data.garden,
+                        vaults: data.vaults,
                         roadmap: data.roadmap,
                         recentHearthTranscript: conversationHistory.slice(-12)
                     };
@@ -2054,10 +2492,477 @@ Key Domain Lore:
                 });
             }
 
-            // Tab switching for All / Quad / Alcove
-            document.querySelectorAll('.wheel-tab').forEach(tab => {
+            // --- PILLAR IV: THE VAULTS OF PLOUTON (v2.2.0) ---
+            function formatCurrency(val) {
+                const n = Number(val || 0);
+                return '$' + Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+
+            function getMonthlyEquiv(sub) {
+                const amt = Number(sub.amount || 0);
+                return String(sub.cadence).toLowerCase() === 'annual' ? (amt / 12) : amt;
+            }
+
+            function findSubByIdOrVendor(query) {
+                if (!query) return null;
+                const q = String(query).toLowerCase().trim();
+                const subs = data.vaults?.subscriptions || [];
+                return subs.find(s =>
+                    String(s.id).toLowerCase() === q ||
+                    String(s.vendor).toLowerCase() === q ||
+                    String(s.vendor).toLowerCase().includes(q)
+                ) || null;
+            }
+
+            function renderPlouton() {
+                if (!data.vaults) data.vaults = JSON.parse(JSON.stringify(DEFAULT_PLOUTON_VAULT));
+                const subs = data.vaults.subscriptions || [];
+                const cf = data.vaults.cashFlow || DEFAULT_PLOUTON_VAULT.cashFlow;
+                const todayIso = new Date().toISOString().split('T')[0];
+
+                // Deterministic math for fixed monthly outflow, reclaimed monthly savings, and 7-day renewals
+                let fixedMonthly = 0;
+                let reclaimedMonthly = 0;
+                const dueWithin7Days = [];
+
+                subs.forEach(s => {
+                    const mAmt = getMonthlyEquiv(s);
+                    if (s.status === 'banished') {
+                        reclaimedMonthly += mAmt;
+                    } else {
+                        fixedMonthly += mAmt;
+                        if (s.nextDraftDate) {
+                            const dLeft = daysBetween(todayIso, s.nextDraftDate);
+                            if (dLeft >= 0 && dLeft <= 7) {
+                                dueWithin7Days.push({ ...s, dLeft });
+                            }
+                        }
+                    }
+                });
+
+                const income = Number(cf.monthlyIncome || 0);
+                const outflow = Number(cf.monthlyOutflow || 0);
+                const netFlow = income - outflow;
+
+                // 1. Render 4 Summary Metric Pillars
+                ploutonMetricsGrid.innerHTML = `
+                    <div class="plouton-metric-card" data-plouton-action="filter-active" title="Click to view active & essential recurring commitments">
+                        <span class="plouton-metric-label">&#127963; Monthly Fixed Outflow</span>
+                        <div class="plouton-metric-value">${formatCurrency(fixedMonthly)}<span style="font-size:0.78rem; color:var(--text-muted); font-weight:400;"> / mo</span></div>
+                        <div class="plouton-metric-sub">
+                            <span>${subs.filter(s => s.status !== 'banished').length} active pillars &amp; bills</span>
+                            <span class="reclaimed-pill">&#9876; Reclaimed: +${formatCurrency(reclaimedMonthly)}/mo</span>
+                        </div>
+                    </div>
+
+                    <div class="plouton-metric-card" data-plouton-action="calibrate-cf" title="Click to calibrate 30-day ingoing/outgoing cash flow">
+                        <span class="plouton-metric-label">&#9878; 30-Day Cash-Flow Outlook</span>
+                        <div class="plouton-metric-value" style="color:${netFlow >= 0 ? '#85e09b' : '#ff8a97'};">
+                            ${netFlow >= 0 ? '+' : '-'}${formatCurrency(netFlow)}<span style="font-size:0.78rem; color:var(--text-muted); font-weight:400;"> net</span>
+                        </div>
+                        <div class="plouton-metric-sub">
+                            <span>In: <strong style="color:#85e09b;">+${formatCurrency(income)}</strong></span>
+                            <span>Out: <strong style="color:var(--text-primary);">-${formatCurrency(outflow)}</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="plouton-metric-card" data-plouton-action="filter-all" title="Upcoming recurring drafts in the next 7 days">
+                        <span class="plouton-metric-label">&#9203; 7-Day Renewal &amp; Draft Watch</span>
+                        <div class="plouton-metric-value">
+                            ${dueWithin7Days.length > 0 ? `${dueWithin7Days.length} Due Soon` : 'Clear Horizon'}
+                        </div>
+                        <div class="plouton-metric-sub">
+                            ${dueWithin7Days.length > 0
+                                ? `<span class="alert-7d-pill">${escapeHtml(dueWithin7Days[0].vendor)} (${dueWithin7Days[0].dLeft === 0 ? 'Today' : `in ${dueWithin7Days[0].dLeft}d`})</span>`
+                                : `<span>No bills drafting within 7 days</span>`
+                            }
+                        </div>
+                    </div>
+
+                    <div class="plouton-metric-card" data-plouton-action="consult-assayer" title="Click to discuss the Vaults of Plouton with Hades">
+                        <span class="plouton-metric-label">&#9919; Sovereign Local Forge</span>
+                        <div class="plouton-metric-value" style="font-size:1.02rem;">${escapeHtml(data.vaults.assayerModel || 'Ollama qwen2.5:7b')}</div>
+                        <div class="plouton-metric-sub">
+                            <span>Assayed: ${escapeHtml(data.vaults.lastAssayed || 'Local Baseline')}</span>
+                        </div>
+                    </div>
+                `;
+
+                // 2. Render 5-Category Cash-Flow Stacked Distribution Bar
+                const cats = cf.categories || {};
+                const cFixed = Number(cats['Fixed Bills/Utilities'] || 0);
+                const cSubs = Number(cats['Subscriptions'] || 0);
+                const cDisc = Number(cats['Discretionary/Dining'] || 0);
+                const cEstate = Number(cats['Estate & Garden'] || 0);
+                const cReserve = Math.max(0, income - (cFixed + cSubs + cDisc + cEstate));
+                const denom = Math.max(1, cFixed + cSubs + cDisc + cEstate + cReserve);
+
+                const pFixed = ((cFixed / denom) * 100).toFixed(1);
+                const pSubs = ((cSubs / denom) * 100).toFixed(1);
+                const pDisc = ((cDisc / denom) * 100).toFixed(1);
+                const pEstate = ((cEstate / denom) * 100).toFixed(1);
+                const pReserve = ((cReserve / denom) * 100).toFixed(1);
+
+                ploutonCashflowBar.innerHTML = `
+                    <div class="cashflow-bar-header">
+                        <span><strong>${escapeHtml(cf.periodLabel || '30-Day Cash-Flow Allocation')}</strong> &mdash; Deterministic Category Breakdown</span>
+                        <span>Monthly Inflow Base: <strong style="color:var(--border-gold-bright);">${formatCurrency(income)}</strong></span>
+                    </div>
+                    <div class="cashflow-stacked-bar">
+                        <div class="cf-segment" style="width:${pFixed}%; background:#7a689c;" title="Fixed Bills/Utilities: ${formatCurrency(cFixed)}"></div>
+                        <div class="cf-segment" style="width:${pSubs}%; background:#c24b60;" title="Subscriptions: ${formatCurrency(cSubs)}"></div>
+                        <div class="cf-segment" style="width:${pDisc}%; background:#d4943a;" title="Discretionary/Dining: ${formatCurrency(cDisc)}"></div>
+                        <div class="cf-segment" style="width:${pEstate}%; background:#3b8c58;" title="Estate & Garden: ${formatCurrency(cEstate)}"></div>
+                        <div class="cf-segment" style="width:${pReserve}%; background:#c5a059;" title="Net Unallocated / Sanctuary Reserve: ${formatCurrency(cReserve)}"></div>
+                    </div>
+                    <div class="cashflow-legend">
+                        <span class="legend-item"><i class="legend-dot" style="background:#7a689c;"></i>Fixed Bills/Utilities: <strong>${formatCurrency(cFixed)}</strong></span>
+                        <span class="legend-item"><i class="legend-dot" style="background:#c24b60;"></i>Subscriptions: <strong>${formatCurrency(cSubs)}</strong></span>
+                        <span class="legend-item"><i class="legend-dot" style="background:#d4943a;"></i>Discretionary/Dining: <strong>${formatCurrency(cDisc)}</strong></span>
+                        <span class="legend-item"><i class="legend-dot" style="background:#3b8c58;"></i>Estate &amp; Garden: <strong>${formatCurrency(cEstate)}</strong></span>
+                        <span class="legend-item"><i class="legend-dot" style="background:#c5a059;"></i>Net Reserve: <strong>${formatCurrency(cReserve)}</strong></span>
+                    </div>
+                `;
+
+                // 3. Filter and Sort Subscription & Recurring Bill Radar Grid
+                const filteredSubs = subs.filter(s => {
+                    if (ploutonFilter === 'active') return s.status === 'essential' || s.status === 'active';
+                    if (ploutonFilter === 'review') return s.status === 'review';
+                    if (ploutonFilter === 'banished') return s.status === 'banished';
+                    return true;
+                }).sort((a, b) => {
+                    if (a.status === 'banished' && b.status !== 'banished') return 1;
+                    if (a.status !== 'banished' && b.status === 'banished') return -1;
+                    return String(a.nextDraftDate || '9999-99-99').localeCompare(String(b.nextDraftDate || '9999-99-99'));
+                });
+
+                ploutonRadarGrid.innerHTML = filteredSubs.map(sub => {
+                    const dLeft = sub.nextDraftDate ? daysBetween(todayIso, sub.nextDraftDate) : null;
+                    const isSoon = sub.status !== 'banished' && dLeft !== null && dLeft >= 0 && dLeft <= 7;
+                    const statusClass = `status-${sub.status || 'active'}`;
+
+                    let draftBadgeHtml = '';
+                    if (sub.status === 'banished') {
+                        draftBadgeHtml = `<span class="reclaimed-pill">&#9876; Banished &bull; Reclaimed ${formatCurrency(getMonthlyEquiv(sub))}/mo</span>`;
+                    } else if (isSoon) {
+                        draftBadgeHtml = `<span class="alert-7d-pill">&#9888; Renews ${dLeft === 0 ? 'Today' : `in ${dLeft}d`} (${formatShortDate(sub.nextDraftDate)})</span>`;
+                    } else {
+                        draftBadgeHtml = `<span style="color:var(--border-gold);">Next Draft: ${formatShortDate(sub.nextDraftDate)} ${dLeft !== null ? `(${dLeft >= 0 ? `in ${dLeft}d` : `${Math.abs(dLeft)}d ago`})` : ''}</span>`;
+                    }
+
+                    const statusButtons = [
+                        { key: 'essential', label: '🏛️ Essential' },
+                        { key: 'active', label: '🔥 Active' },
+                        { key: 'review', label: '⚖️ Review' },
+                        { key: 'banished', label: '⚔️ Banished' }
+                    ].map(st => `
+                        <button class="sub-status-btn ${sub.status === st.key ? 'active' : ''}"
+                                data-sub-status-id="${escapeHtml(sub.id)}"
+                                data-sub-status-val="${st.key}">
+                            ${st.label}
+                        </button>
+                    `).join('');
+
+                    return `
+                        <div class="sub-radar-card ${statusClass}" data-inspect-sub="${escapeHtml(sub.id)}">
+                            <div class="sub-card-top">
+                                <div>
+                                    <div class="sub-vendor-title">
+                                        <span>${sub.sigil || '🏛️'}</span>
+                                        <span>${escapeHtml(sub.vendor)}</span>
+                                    </div>
+                                    <span class="sub-category-tag">${escapeHtml(sub.category || 'Subscriptions')}</span>
+                                </div>
+                                <div class="sub-amount-box">
+                                    <span class="sub-amount-val">${formatCurrency(sub.amount)}</span>
+                                    <span class="sub-cadence-label">per ${String(sub.cadence || 'Monthly').toLowerCase() === 'annual' ? 'year' : 'month'}</span>
+                                </div>
+                            </div>
+
+                            <div class="sub-draft-row">
+                                ${draftBadgeHtml}
+                            </div>
+
+                            <p style="font-size:0.78rem; color:var(--text-muted); line-height:1.35;">
+                                ${escapeHtml(sub.note || '')}
+                            </p>
+
+                            <div class="sub-status-pills">
+                                ${statusButtons}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                // Attach quick status toggle handlers
+                ploutonRadarGrid.querySelectorAll('[data-sub-status-id]').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        e.stopPropagation();
+                        const subId = btn.getAttribute('data-sub-status-id');
+                        const newStatus = btn.getAttribute('data-sub-status-val');
+                        const sub = findSubByIdOrVendor(subId);
+                        if (!sub) return;
+                        sub.status = newStatus;
+                        renderPlouton();
+                        await pushToGist();
+                    });
+                });
+
+                // Attach card click to open Plouton Inspector
+                ploutonRadarGrid.querySelectorAll('[data-inspect-sub]').forEach(card => {
+                    card.addEventListener('click', () => {
+                        selectedSubId = card.getAttribute('data-inspect-sub');
+                        ploutonInspectorMode = 'sub';
+                        renderPloutonInspector();
+                        ploutonInspector.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    });
+                });
+
+                // Attach metric pillar actions
+                ploutonMetricsGrid.querySelectorAll('[data-plouton-action]').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const act = el.getAttribute('data-plouton-action');
+                        if (act === 'calibrate-cf') {
+                            ploutonInspectorMode = 'cashflow';
+                            renderPloutonInspector();
+                            ploutonInspector.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        } else if (act === 'consult-assayer') {
+                            const chatInput = document.getElementById('chatInput');
+                            chatInput.value = `Hades, survey The Vaults of Plouton—review our cash-flow outlook, upcoming recurring bills, and banished subscriptions, and tell me where our stewardship stands.`;
+                            document.getElementById('hearthSection').scrollIntoView({ behavior: 'smooth' });
+                            chatInput.focus();
+                        }
+                    });
+                });
+
+                renderPloutonInspector();
+            }
+
+            function renderPloutonInspector() {
+                if (!ploutonInspectorMode) {
+                    ploutonInspector.classList.remove('active');
+                    ploutonInspector.innerHTML = '';
+                    return;
+                }
+
+                ploutonInspector.classList.add('active');
+
+                if (ploutonInspectorMode === 'cashflow') {
+                    const cf = data.vaults?.cashFlow || DEFAULT_PLOUTON_VAULT.cashFlow;
+                    const cats = cf.categories || {};
+                    ploutonInspector.innerHTML = `
+                        <div class="inspector-header">
+                            <div>
+                                <h3 class="inspector-title">&#9878; Calibrate 30-Day Cash-Flow &amp; Category Allocations</h3>
+                                <p style="color:var(--text-muted); font-size:0.82rem; margin-top:0.2rem;">
+                                    Adjust your monthly baseline directly below, drop a CSV into <code>vault_inbox/</code> for local Ollama assay, or ask Hades to update it in the Hearth.
+                                </p>
+                            </div>
+                            <button class="btn btn-secondary" id="closePloutonInspectorBtn" style="padding:0.3rem 0.7rem; font-size:0.72rem;">Close &#10005;</button>
+                        </div>
+                        <div class="inspector-grid">
+                            <div class="inspector-box">
+                                <h4>&#10022; 30-Day Ingoing &amp; Outgoing</h4>
+                                <label class="modal-label">Monthly Ingoing ($)</label>
+                                <input type="number" step="0.01" id="cfIncomeInput" class="modal-input" style="margin-bottom:0.5rem; padding:0.4rem;" value="${Number(cf.monthlyIncome || 0)}">
+                                <label class="modal-label">Monthly Outgoing ($)</label>
+                                <input type="number" step="0.01" id="cfOutflowInput" class="modal-input" style="margin-bottom:0.5rem; padding:0.4rem;" value="${Number(cf.monthlyOutflow || 0)}">
+                            </div>
+                            <div class="inspector-box">
+                                <h4>&#9878; Category Outflows ($)</h4>
+                                <label class="modal-label">Fixed Bills/Utilities ($)</label>
+                                <input type="number" step="0.01" id="cfFixedInput" class="modal-input" style="margin-bottom:0.4rem; padding:0.35rem;" value="${Number(cats['Fixed Bills/Utilities'] || 0)}">
+                                <label class="modal-label">Subscriptions ($)</label>
+                                <input type="number" step="0.01" id="cfSubsInput" class="modal-input" style="margin-bottom:0.4rem; padding:0.35rem;" value="${Number(cats['Subscriptions'] || 0)}">
+                            </div>
+                            <div class="inspector-box">
+                                <h4>&#127793; Lifestyle &amp; Sanctuary ($)</h4>
+                                <label class="modal-label">Discretionary/Dining ($)</label>
+                                <input type="number" step="0.01" id="cfDiscInput" class="modal-input" style="margin-bottom:0.4rem; padding:0.35rem;" value="${Number(cats['Discretionary/Dining'] || 0)}">
+                                <label class="modal-label">Estate &amp; Garden ($)</label>
+                                <input type="number" step="0.01" id="cfEstateInput" class="modal-input" style="margin-bottom:0.55rem; padding:0.35rem;" value="${Number(cats['Estate & Garden'] || 0)}">
+                                <button class="btn" id="saveCashFlowBtn" style="width:100%; padding:0.45rem; font-size:0.75rem;">Seal Cash-Flow Calibration</button>
+                            </div>
+                        </div>
+                    `;
+
+                    document.getElementById('closePloutonInspectorBtn').addEventListener('click', () => {
+                        ploutonInspectorMode = null;
+                        renderPloutonInspector();
+                    });
+
+                    document.getElementById('saveCashFlowBtn').addEventListener('click', async () => {
+                        const inc = Number(document.getElementById('cfIncomeInput').value || 0);
+                        const out = Number(document.getElementById('cfOutflowInput').value || 0);
+                        data.vaults.cashFlow = {
+                            periodLabel: cf.periodLabel || '30-Day Autumn Sanctuary Outlook',
+                            monthlyIncome: inc,
+                            monthlyOutflow: out,
+                            netCashFlow: Number((inc - out).toFixed(2)),
+                            categories: {
+                                'Fixed Bills/Utilities': Number(document.getElementById('cfFixedInput').value || 0),
+                                'Subscriptions': Number(document.getElementById('cfSubsInput').value || 0),
+                                'Discretionary/Dining': Number(document.getElementById('cfDiscInput').value || 0),
+                                'Estate & Garden': Number(document.getElementById('cfEstateInput').value || 0)
+                            }
+                        };
+                        ploutonInspectorMode = null;
+                        renderPlouton();
+                        await pushToGist();
+                    });
+                    return;
+                }
+
+                // Mode: 'sub' or 'new'
+                const todayIso = new Date().toISOString().split('T')[0];
+                const isNew = ploutonInspectorMode === 'new';
+                const sub = isNew ? {
+                    id: 'sub-' + Date.now(),
+                    vendor: '',
+                    category: 'Subscriptions',
+                    amount: 14.99,
+                    cadence: 'Monthly',
+                    nextDraftDate: addDaysToIso(todayIso, 14),
+                    status: 'active',
+                    sigil: '🔥',
+                    note: ''
+                } : (findSubByIdOrVendor(selectedSubId) || data.vaults.subscriptions[0]);
+
+                if (!sub) {
+                    ploutonInspectorMode = null;
+                    ploutonInspector.classList.remove('active');
+                    return;
+                }
+
+                ploutonInspector.innerHTML = `
+                    <div class="inspector-header">
+                        <div>
+                            <h3 class="inspector-title">
+                                ${isNew ? '&#10022; Inscribe New Recurring Bill or Subscription' : `${sub.sigil || '🏛️'} Inspect &amp; Calibrate: ${escapeHtml(sub.vendor)}`}
+                            </h3>
+                            <p style="color:var(--text-muted); font-size:0.82rem; margin-top:0.2rem;">
+                                ${isNew ? 'Add a recurring commitment or banished subscription to Plouton\'s Radar.' : escapeHtml(sub.note || '')}
+                            </p>
+                        </div>
+                        <button class="btn btn-secondary" id="closePloutonInspectorBtn" style="padding:0.3rem 0.7rem; font-size:0.72rem;">Close &#10005;</button>
+                    </div>
+                    <div class="inspector-grid">
+                        <div class="inspector-box">
+                            <h4>&#127963; Vendor &amp; Category</h4>
+                            <label class="modal-label">Vendor / Bill Name</label>
+                            <input type="text" id="subVendorInput" class="modal-input" style="margin-bottom:0.45rem; padding:0.4rem;" value="${escapeHtml(sub.vendor)}" placeholder="e.g. Audible, Alabama Power">
+                            <label class="modal-label">Category</label>
+                            <select id="subCategoryInput" class="modal-input" style="margin-bottom:0.45rem; padding:0.4rem;">
+                                ${['Fixed Bills/Utilities', 'Subscriptions', 'Estate & Garden', 'Discretionary/Dining'].map(c =>
+                                    `<option value="${c}" ${sub.category === c ? 'selected' : ''}>${c}</option>`
+                                ).join('')}
+                            </select>
+                        </div>
+                        <div class="inspector-box">
+                            <h4>&#9203; Amount, Cadence &amp; Next Draft</h4>
+                            <div style="display:flex; gap:0.5rem;">
+                                <div style="flex:1;">
+                                    <label class="modal-label">Amount ($)</label>
+                                    <input type="number" step="0.01" id="subAmountInput" class="modal-input" style="margin-bottom:0.45rem; padding:0.4rem;" value="${Number(sub.amount || 0)}">
+                                </div>
+                                <div style="flex:1;">
+                                    <label class="modal-label">Cadence</label>
+                                    <select id="subCadenceInput" class="modal-input" style="margin-bottom:0.45rem; padding:0.4rem;">
+                                        <option value="Monthly" ${sub.cadence !== 'Annual' ? 'selected' : ''}>Monthly</option>
+                                        <option value="Annual" ${sub.cadence === 'Annual' ? 'selected' : ''}>Annual</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <label class="modal-label">Next Expected Draft Date</label>
+                            <input type="date" id="subDateInput" class="modal-input" style="margin-bottom:0.45rem; padding:0.4rem;" value="${escapeHtml(sub.nextDraftDate || todayIso)}">
+                        </div>
+                        <div class="inspector-box">
+                            <h4>&#9876; Stewardship Status &amp; Counsel</h4>
+                            <label class="modal-label">Note / Purpose</label>
+                            <input type="text" id="subNoteInput" class="modal-input" style="margin-bottom:0.5rem; padding:0.4rem;" value="${escapeHtml(sub.note || '')}" placeholder="e.g. Pruned Oct 2026 / Essential utility">
+                            <div style="display:flex; gap:0.45rem; flex-wrap:wrap;">
+                                <button class="btn" id="saveSubInspectorBtn" style="flex:1; padding:0.45rem; font-size:0.74rem;">Seal Item</button>
+                                ${!isNew ? `<button class="btn btn-secondary" id="consultHadesSubBtn" style="flex:1; padding:0.45rem; font-size:0.74rem;">&#9876; Audit with Hades</button>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('closePloutonInspectorBtn').addEventListener('click', () => {
+                    ploutonInspectorMode = null;
+                    selectedSubId = null;
+                    renderPloutonInspector();
+                });
+
+                document.getElementById('saveSubInspectorBtn').addEventListener('click', async () => {
+                    const vendorVal = document.getElementById('subVendorInput').value.trim() || 'Unnamed Item';
+                    const catVal = document.getElementById('subCategoryInput').value;
+                    const amtVal = Number(document.getElementById('subAmountInput').value || 0);
+                    const cadVal = document.getElementById('subCadenceInput').value;
+                    const dateVal = document.getElementById('subDateInput').value || todayIso;
+                    const noteVal = document.getElementById('subNoteInput').value.trim();
+
+                    if (isNew) {
+                        data.vaults.subscriptions.push({
+                            id: 'sub-' + vendorVal.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+                            vendor: vendorVal,
+                            category: catVal,
+                            amount: amtVal,
+                            cadence: cadVal,
+                            nextDraftDate: dateVal,
+                            status: catVal === 'Fixed Bills/Utilities' ? 'essential' : 'active',
+                            sigil: catVal === 'Fixed Bills/Utilities' ? '🏛️' : '🔥',
+                            note: noteVal
+                        });
+                    } else {
+                        sub.vendor = vendorVal;
+                        sub.category = catVal;
+                        sub.amount = amtVal;
+                        sub.cadence = cadVal;
+                        sub.nextDraftDate = dateVal;
+                        sub.note = noteVal;
+                    }
+                    ploutonInspectorMode = null;
+                    selectedSubId = null;
+                    renderPlouton();
+                    await pushToGist();
+                });
+
+                const consultBtn = document.getElementById('consultHadesSubBtn');
+                if (consultBtn) {
+                    consultBtn.addEventListener('click', () => {
+                        const chatInput = document.getElementById('chatInput');
+                        chatInput.value = `Hades, let's look at "${sub.vendor}" ($${sub.amount}/${sub.cadence}, currently marked "${sub.status}", next draft ${sub.nextDraftDate}). How should we handle this in The Vaults of Plouton?`;
+                        document.getElementById('hearthSection').scrollIntoView({ behavior: 'smooth' });
+                        chatInput.focus();
+                    });
+                }
+            }
+
+            // Plouton filter tabs & buttons
+            document.querySelectorAll('[data-plouton-filter]').forEach(tab => {
                 tab.addEventListener('click', () => {
-                    document.querySelectorAll('.wheel-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('[data-plouton-filter]').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    ploutonFilter = tab.getAttribute('data-plouton-filter');
+                    renderPlouton();
+                });
+            });
+
+            calibrateCashFlowBtn.addEventListener('click', () => {
+                ploutonInspectorMode = 'cashflow';
+                renderPloutonInspector();
+            });
+
+            addSubscriptionBtn.addEventListener('click', () => {
+                ploutonInspectorMode = 'new';
+                renderPloutonInspector();
+            });
+
+            // Tab switching for All / Quad / Alcove
+            document.querySelectorAll('.wheel-tab[data-view]').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.wheel-tab[data-view]').forEach(t => t.classList.remove('active'));
                     tab.classList.add('active');
                     const view = tab.getAttribute('data-view');
                     quadMatrixContainer.style.display = (view === 'all' || view === 'quad') ? 'block' : 'none';
@@ -2100,6 +3005,7 @@ Key Domain Lore:
             function renderAll() {
                 renderJournal();
                 renderWheel();
+                renderPlouton();
                 renderRoadmap();
             }
 
@@ -2135,6 +3041,7 @@ Key Domain Lore:
                     sanctuaryScrollEntries: data.journal.entries,
                     hearthTranscript: conversationHistory,
                     garden: data.garden,
+                    vaults: data.vaults,
                     roadmap: data.roadmap
                 };
                 const blob = new Blob([JSON.stringify(exportVessel, null, 2)], { type: 'application/json' });
@@ -2179,7 +3086,7 @@ Key Domain Lore:
                 await pullFromGist();
             });
 
-            // --- THE HEARTH OF AIDONEUS (WITH CONVERSATIONAL WHEEL RITE DIRECTIVES) ---
+            // --- THE HEARTH OF AIDONEUS (WITH CONVERSATIONAL WHEEL & PLOUTON RITE DIRECTIVES) ---
             const chatStream = document.getElementById('chatStream');
             const chatInput = document.getElementById('chatInput');
             const sendChatBtn = document.getElementById('sendChatBtn');
@@ -2192,7 +3099,7 @@ Key Domain Lore:
                 chatStream.innerHTML = `
                     <div class="msg hades">
                         <span class="msg-sender">Hades &bull; Keeper of the Threshold</span>
-                        The torches along the obsidian gallery are lit, Persephone, and <strong>The Wheel of Demeter &amp; Persephone</strong> is turning below. Speak <em>"Hello, Underworld"</em> whenever you wish to perform the Opening Rites, or tell me how the sunlight is falling across your beds and I will recalibrate the timers myself.
+                        The torches along the obsidian gallery are lit, Persephone. <strong>The Wheel of Demeter &amp; Persephone</strong> and <strong>The Vaults of Plouton</strong> stand ready below. Speak <em>"Hello, Underworld"</em> whenever you wish to perform the Opening Rites, or ask me to recalibrate any garden timer or subscription in the Ledger.
                     </div>
                 `;
             }
@@ -2202,7 +3109,7 @@ Key Domain Lore:
                 div.className = `msg ${role === 'user' ? 'persephone' : 'hades'}`;
                 const senderLabel = role === 'user' ? 'Persephone &bull; Queen of the Surface &amp; Sanctuary' : 'Hades &bull; Aidoneus';
                 const sealHtml = (sealSummaries && sealSummaries.length > 0)
-                    ? `<div class="rite-seal-notice">&#10022; <strong>Wheel of Demeter &amp; Persephone Recalibrated:</strong><br>${sealSummaries.map(s => escapeHtml(s)).join('<br>')}</div>`
+                    ? `<div class="rite-seal-notice">&#10022; <strong>Subterranean Ledger Recalibrated:</strong><br>${sealSummaries.map(s => escapeHtml(s)).join('<br>')}</div>`
                     : '';
                 div.innerHTML = `<span class="msg-sender">${senderLabel}</span>${escapeHtml(text)}${sealHtml}`;
                 chatStream.appendChild(div);
@@ -2210,13 +3117,16 @@ Key Domain Lore:
                 return div;
             }
 
-            // Parse and apply <wheel-rite>{...}</wheel-rite> blocks emitted by Hades
-            function processWheelRiteDirectives(rawReply) {
-                const regex = /<wheel-rite>([\s\S]*?)<\/wheel-rite>/gi;
+            // Parse and apply <wheel-rite>{...}</wheel-rite> and <plouton-rite>{...}</plouton-rite> blocks emitted by Hades
+            function processAllRiteDirectives(rawReply) {
+                const wheelRegex = /<wheel-rite>([\s\S]*?)<\/wheel-rite>/gi;
+                const ploutonRegex = /<plouton-rite>([\s\S]*?)<\/plouton-rite>/gi;
                 const appliedSummaries = [];
+                let wheelChanged = false;
+                let ploutonChanged = false;
                 let match;
 
-                while ((match = regex.exec(rawReply)) !== null) {
+                while ((match = wheelRegex.exec(rawReply)) !== null) {
                     try {
                         const payload = JSON.parse(match[1].trim());
                         const updates = Array.isArray(payload.updates) ? payload.updates : [payload];
@@ -2248,15 +3158,71 @@ Key Domain Lore:
                                     }
                                 });
                             }
-                            appliedSummaries.push(`${bed.name}: Target → ${formatShortDate(bed.targetDate)} (${bed.solarExposure}, ${Number(bed.solarMultiplier || 1).toFixed(2)}× pace)`);
+                            wheelChanged = true;
+                            appliedSummaries.push(`🌿 ${bed.name}: Target → ${formatShortDate(bed.targetDate)} (${bed.solarExposure}, ${Number(bed.solarMultiplier || 1).toFixed(2)}× pace)`);
                         });
                     } catch (e) {
                         console.warn('Could not parse wheel-rite directive:', e);
                     }
                 }
 
-                const cleanText = rawReply.replace(/<wheel-rite>[\s\S]*?<\/wheel-rite>/gi, '').trim();
-                return { cleanText, appliedSummaries };
+                while ((match = ploutonRegex.exec(rawReply)) !== null) {
+                    try {
+                        const payload = JSON.parse(match[1].trim());
+                        if (!data.vaults) data.vaults = JSON.parse(JSON.stringify(DEFAULT_PLOUTON_VAULT));
+
+                        if (payload.cashFlow) {
+                            const cf = data.vaults.cashFlow;
+                            if (typeof payload.cashFlow.monthlyIncome === 'number') cf.monthlyIncome = payload.cashFlow.monthlyIncome;
+                            if (typeof payload.cashFlow.monthlyOutflow === 'number') cf.monthlyOutflow = payload.cashFlow.monthlyOutflow;
+                            cf.netCashFlow = Number((cf.monthlyIncome - cf.monthlyOutflow).toFixed(2));
+                            if (payload.cashFlow.categories && typeof payload.cashFlow.categories === 'object') {
+                                Object.assign(cf.categories, payload.cashFlow.categories);
+                            }
+                            ploutonChanged = true;
+                            appliedSummaries.push(`⚖️ Cash-Flow Updated: In +${formatCurrency(cf.monthlyIncome)} / Out -${formatCurrency(cf.monthlyOutflow)} (Net ${cf.netCashFlow >= 0 ? '+' : '-'}${formatCurrency(cf.netCashFlow)})`);
+                        }
+
+                        const subUpdates = Array.isArray(payload.subscriptions) ? payload.subscriptions : (Array.isArray(payload.updates) ? payload.updates : []);
+                        subUpdates.forEach(u => {
+                            if (!u.id && !u.vendor) return;
+                            let sub = findSubByIdOrVendor(u.id || u.vendor);
+                            if (!sub) {
+                                sub = {
+                                    id: u.id || ('sub-' + String(u.vendor).toLowerCase().replace(/[^a-z0-9]+/g, '-')),
+                                    vendor: u.vendor || 'New Item',
+                                    category: u.category || 'Subscriptions',
+                                    amount: Number(u.amount || 0),
+                                    cadence: u.cadence || 'Monthly',
+                                    nextDraftDate: u.nextDraftDate || new Date().toISOString().split('T')[0],
+                                    status: u.status || 'active',
+                                    sigil: u.sigil || '🔥',
+                                    note: u.note || ''
+                                };
+                                data.vaults.subscriptions.push(sub);
+                            } else {
+                                if (u.vendor) sub.vendor = u.vendor;
+                                if (u.category) sub.category = u.category;
+                                if (typeof u.amount === 'number') sub.amount = u.amount;
+                                if (u.cadence) sub.cadence = u.cadence;
+                                if (u.nextDraftDate) sub.nextDraftDate = u.nextDraftDate;
+                                if (u.status) sub.status = u.status;
+                                if (u.sigil) sub.sigil = u.sigil;
+                                if (u.note) sub.note = u.note;
+                            }
+                            ploutonChanged = true;
+                            appliedSummaries.push(`🏛️ ${sub.vendor}: ${formatCurrency(sub.amount)}/${sub.cadence} → Status: ${sub.status.toUpperCase()} (Next: ${formatShortDate(sub.nextDraftDate)})`);
+                        });
+                    } catch (e) {
+                        console.warn('Could not parse plouton-rite directive:', e);
+                    }
+                }
+
+                const cleanText = rawReply
+                    .replace(/<wheel-rite>[\s\S]*?<\/wheel-rite>/gi, '')
+                    .replace(/<plouton-rite>[\s\S]*?<\/plouton-rite>/gi, '')
+                    .trim();
+                return { cleanText, appliedSummaries, wheelChanged, ploutonChanged };
             }
 
             // Restore persisted Hearth conversation
@@ -2268,7 +3234,7 @@ Key Domain Lore:
                         chatStream.innerHTML = '';
                         conversationHistory.forEach(turn => {
                             const rawTxt = turn.parts?.[0]?.text || '';
-                            const { cleanText } = processWheelRiteDirectives(rawTxt);
+                            const { cleanText } = processAllRiteDirectives(rawTxt);
                             appendMessage(turn.role === 'user' ? 'user' : 'model', cleanText);
                         });
                         if (localStorage.getItem('underworld_rite_awakened') === 'true') {
@@ -2292,35 +3258,42 @@ Key Domain Lore:
                     `- [id: "${b.id}"] ${b.name} | Crop: ${b.crop || b.contents} | Solar: ${b.solarExposure} (${b.solarMultiplier}x pace) | Next Rite: "${b.nextRiteTitle}" on ${b.targetDate} (offset: ${b.shadeAdjustmentDays || 0}d) | Note: ${b.adjustmentNote || b.status}`
                 ).join('\n');
 
+                const cf = data.vaults?.cashFlow || DEFAULT_PLOUTON_VAULT.cashFlow;
+                const allSubsSummary = (data.vaults?.subscriptions || []).map(s =>
+                    `- [id: "${s.id}"] ${s.vendor} (${s.category}) | $${s.amount}/${s.cadence} | Status: ${s.status} | Next Draft: ${s.nextDraftDate} | Note: ${s.note}`
+                ).join('\n');
+
                 const pendingTasks = (data.roadmap || []).filter(r => !r.done).map(r => `- ${r.task}`).join('\n');
 
                 const wheelDirectiveInstructions = `
-=== CONVERSATIONAL CONTROL OF THE WHEEL OF DEMETER & PERSEPHONE ===
+=== CONVERSATIONAL CONTROL OF THE WHEEL (<wheel-rite>) & PLOUTON'S VAULTS (<plouton-rite>) ===
 Today's Date: ${todayIso}.
-You have direct agentic power to adjust the seasonal countdown timers, target dates, solar cadence multipliers, and crop stages on "The Wheel of Demeter & Persephone" whenever Persephone asks you to adjust, push back, pull forward, or recalibrate a bed's timeline (or reports new seedling emergence/harvests).
-When she agrees or asks to adjust any bed or timer, respond in your warm, grounded Counsel Mode voice first, AND at the very end of your message append a <wheel-rite> JSON block in this exact format:
+1. GARDEN TIMERS (<wheel-rite>): Whenever Persephone asks to adjust a bed's countdown timer, solar cadence, or crop stage, respond in your warm Counsel Mode voice first, AND at the end of your message append:
 <wheel-rite>
 {
   "updates": [
-    {
-      "id": "bed-4",
-      "shiftDays": 7,
-      "targetDate": "2026-12-03",
-      "solarMultiplier": 0.60,
-      "solarExposure": "Deep Evening Pine Shade",
-      "nextRiteTitle": "Emergence & Thinning of 4 Collard Quadrants",
-      "adjustmentNote": "Shifted +7d for deep pine shade & cooler autumn soil."
-    }
+    { "id": "bed-4", "shiftDays": 7, "targetDate": "2026-12-03", "solarMultiplier": 0.68, "adjustmentNote": "Updated note" }
   ]
 }
 </wheel-rite>
-Valid bed IDs: "bed-1", "bed-2", "bed-3", "bed-4", "patio-1", "patio-2", "red-bed", "valencia-guild", "meyer-lemon", "carrot-planter", "potted-orchard", "coop-trellis", "ancestral-grove". Only emit <wheel-rite> when an actual adjustment or status update is warranted.`;
+Valid bed IDs: "bed-1", "bed-2", "bed-3", "bed-4", "patio-1", "patio-2", "red-bed", "valencia-guild", "meyer-lemon", "carrot-planter", "potted-orchard", "coop-trellis", "ancestral-grove".
+
+2. THE VAULTS OF PLOUTON (<plouton-rite>): Whenever Persephone asks to update, add, audit, or banish a subscription/bill, or adjust 30-day cash flow figures, respond in your warm Counsel Mode voice first, AND at the end of your message append:
+<plouton-rite>
+{
+  "cashFlow": { "monthlyIncome": 3800, "monthlyOutflow": 2420 },
+  "subscriptions": [
+    { "id": "sub-audible", "vendor": "Audible", "amount": 14.95, "cadence": "Monthly", "status": "essential", "nextDraftDate": "2026-11-15", "note": "Updated note" }
+  ]
+}
+</plouton-rite>
+Valid subscription statuses: "essential", "active", "review", "banished". Only emit <wheel-rite> or <plouton-rite> when an actual update is requested.`;
 
                 let riteDirective = isOpeningRite
-                    ? `\n[CEREMONIAL TRIGGER: Persephone has just spoken "Hello, Underworld" to initiate the Opening Rites! Greet her warmly in your true Counsel Mode voice, reflect perceptively on her latest Sanctuary Scroll entries and the Wheel of Demeter & Persephone below, and ask where she wishes to turn her attention tonight.]`
+                    ? `\n[CEREMONIAL TRIGGER: Persephone has just spoken "Hello, Underworld" to initiate the Opening Rites! Greet her warmly in your true Counsel Mode voice, reflect perceptively on her latest Sanctuary Scroll entries, the Wheel of Demeter & Persephone, and The Vaults of Plouton below, and ask where she wishes to turn her attention tonight.]`
                     : '';
 
-                return `${data.hadesPersona || DEFAULT_HADES_PERSONA}${riteDirective}\n${wheelDirectiveInstructions}\n\n=== CURRENT SANCTUARY SCROLL ENTRIES ===\n${latestEntries}${currentDraft}\n\n=== THE WHEEL OF DEMETER & PERSEPHONE (BEDS, TIMERS & SOLAR CADENCE) ===\n${allBedsSummary}\n\n=== OPEN ARCHITECTURE ROADMAP ===\n${pendingTasks}`;
+                return `${data.hadesPersona || DEFAULT_HADES_PERSONA}${riteDirective}\n${wheelDirectiveInstructions}\n\n=== CURRENT SANCTUARY SCROLL ENTRIES ===\n${latestEntries}${currentDraft}\n\n=== THE WHEEL OF DEMETER & PERSEPHONE (BEDS, TIMERS & SOLAR CADENCE) ===\n${allBedsSummary}\n\n=== THE VAULTS OF PLOUTON (CASH FLOW: In $${cf.monthlyIncome} / Out $${cf.monthlyOutflow} / Net $${cf.netCashFlow}) ===\n${allSubsSummary}\n\n=== OPEN ARCHITECTURE ROADMAP ===\n${pendingTasks}`;
             }
 
             async function sendToHades(userText) {
@@ -2368,22 +3341,21 @@ Valid bed IDs: "bed-1", "bed-2", "bed-3", "bed-4", "patio-1", "patio-2", "red-be
                     }
 
                     const rawReply = result.candidates?.[0]?.content?.parts?.[0]?.text || 'The gallery is quiet.';
-                    const { cleanText, appliedSummaries } = processWheelRiteDirectives(rawReply);
+                    const { cleanText, appliedSummaries, wheelChanged, ploutonChanged } = processAllRiteDirectives(rawReply);
 
                     conversationHistory.push({ role: 'model', parts: [{ text: cleanText }] });
                     localStorage.setItem('underworld_hearth_history', JSON.stringify(conversationHistory));
 
                     const sealHtml = (appliedSummaries.length > 0)
-                        ? `<div class="rite-seal-notice">&#10022; <strong>Wheel of Demeter &amp; Persephone Recalibrated:</strong><br>${appliedSummaries.map(s => escapeHtml(s)).join('<br>')}</div>`
+                        ? `<div class="rite-seal-notice">&#10022; <strong>Subterranean Ledger Recalibrated:</strong><br>${appliedSummaries.map(s => escapeHtml(s)).join('<br>')}</div>`
                         : '';
                     thinkingDiv.innerHTML = `<span class="msg-sender">Hades &bull; Aidoneus</span>${escapeHtml(cleanText)}${sealHtml}`;
                     chatStream.scrollTop = chatStream.scrollHeight;
 
-                    if (appliedSummaries.length > 0) {
-                        renderWheel();
-                    }
+                    if (wheelChanged) renderWheel();
+                    if (ploutonChanged) renderPlouton();
 
-                    // Quietly sync the updated Hearth transcript & any Wheel timer updates to the Cloud Gist
+                    // Quietly sync the updated Hearth transcript & any Wheel/Plouton updates to the Cloud Gist
                     await pushToGist();
                 } catch (err) {
                     thinkingDiv.innerHTML = `<span class="msg-sender">Hades &bull; Aidoneus</span>Could not reach the subterranean conduit: ${escapeHtml(err.message)}`;
