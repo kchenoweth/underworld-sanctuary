@@ -1787,99 +1787,21 @@ Key Domain Lore:
 
         const DEFAULT_PLOUTON_VAULT = {
             schemaRevision: "2.2.0",
-            lastAssayed: "2026-11-02 (Sovereign Local Baseline)",
+            lastAssayed: "Awaiting Ledger Balance",
             assayerModel: "Ollama qwen2.5:7b (Local)",
             cashFlow: {
-                periodLabel: "30-Day Autumn Sanctuary Outlook",
-                monthlyIncome: 3800.00,
-                monthlyOutflow: 2420.00,
-                netCashFlow: 1380.00,
+                periodLabel: "30-Day Cash-Flow Outlook",
+                monthlyIncome: 0.00,
+                monthlyOutflow: 0.00,
+                netCashFlow: 0.00,
                 categories: {
-                    "Fixed Bills/Utilities": 1620.00,
-                    "Subscriptions": 14.95,
-                    "Discretionary/Dining": 565.05,
-                    "Estate & Garden": 220.00
+                    "Fixed Bills/Utilities": 0.00,
+                    "Subscriptions": 0.00,
+                    "Discretionary/Dining": 0.00,
+                    "Estate & Garden": 0.00
                 }
             },
-            subscriptions: [
-                {
-                    id: "sub-audible",
-                    vendor: "Audible",
-                    category: "Subscriptions",
-                    amount: 14.95,
-                    cadence: "Monthly",
-                    nextDraftDate: "2026-11-15",
-                    status: "essential",
-                    sigil: "📚",
-                    note: "Commute literary sanctuary (Susanna Clarke's 'Piranesi' queued next)."
-                },
-                {
-                    id: "sub-electric",
-                    vendor: "Alabama Power (Electric)",
-                    category: "Fixed Bills/Utilities",
-                    amount: 165.00,
-                    cadence: "Monthly",
-                    nextDraftDate: "2026-11-08",
-                    status: "essential",
-                    sigil: "⚡",
-                    note: "Household power & indoor nursery grow-light conduit."
-                },
-                {
-                    id: "sub-internet",
-                    vendor: "Home Fiber / Internet",
-                    category: "Fixed Bills/Utilities",
-                    amount: 75.00,
-                    cadence: "Monthly",
-                    nextDraftDate: "2026-11-12",
-                    status: "essential",
-                    sigil: "🌐",
-                    note: "Underworld Command Center & household connectivity."
-                },
-                {
-                    id: "sub-mobile",
-                    vendor: "Wireless / Mobile Service",
-                    category: "Fixed Bills/Utilities",
-                    amount: 85.00,
-                    cadence: "Monthly",
-                    nextDraftDate: "2026-11-19",
-                    status: "essential",
-                    sigil: "📱",
-                    note: "Mobile PWA & Surface communications."
-                },
-                {
-                    id: "sub-coop-garden",
-                    vendor: "Homestead & Coop Feed Reserve",
-                    category: "Estate & Garden",
-                    amount: 55.00,
-                    cadence: "Monthly",
-                    nextDraftDate: "2026-11-22",
-                    status: "active",
-                    sigil: "🐓",
-                    note: "Layer feed & bedding for Chicken-Cake, Poop Butt, Chicken-Bingus & Nugget + indoor cat supplies for Bingus & Cake."
-                },
-                {
-                    id: "sub-scentbird",
-                    vendor: "Scentbird",
-                    category: "Subscriptions",
-                    amount: 16.95,
-                    cadence: "Monthly",
-                    nextDraftDate: "2026-10-05",
-                    status: "banished",
-                    sigil: "⚔️",
-                    note: "Pruned in early October 2026—reclaimed $16.95/mo back into the Vault."
-                },
-                {
-                    id: "sub-streaming-bundle",
-                    vendor: "Legacy Streaming Services",
-                    category: "Subscriptions",
-                    amount: 38.98,
-                    cadence: "Monthly",
-                    nextDraftDate: "2026-10-05",
-                    status: "banished",
-                    sigil: "⚔️",
-                    note: "Pruned in early October 2026—digital overhead eliminated ($38.98/mo reclaimed)."
-                }
-            ]
+            subscriptions: []
         };
 
         const FALLBACK_DATA = {
@@ -1955,9 +1877,12 @@ Key Domain Lore:
             dataObj.garden.schemaRevision = "2.1.7";
 
             // Upgrade or initialize The Vaults of Plouton (v2.2.0)
-            if (!dataObj.vaults || !Array.isArray(dataObj.vaults.subscriptions) || dataObj.vaults.subscriptions.length === 0) {
+            if (!dataObj.vaults) {
                 dataObj.vaults = JSON.parse(JSON.stringify(DEFAULT_PLOUTON_VAULT));
             } else {
+                if (!Array.isArray(dataObj.vaults.subscriptions)) {
+                    dataObj.vaults.subscriptions = [];
+                }
                 if (!dataObj.vaults.cashFlow) {
                     dataObj.vaults.cashFlow = JSON.parse(JSON.stringify(DEFAULT_PLOUTON_VAULT.cashFlow));
                 }
@@ -2636,6 +2561,13 @@ Key Domain Lore:
                     return String(a.nextDraftDate || '9999-99-99').localeCompare(String(b.nextDraftDate || '9999-99-99'));
                 });
 
+                if (filteredSubs.length === 0) {
+                    ploutonRadarGrid.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 2rem 1.2rem; border: 1px dashed var(--border-gold-subtle); border-radius: 6px; color: var(--text-muted); font-size: 0.85rem;">
+                            No recurring bills or subscriptions inscribed in this view yet. Drop statements into <code>vault_inbox/</code> and tell Hades to <strong>"balance the ledgers"</strong>, or click <strong>+ Add Recurring Item</strong> above.
+                        </div>
+                    `;
+                } else {
                 ploutonRadarGrid.innerHTML = filteredSubs.map(sub => {
                     const dLeft = sub.nextDraftDate ? daysBetween(todayIso, sub.nextDraftDate) : null;
                     const isSoon = sub.status !== 'banished' && dLeft !== null && dLeft >= 0 && dLeft <= 7;
@@ -2693,6 +2625,7 @@ Key Domain Lore:
                         </div>
                     `;
                 }).join('');
+                }
 
                 // Attach quick status toggle handlers
                 ploutonRadarGrid.querySelectorAll('[data-sub-status-id]').forEach(btn => {
@@ -2883,6 +2816,7 @@ Key Domain Lore:
                             <div style="display:flex; gap:0.45rem; flex-wrap:wrap;">
                                 <button class="btn" id="saveSubInspectorBtn" style="flex:1; padding:0.45rem; font-size:0.74rem;">Seal Item</button>
                                 ${!isNew ? `<button class="btn btn-secondary" id="consultHadesSubBtn" style="flex:1; padding:0.45rem; font-size:0.74rem;">&#9876; Audit with Hades</button>` : ''}
+                                ${!isNew ? `<button class="btn btn-secondary" id="deleteSubInspectorBtn" style="padding:0.45rem 0.65rem; font-size:0.74rem; color:#ff8a97; border-color:rgba(255,138,151,0.4);">🗑️ Purge</button>` : ''}
                             </div>
                         </div>
                     </div>
@@ -2893,6 +2827,17 @@ Key Domain Lore:
                     selectedSubId = null;
                     renderPloutonInspector();
                 });
+
+                const delBtn = document.getElementById('deleteSubInspectorBtn');
+                if (delBtn) {
+                    delBtn.addEventListener('click', async () => {
+                        data.vaults.subscriptions = (data.vaults.subscriptions || []).filter(s => s.id !== sub.id);
+                        ploutonInspectorMode = null;
+                        selectedSubId = null;
+                        renderPlouton();
+                        await pushToGist();
+                    });
+                }
 
                 document.getElementById('saveSubInspectorBtn').addEventListener('click', async () => {
                     const vendorVal = document.getElementById('subVendorInput').value.trim() || 'Unnamed Item';
