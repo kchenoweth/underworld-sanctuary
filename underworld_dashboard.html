@@ -209,17 +209,31 @@
 
         @media (max-width: 768px) {
             body {
-                padding: 1rem 0.9rem 5.6rem 0.9rem;
+                padding: 0.65rem 0.45rem 5.4rem 0.45rem;
             }
 
             header {
-                margin-bottom: 1.1rem;
-                padding-bottom: 1rem;
+                margin-bottom: 0.65rem;
+                padding-bottom: 0.6rem;
             }
 
             header h1 {
-                font-size: 1.4rem;
-                letter-spacing: 0.1em;
+                font-size: 1.18rem;
+                letter-spacing: 0.08em;
+            }
+
+            header .tagline {
+                display: none;
+            }
+
+            .vault-bar {
+                margin-top: 0.45rem;
+                gap: 0.35rem;
+            }
+
+            .vault-btn {
+                padding: 0.28rem 0.55rem;
+                font-size: 0.68rem;
             }
 
             .pillar-nav {
@@ -255,15 +269,90 @@
             }
 
             .counsel-chamber {
-                border-width: 60px !important;
-                padding: 0.1rem 0.2rem !important;
-                height: calc(100vh - 210px) !important;
-                min-height: 520px;
+                border-width: 42px 34px !important;
+                padding: 0.1rem 0.15rem !important;
+                height: auto !important;
+                min-height: 74vh;
+            }
+
+            #hearthSection .section-header {
+                margin-bottom: 0.4rem;
+                padding-bottom: 0.35rem;
+                gap: 0.3rem;
+            }
+
+            #hearthSection h2 {
+                font-size: 0.95rem;
+                letter-spacing: 0.06em;
+            }
+
+            #hearthSection .rite-status-badge {
+                font-size: 0.6rem;
+                padding: 0.15rem 0.45rem;
+            }
+
+            #hearthSection .subtitle {
+                display: none;
+            }
+
+            #hearthSection .chat-stream {
+                min-height: 410px;
+                max-height: 58vh;
+                padding: 0.75rem;
+                margin-bottom: 0.5rem;
+                gap: 0.7rem;
+            }
+
+            #hearthSection .msg {
+                max-width: 94%;
+                padding: 0.65rem 0.85rem;
+                font-size: 0.88rem;
+                line-height: 1.5;
+            }
+
+            #hearthSection .rite-bar {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                gap: 0.35rem;
+                margin-bottom: 0.45rem;
+                padding-bottom: 0.15rem;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+
+            #hearthSection .rite-bar::-webkit-scrollbar {
+                display: none;
+            }
+
+            #hearthSection .rite-pill {
+                white-space: nowrap;
+                flex-shrink: 0;
+                padding: 0.26rem 0.55rem;
+                font-size: 0.7rem;
+            }
+
+            #hearthSection .chat-input-row {
+                gap: 0.4rem;
+            }
+
+            #hearthSection .chat-input {
+                height: 44px;
+                padding: 0.55rem 0.7rem;
+                font-size: 0.88rem;
+            }
+
+            #hearthSection #sendChatBtn {
+                padding: 0.5rem 0.85rem;
+                font-size: 0.74rem;
             }
 
             #sanctuaryScrollSection {
-                border-width: 66px !important;
-                padding: 0.1rem 0.2rem !important;
+                border-width: 46px 38px !important;
+                padding: 0.15rem 0.2rem !important;
+            }
+
+            #sanctuaryScrollSection .subtitle {
+                display: none;
             }
         }
 
