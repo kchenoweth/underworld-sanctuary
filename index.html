@@ -125,30 +125,145 @@
         .sanctuary-layout {
             max-width: 1440px;
             margin: 0 auto;
+        }
+
+        /* ==========================================================================
+           FOUR-PILLAR TABBED PWA NAVIGATION (v2.3.0 — Desktop Top / Mobile Bottom)
+           ========================================================================== */
+        .pillar-nav {
+            max-width: 1440px;
+            margin: 0 auto 1.65rem auto;
             display: grid;
-            grid-template-columns: 1.35fr 1fr;
-            gap: 2rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.65rem;
+            background: rgba(18, 20, 26, 0.92);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: 8px;
+            padding: 0.45rem;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
+        }
+
+        .pillar-nav-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid transparent;
+            border-radius: 6px;
+            padding: 0.68rem 0.9rem;
+            cursor: pointer;
+            font-family: "Georgia", "Palatino Linotype", serif;
+            font-size: 0.92rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.55rem;
+            transition: all 0.2s ease;
+        }
+
+        .pillar-nav-btn:hover {
+            color: var(--border-gold-bright);
+            background: rgba(201, 164, 92, 0.08);
+            border-color: rgba(201, 164, 92, 0.24);
+        }
+
+        .pillar-nav-btn.active {
+            background: linear-gradient(145deg, rgba(110, 20, 29, 0.45), rgba(201, 164, 92, 0.18));
+            color: var(--border-gold-bright);
+            border-color: var(--border-gold);
+            box-shadow: 0 0 18px rgba(201, 164, 92, 0.18);
+            font-weight: 600;
+        }
+
+        .pillar-nav-icon {
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        .pillar-tab-panel {
+            display: none;
+            animation: pillarFadeIn 0.18s ease-out;
+        }
+
+        .pillar-tab-panel.active {
+            display: block;
+        }
+
+        @keyframes pillarFadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sanctuary-grid-2col {
+            display: grid;
+            grid-template-columns: 1.25fr 1fr;
+            gap: 1.8rem;
             align-items: start;
         }
 
-        @media (max-width: 1100px) {
-            .sanctuary-layout {
+        @media (max-width: 1024px) {
+            .sanctuary-grid-2col {
                 grid-template-columns: 1fr;
             }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             body {
-                padding: 1rem;
+                padding: 1rem 0.9rem 5.6rem 0.9rem;
+            }
+
+            header {
+                margin-bottom: 1.1rem;
+                padding-bottom: 1rem;
             }
 
             header h1 {
-                font-size: 1.45rem;
+                font-size: 1.4rem;
                 letter-spacing: 0.1em;
             }
 
+            .pillar-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: 0;
+                z-index: 95;
+                border-radius: 12px 12px 0 0;
+                border-left: none;
+                border-right: none;
+                border-bottom: none;
+                border-top: 1px solid var(--border-gold);
+                background: rgba(11, 12, 16, 0.97);
+                backdrop-filter: blur(14px);
+                padding: 0.38rem 0.4rem calc(0.42rem + env(safe-area-inset-bottom));
+                gap: 0.3rem;
+                box-shadow: 0 -6px 26px rgba(0, 0, 0, 0.85);
+            }
+
+            .pillar-nav-btn {
+                flex-direction: column;
+                gap: 0.2rem;
+                padding: 0.42rem 0.25rem;
+                font-size: 0.65rem;
+                letter-spacing: 0.04em;
+                font-family: system-ui, -apple-system, sans-serif;
+            }
+
+            .pillar-nav-icon {
+                font-size: 1.18rem;
+            }
+
             .counsel-chamber {
-                height: 560px !important;
+                border-width: 60px !important;
+                padding: 0.1rem 0.2rem !important;
+                height: calc(100vh - 210px) !important;
+                min-height: 520px;
+            }
+
+            #sanctuaryScrollSection {
+                border-width: 66px !important;
+                padding: 0.1rem 0.2rem !important;
             }
         }
 
@@ -204,13 +319,36 @@
             font-style: italic;
         }
 
-        /* CENTERPIECE: The Hearth of Aidoneus */
+        /* CENTERPIECE: The Hearth of Aidoneus (Seamless Periodic 9-Slice Forged Obsidian, Iron, Shears & Key Frame) */
         .counsel-chamber {
-            border-color: rgba(201, 164, 92, 0.45);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), inset 0 0 30px rgba(110, 20, 29, 0.08);
+            background-color: #0c0c0f;
+            border-style: solid;
+            border-width: 108px;
+            border-image-source: url('assets/hearth_border.png');
+            border-image-slice: 264 264 264 264 fill;
+            border-image-repeat: round;
+            padding: 0.15rem 0.35rem;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
             display: flex;
             flex-direction: column;
-            height: 680px;
+            height: 780px;
+        }
+
+        /* PILLAR I: The Sanctuary Scroll (Seamless Periodic 9-Slice Briar, Rose & Split-Pomegranate Frame) */
+        #sanctuaryScrollSection {
+            background-color: #0c0c0f;
+            border-style: solid;
+            border-width: 118px;
+            border-image-source: url('assets/sanctuary_border.png');
+            border-image-slice: 350 350 350 350 fill;
+            border-image-repeat: round;
+            padding: 0.15rem 0.3rem;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
+        }
+
+        #hearthSection::before,
+        #sanctuaryScrollSection::before {
+            display: none;
         }
 
         .rite-status-badge {
@@ -1276,159 +1414,212 @@
         <p>Sanctuary of Persephone &mdash; Kept by Aidoneus, Lord of the Subterranean Riches</p>
     </header>
 
+    <!-- Adaptive Four-Pillar Navigation Bar (Top on Desktop, Bottom-Docked on Mobile) -->
+    <nav class="pillar-nav" id="pillarNav" aria-label="Underworld Sanctuary Chambers">
+        <button class="pillar-nav-btn active" data-pillar-tab="hearth">
+            <span class="pillar-nav-icon">🔥</span>
+            <span class="pillar-nav-label">The Hearth</span>
+        </button>
+        <button class="pillar-nav-btn" data-pillar-tab="sanctuary">
+            <span class="pillar-nav-icon">📜</span>
+            <span class="pillar-nav-label">The Sanctuary</span>
+        </button>
+        <button class="pillar-nav-btn" data-pillar-tab="earth">
+            <span class="pillar-nav-icon">🌿</span>
+            <span class="pillar-nav-label">The Living Earth</span>
+        </button>
+        <button class="pillar-nav-btn" data-pillar-tab="vaults">
+            <span class="pillar-nav-icon">🏛️</span>
+            <span class="pillar-nav-label">Vaults of Plouton</span>
+        </button>
+    </nav>
+
     <div class="sanctuary-layout">
 
-        <!-- CENTERPIECE: The Hearth of Aidoneus -->
-        <section class="counsel-chamber" id="hearthSection">
-            <div class="section-header">
-                <h2>&#9876; The Hearth of Aidoneus</h2>
-                <span class="rite-status-badge" id="riteBadge">Awaiting Opening Rite</span>
-            </div>
-            <p class="subtitle">Speak "Hello, Underworld" to perform the Opening Rites, or ask Hades to recalibrate any
-                garden timer or solar cadence on the Wheel below.</p>
-
-            <div class="chat-stream" id="chatStream"></div>
-
-            <div class="rite-bar">
-                <button class="rite-pill" data-rite="Hello, Underworld">&#10022; Invoke Opening Rite: "Hello,
-                    Underworld"</button>
-                <button class="rite-pill"
-                    data-rite="Hades, survey the Wheel of Demeter & Persephone and tell me if any countdown timers should be adjusted for our current autumn sunlight.">&#9788;
-                    Audit Sunlight &amp; Timers</button>
-                <button class="rite-pill"
-                    data-rite="Hades, survey The Vaults of Plouton—review our cash-flow outlook, upcoming recurring bills, and banished subscriptions, and share your counsel.">&#9878;
-                    Audit Vaults &amp; Cash Flow</button>
-                <button class="rite-pill" id="clearChatBtn" style="margin-left:auto; opacity:0.75;">Clear
-                    Chamber</button>
-            </div>
-
-            <div class="chat-input-row">
-                <textarea id="chatInput" class="chat-input"
-                    placeholder="Speak to Hades (or ask him to shift any garden timer or update a subscription/bill in Plouton's Vault)..."></textarea>
-                <button class="btn" id="sendChatBtn">Speak</button>
-            </div>
-        </section>
-
-        <!-- RIGHT COLUMN: The Sanctuary Scroll & Subterranean Architecture -->
-        <div class="right-column-stack">
-
-            <!-- Pillar I: The Sanctuary Scroll -->
-            <section>
+        <!-- TAB 1: THE HEARTH OF AIDONEUS -->
+        <div class="pillar-tab-panel active" data-pillar-panel="hearth">
+            <section class="counsel-chamber" id="hearthSection" style="max-width: 1080px; margin: 0 auto;">
                 <div class="section-header">
-                    <h2>&#9998; The Sanctuary Scroll</h2>
+                    <h2>&#9876; The Hearth of Aidoneus</h2>
+                    <span class="rite-status-badge" id="riteBadge">Awaiting Opening Rite</span>
                 </div>
-                <p class="subtitle">Draft your thoughts throughout the day. Inscribing automatically dispatches the
-                    Ferryman to update your secret cloud vault.</p>
-                <textarea id="draftPad" class="journal-textarea"
-                    placeholder="Record a surface observation, garden note, or philosophical thread..."></textarea>
-                <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
-                    <button class="btn" id="inscribeBtn">Inscribe to the Ledger</button>
-                    <button class="btn btn-secondary" id="exportScrollBtn"
-                        title="Download Scroll & Hearth transcript as underworld_scroll_export.json">&#9878; Cast into
-                        Mnemosyne</button>
+                <p class="subtitle">Speak "Hello, Underworld" to perform the Opening Rites, or ask Hades to recalibrate any
+                    garden timer or subscription in the Ledger. Your conversation persists as you move between chambers.</p>
+
+                <div class="chat-stream" id="chatStream"></div>
+
+                <div class="rite-bar">
+                    <button class="rite-pill" data-rite="Hello, Underworld">&#10022; Invoke Opening Rite: "Hello,
+                        Underworld"</button>
+                    <button class="rite-pill"
+                        data-rite="Hades, survey the Wheel of Demeter & Persephone and tell me if any countdown timers should be adjusted for our current autumn sunlight.">&#9788;
+                        Audit Sunlight &amp; Timers</button>
+                    <button class="rite-pill"
+                        data-rite="Hades, survey The Vaults of Plouton—review our cash-flow outlook, upcoming recurring bills, and banished subscriptions, and share your counsel.">&#9878;
+                        Audit Vaults &amp; Cash Flow</button>
+                    <button class="rite-pill" id="clearChatBtn" style="margin-left:auto; opacity:0.75;">Clear
+                        Chamber</button>
                 </div>
 
-                <div class="journal-feed" id="journalFeed"></div>
+                <div class="chat-input-row">
+                    <textarea id="chatInput" class="chat-input"
+                        placeholder="Speak to Hades (or ask him to shift any garden timer or update a subscription/bill in Plouton's Vault)..."></textarea>
+                    <button class="btn" id="sendChatBtn">Speak</button>
+                </div>
             </section>
-
-            <!-- Pillar III: Subterranean Architecture -->
-            <section>
-                <div class="section-header">
-                    <h2>&#9881; Subterranean Architecture</h2>
-                </div>
-                <p class="subtitle">Expansion backlog for Hades' capabilities and domain infrastructure.</p>
-                <ul class="roadmap-list" id="roadmapList"></ul>
-            </section>
-
         </div>
 
-        <!-- FULL-WIDTH: Pillar II: The Wheel of Demeter & Persephone -->
-        <section class="full-width" id="wheelSection">
-            <div class="section-header">
-                <h2>&#10048; The Wheel of Demeter &amp; Persephone</h2>
-                <span style="font-size:0.76rem; color:var(--border-gold); font-family:system-ui,sans-serif; letter-spacing:0.06em; text-transform:uppercase;">
-                    Interactive 4&times;4 Sanctuary Grids &bull; Solar Cadence &amp; Seasonal Timers
-                </span>
+        <!-- TAB 2: THE SANCTUARY SCROLL & SUBTERRANEAN ARCHITECTURE -->
+        <div class="pillar-tab-panel" data-pillar-panel="sanctuary">
+            <div class="sanctuary-grid-2col">
+                <!-- Pillar I: The Sanctuary Scroll -->
+                <section id="sanctuaryScrollSection">
+                    <div class="section-header">
+                        <h2>&#9998; The Sanctuary Scroll</h2>
+                    </div>
+                    <p class="subtitle">Draft your thoughts throughout the day. Inscribing automatically dispatches the
+                        Ferryman to update your secret cloud vault.</p>
+                    <textarea id="draftPad" class="journal-textarea"
+                        placeholder="Record a surface observation, garden note, or philosophical thread..."></textarea>
+                    <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+                        <button class="btn" id="inscribeBtn">Inscribe to the Ledger</button>
+                        <button class="btn btn-secondary" id="exportScrollBtn"
+                            title="Download Scroll & Hearth transcript as underworld_scroll_export.json">&#9878; Cast into
+                            Mnemosyne</button>
+                    </div>
+
+                    <div class="journal-feed" id="journalFeed"></div>
+                </section>
+
+                <!-- Pillar III: Subterranean Architecture -->
+                <section id="architectureSection">
+                    <div class="section-header">
+                        <h2>&#9881; Subterranean Architecture</h2>
+                    </div>
+                    <p class="subtitle">Expansion backlog for Hades' capabilities and domain infrastructure.</p>
+                    <ul class="roadmap-list" id="roadmapList"></ul>
+                </section>
             </div>
-            <p class="subtitle">Click any square foot or countdown timer to inspect, adjust for pine shade, or consult
-                Hades directly in the Hearth.</p>
+        </div>
 
-            <!-- 1. The Dial of the Descent (Solstice & Daylight Bar) -->
-            <div class="solstice-dial" id="solsticeDial"></div>
-
-            <!-- 2. Filter Tabs & Biological Stage Legend -->
-            <div class="wheel-toolbar">
-                <div class="wheel-tabs">
-                    <button class="wheel-tab active" data-view="all">&#10022; All Sanctuaries</button>
-                    <button class="wheel-tab" data-view="quad">&#8862; 13&times;13 Quad-Bed Matrix (64 sq ft)</button>
-                    <button class="wheel-tab" data-view="alcove">&#9904; Patio, Red Bed, Orchard &amp; Grove</button>
+        <!-- TAB 3: THE LIVING EARTH (THE WHEEL OF DEMETER & PERSEPHONE) -->
+        <div class="pillar-tab-panel" data-pillar-panel="earth">
+            <section class="full-width" id="wheelSection">
+                <div class="section-header">
+                    <h2>&#10048; The Wheel of Demeter &amp; Persephone</h2>
+                    <span style="font-size:0.76rem; color:var(--border-gold); font-family:system-ui,sans-serif; letter-spacing:0.06em; text-transform:uppercase;">
+                        Interactive Sanctuary Grids &bull; Orchard &bull; Mini-Vineyard &bull; Flock &amp; Coop
+                    </span>
                 </div>
-                <div class="stage-legend">
-                    <span class="legend-item"><i class="legend-dot" style="background:var(--stage-emerged);"></i>Emerged</span>
-                    <span class="legend-item"><i class="legend-dot" style="background:var(--stage-germinating);"></i>Germinating</span>
-                    <span class="legend-item"><i class="legend-dot" style="background:var(--stage-indoor);"></i>Indoor Nursery</span>
-                    <span class="legend-item"><i class="legend-dot" style="background:var(--stage-thriving);"></i>Thriving</span>
-                    <span class="legend-item"><i class="legend-dot" style="background:var(--stage-fruiting);"></i>Ripening Fruit</span>
-                    <span class="legend-item"><i class="legend-dot" style="background:var(--stage-shield);"></i>Shield / Buffer</span>
+                <p class="subtitle">Click any square foot, herb, fruit tree, vine, or hen card below to inspect, adjust for pine shade, or consult
+                    Hades directly in the Hearth.</p>
+
+                <!-- 1. The Dial of the Descent (Solstice & Daylight Bar) -->
+                <div class="solstice-dial" id="solsticeDial"></div>
+
+                <!-- 2. Filter Tabs & Biological Stage Legend -->
+                <div class="wheel-toolbar">
+                    <div class="wheel-tabs">
+                        <button class="wheel-tab active" data-view="all">&#10022; All Sanctuaries</button>
+                        <button class="wheel-tab" data-view="quad">&#8862; 13&times;13 Quad-Beds</button>
+                        <button class="wheel-tab" data-view="patio">🌿 Patio &amp; Containers</button>
+                        <button class="wheel-tab" data-view="orchard">🍒 Orchard, Tea &amp; Grove</button>
+                        <button class="wheel-tab" data-view="vineyard">🍇 Mini-Vineyard</button>
+                        <button class="wheel-tab" data-view="flock">🐓 The Flock &amp; Coop</button>
+                    </div>
+                    <div class="stage-legend">
+                        <span class="legend-item"><i class="legend-dot" style="background:var(--stage-emerged);"></i>Emerged</span>
+                        <span class="legend-item"><i class="legend-dot" style="background:var(--stage-germinating);"></i>Germinating</span>
+                        <span class="legend-item"><i class="legend-dot" style="background:var(--stage-indoor);"></i>Indoor Nursery</span>
+                        <span class="legend-item"><i class="legend-dot" style="background:var(--stage-thriving);"></i>Thriving</span>
+                        <span class="legend-item"><i class="legend-dot" style="background:var(--stage-fruiting);"></i>Ripening / Laying</span>
+                        <span class="legend-item"><i class="legend-dot" style="background:var(--stage-shield);"></i>Shield / Care</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- 3. Interactive Square & Timer Inspector Drawer -->
-            <div class="wheel-inspector" id="wheelInspector"></div>
+                <!-- 3. Interactive Square & Timer Inspector Drawer -->
+                <div class="wheel-inspector" id="wheelInspector"></div>
 
-            <!-- 4. The 13x13 Quad-Bed Matrix (Beds 1–4) -->
-            <div id="quadMatrixContainer">
-                <div class="quad-compass-banner">
-                    &#9728; South / House-Facing Front (Full Sun: Beds 1 &amp; 2) &mdash; 24&Prime; Pine-Straw Cross Pathways &mdash; North / Tall Pines Back (Evening Shade: Beds 3 &amp; 4) &#127794;
+                <!-- 4. The 13x13 Quad-Bed Matrix (Beds 1–4) -->
+                <div id="quadMatrixContainer">
+                    <div class="quad-compass-banner">
+                        &#9728; South / House-Facing Front (Full Sun: Beds 1 &amp; 2) &mdash; 24&Prime; Pine-Straw Cross Pathways &mdash; North / Tall Pines Back (Evening Shade: Beds 3 &amp; 4) &#127794;
+                    </div>
+                    <div class="quad-matrix-grid" id="quadMatrixGrid"></div>
                 </div>
-                <div class="quad-matrix-grid" id="quadMatrixGrid"></div>
-            </div>
 
-            <!-- 5. The Patio, Red Bed, Potted Orchard & Estate Perennials -->
-            <div id="alcoveContainer">
-                <div class="quad-compass-banner" style="margin-top:0.5rem;">
-                    &#9904; The Patio Apothecary, 3&times;3 Red Bed, Second-Season Potted Orchard &amp; Estate Perennials
+                <!-- 5. Patio Beds (Unbundled Herbs), 3x3 Red Bed & Container Guilds -->
+                <div id="alcoveContainer">
+                    <div class="quad-compass-banner" style="margin-top:0.5rem;">
+                        🌿 Patio Bed 1 (Unbundled Herbs by Winter Rhythm), Patio Bed 2, 3&times;3 Red Bed &amp; Container Guilds
+                    </div>
+                    <div class="alcove-grid" id="alcoveGrid"></div>
                 </div>
-                <div class="alcove-grid" id="alcoveGrid"></div>
-            </div>
-        </section>
 
-        <!-- FULL-WIDTH: Pillar IV: The Vaults of Plouton (v2.2.0) -->
-        <section class="full-width" id="ploutonSection">
-            <div class="section-header">
-                <h2>&#9878; The Vaults of Plouton</h2>
-                <span style="font-size:0.76rem; color:var(--border-gold); font-family:system-ui,sans-serif; letter-spacing:0.06em; text-transform:uppercase;">
-                    Sovereign Local Forge (Ollama qwen2.5:7b) &bull; Cash-Flow Outlook &amp; Subscription Radar
-                </span>
-            </div>
-            <p class="subtitle">Drop raw CSV statements into <code>C:\Underworld_Workspace\vault_inbox\</code> for private local assay, click any recurring item below to inspect or banish it, or ask Hades to recalibrate the ledger in the Hearth.</p>
-
-            <!-- 1. Burn-Rate & Cash-Flow Header Pillars -->
-            <div class="plouton-metrics-grid" id="ploutonMetricsGrid"></div>
-
-            <!-- 2. 30-Day Cash-Flow Category Distribution Bar -->
-            <div class="cashflow-bar-container" id="ploutonCashflowBar"></div>
-
-            <!-- 3. Filter Tabs & Action Bar -->
-            <div class="wheel-toolbar">
-                <div class="wheel-tabs">
-                    <button class="wheel-tab active" data-plouton-filter="all">&#10022; All Tracked Items</button>
-                    <button class="wheel-tab" data-plouton-filter="active">&#127963; Essential &amp; Active</button>
-                    <button class="wheel-tab" data-plouton-filter="review">&#9878; Under Review</button>
-                    <button class="wheel-tab" data-plouton-filter="banished">&#9876; Banished (Reclaimed Gold)</button>
+                <!-- 6. Second-Season Potted Orchard, Tea Sanctuary & Ancestral Forest Grove -->
+                <div id="orchardContainer">
+                    <div class="quad-compass-banner" style="margin-top:0.5rem;">
+                        🍒 Second-Season Potted Orchard (Barbados Cherry, Dwarf Mulberry, Olive &amp; Figs), Tea Sanctuary &amp; 60–70 Yr Forest Grove
+                    </div>
+                    <div class="alcove-grid" id="orchardGrid"></div>
                 </div>
-                <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-                    <button class="mini-pill" id="calibrateCashFlowBtn">&#9878; Calibrate Cash Flow</button>
-                    <button class="mini-pill" id="addSubscriptionBtn" style="border-color:var(--border-gold); color:var(--border-gold-bright);">+ Inscribe Bill / Subscription</button>
+
+                <!-- 7. The Mini-Vineyard (Magnolia Muscadine Trellis) -->
+                <div id="vineyardContainer">
+                    <div class="quad-compass-banner" style="margin-top:0.5rem;">
+                        🍇 The Mini-Vineyard &mdash; Magnolia Muscadine Trellis &amp; January Vineyard Expansion
+                    </div>
+                    <div class="alcove-grid" id="vineyardGrid"></div>
                 </div>
-            </div>
 
-            <!-- 4. Interactive Plouton Assay Inspector Drawer -->
-            <div class="wheel-inspector" id="ploutonInspector"></div>
+                <!-- 8. The Flock & Coop Sanctuary (Individual Hens & Border Garden) -->
+                <div id="flockContainer">
+                    <div class="quad-compass-banner" style="margin-top:0.5rem;">
+                        🐓 The Flock &amp; Coop Sanctuary &mdash; Chicken-Cake, Poop Butt, Chicken-Bingus, Nugget &amp; Coop Border
+                    </div>
+                    <div class="alcove-grid" id="flockGrid"></div>
+                </div>
+            </section>
+        </div>
 
-            <!-- 5. Subscription & Recurring Bill Radar Grid -->
-            <div class="plouton-radar-grid" id="ploutonRadarGrid"></div>
-        </section>
+        <!-- TAB 4: THE VAULTS OF PLOUTON -->
+        <div class="pillar-tab-panel" data-pillar-panel="vaults">
+            <section class="full-width" id="ploutonSection">
+                <div class="section-header">
+                    <h2>&#9878; The Vaults of Plouton</h2>
+                    <span style="font-size:0.76rem; color:var(--border-gold); font-family:system-ui,sans-serif; letter-spacing:0.06em; text-transform:uppercase;">
+                        Sovereign Local Forge (Ollama qwen2.5:7b) &bull; Cash-Flow Outlook &amp; Subscription Radar
+                    </span>
+                </div>
+                <p class="subtitle">Drop raw CSV or PDF statements into <code>C:\Underworld_Workspace\vault_inbox\</code> and say "Balance the ledgers" for private local assay, click any recurring item below to inspect or banish it, or ask Hades to recalibrate the ledger in the Hearth.</p>
+
+                <!-- 1. Burn-Rate & Cash-Flow Header Pillars -->
+                <div class="plouton-metrics-grid" id="ploutonMetricsGrid"></div>
+
+                <!-- 2. 30-Day Cash-Flow Category Distribution Bar -->
+                <div class="cashflow-bar-container" id="ploutonCashflowBar"></div>
+
+                <!-- 3. Filter Tabs & Action Bar -->
+                <div class="wheel-toolbar">
+                    <div class="wheel-tabs">
+                        <button class="wheel-tab active" data-plouton-filter="all">&#10022; All Tracked Items</button>
+                        <button class="wheel-tab" data-plouton-filter="active">&#127963; Essential &amp; Active</button>
+                        <button class="wheel-tab" data-plouton-filter="review">&#9878; Under Review</button>
+                        <button class="wheel-tab" data-plouton-filter="banished">&#9876; Banished (Reclaimed Gold)</button>
+                    </div>
+                    <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                        <button class="mini-pill" id="calibrateCashFlowBtn">&#9878; Calibrate Cash Flow</button>
+                        <button class="mini-pill" id="addSubscriptionBtn" style="border-color:var(--border-gold); color:var(--border-gold-bright);">+ Inscribe Bill / Subscription</button>
+                    </div>
+                </div>
+
+                <!-- 4. Interactive Plouton Assay Inspector Drawer -->
+                <div class="wheel-inspector" id="ploutonInspector"></div>
+
+                <!-- 5. Subscription & Recurring Bill Radar Grid -->
+                <div class="plouton-radar-grid" id="ploutonRadarGrid"></div>
+            </section>
+        </div>
 
     </div>
 
@@ -1473,7 +1664,7 @@ Key Domain Lore:
 - Cats & Flock: Indoor cats Bingus and Cake ("silly babes" kept strictly indoors and blissfully unaware of the birds outside). Four hens at the coop (bordered by Arabian jasmine & 5 cutting-grown Rabbiteye blueberries): two Ameraucanas laying blue-green eggs named Chicken-Cake and Poop Butt, and two Rhode Island Reds laying brown eggs named Chicken-Bingus and Nugget.`;
 
         const DEFAULT_WHEEL_GARDEN = {
-            schemaRevision: "2.1.7",
+            schemaRevision: "2.3.0",
             frontQuadBeds: [
                 {
                     id: "bed-1",
@@ -1609,9 +1800,83 @@ Key Domain Lore:
                 }
             ],
             containerGuilds: [
+                // --- PATIO & CONTAINERS (group: "patio") ---
                 {
-                    id: "patio-1",
-                    name: "Patio Bed 1 (Right Patio — Herb & Mixed Apothecary)",
+                    id: "patio-1-rosemary",
+                    group: "patio",
+                    name: "Patio Bed 1 — Rosemary (Evergreen Woody Shrub)",
+                    sownDate: "2026-09-26",
+                    solarExposure: "Filtered Patio Sun",
+                    solarMultiplier: 0.85,
+                    nextRiteTitle: "Autumn Culinary Harvest & Woody Stem Check",
+                    targetDate: "2026-11-20",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Hardy Mediterranean evergreen shrub; thrives through Coastal Alabama winters with light watering and well-drained soil.",
+                    contents: "Salvia rosmarinus — evergreen woody perennial anchor in Patio Bed 1 (Right Patio).",
+                    status: "Flourishing; fresh sprigs harvested Nov 1 for the All Saints honey-cinnamon butternut squash feast.",
+                    cells: [
+                        { pos: "Crown", crop: "Evergreen Rosemary Crown", sigil: "🌿", stage: "thriving", detail: "Aromatic woody stems thriving on the right side of the front patio; harvested Nov 1 for All Saints supper." },
+                        { pos: "Rhythm", crop: "Winter Evergreen Rhythm", sigil: "☀️", stage: "shield", detail: "Evergreen woody perennial—maintains active needles all winter in Zone 9a; prefers drier winter roots." }
+                    ]
+                },
+                {
+                    id: "patio-1-oregano",
+                    group: "patio",
+                    name: "Patio Bed 1 — Greek Oregano (Mediterranean Perennial)",
+                    sownDate: "2026-09-26",
+                    solarExposure: "Filtered Patio Sun",
+                    solarMultiplier: 0.85,
+                    nextRiteTitle: "Pinch Trailing Stems to Encourage Dense Mat",
+                    targetDate: "2026-11-18",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Cold-hardy Mediterranean perennial; forms a low, fragrant groundcover mat during cooler months.",
+                    contents: "Origanum vulgare ssp. hirtum — pungent culinary perennial in Patio Bed 1 (Right Patio).",
+                    status: "Sprawling and aromatic; completely unfazed by cooler autumn nights.",
+                    cells: [
+                        { pos: "Mat•1", crop: "Greek Oregano Cluster", sigil: "🌿", stage: "thriving", detail: "Pungent, resinous leaves thriving in filtered right-patio sun." },
+                        { pos: "Rhythm", crop: "Cold-Hardy Perennial", sigil: "🛡️", stage: "shield", detail: "Hugs the soil through winter frosts and flushes vigorously with each warm spell." }
+                    ]
+                },
+                {
+                    id: "patio-1-mint",
+                    group: "patio",
+                    name: "Patio Bed 1 — Sweet Mint (Herbaceous Perennial)",
+                    sownDate: "2026-09-26",
+                    solarExposure: "Filtered Patio Sun",
+                    solarMultiplier: 0.85,
+                    nextRiteTitle: "Harvest Top Sprigs & Monitor Runner Spread",
+                    targetDate: "2026-11-15",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Vigorous herbaceous perennial; top growth slows in deep winter while underground stolons rest and store energy.",
+                    contents: "Mentha spicata / sweet mint — vigorous herbaceous perennial in Patio Bed 1 (Right Patio).",
+                    status: "Lush and fragrant; enjoying the cooler autumn moisture.",
+                    cells: [
+                        { pos: "Canopy", crop: "Sweet Mint Sprigs", sigil: "🍃", stage: "thriving", detail: "Tender aromatic leaves for teas and kitchen garnishes." },
+                        { pos: "Roots", crop: "Overwintering Stolons", sigil: "🌱", stage: "shield", detail: "Herbaceous perennial—if frost nips top leaves, underground runners rebound effortlessly in early spring." }
+                    ]
+                },
+                {
+                    id: "patio-1-basil",
+                    group: "patio",
+                    name: "Patio Bed 1 — Genovese Basil (Warm-Season Annual)",
+                    sownDate: "2026-09-26",
+                    solarExposure: "Filtered Patio Sun",
+                    solarMultiplier: 0.85,
+                    nextRiteTitle: "Harvest Tender Leaves Ahead of First Chilly Snap",
+                    targetDate: "2026-11-10",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Tender warm-season annual; sensitive to nights below 45°F—prioritize harvesting lush leaves before deep November cold fronts.",
+                    contents: "Ocimum basilicum 'Genovese' — warm-season culinary annual in Patio Bed 1 (Right Patio).",
+                    status: "Still holding lush green leaves in the sheltered patio microclimate; watch night temperatures.",
+                    cells: [
+                        { pos: "Crown", crop: "Genovese Sweet Basil", sigil: "🌱", stage: "thriving", detail: "Sweet, clove-scented leaves thriving on the sheltered right patio." },
+                        { pos: "Frost•Watch", crop: "Warm-Season Annual Cycle", sigil: "⏳", stage: "emerged", detail: "Unlike rosemary or oregano, basil will bow out when frost arrives—harvest generously while warm days linger." }
+                    ]
+                },
+                {
+                    id: "patio-1-apothecary",
+                    group: "patio",
+                    name: "Patio Bed 1 — Lemon Balm, Bok Choy & Patio Carrots",
                     sownDate: "2026-09-26",
                     solarExposure: "Filtered Patio Sun",
                     solarMultiplier: 0.85,
@@ -1619,18 +1884,17 @@ Key Domain Lore:
                     targetDate: "2026-11-16",
                     shadeAdjustmentDays: 5,
                     adjustmentNote: "Allowing late-Sept bok choy hearts to swell fully before plucking outer leaves (+5d autumn buffer).",
-                    contents: "Greek oregano, Genovese basil, sweet mint, rosemary, lemon balm, plus late-Sept bok choy & carrot seedlings.",
-                    status: "Herbs flourishing; bok choy and carrots progressing well.",
+                    contents: "Perennial lemon balm alongside late-September bok choy and patio carrot seedlings.",
+                    status: "Lemon balm lush; bok choy and carrots progressing steadily.",
                     cells: [
-                        { pos: "Herb•1", crop: "Rosemary & Greek Oregano", sigil: "🌿", stage: "thriving", detail: "Fresh rosemary harvested for Nov 1 All Saints honey-cinnamon butternut squash." },
-                        { pos: "Herb•2", crop: "Genovese Basil & Sweet Mint", sigil: "🍃", stage: "thriving", detail: "Aromatic kitchen herbs thriving on right side of front patio." },
-                        { pos: "Herb•3", crop: "Lemon Balm", sigil: "🌱", stage: "thriving", detail: "Lush perennial citrus-scented herb." },
+                        { pos: "Herb•3", crop: "Lemon Balm (Melissa officinalis)", sigil: "🌱", stage: "thriving", detail: "Lush perennial citrus-scented apothecary herb." },
                         { pos: "Crop•4", crop: "Late-Sept Bok Choy", sigil: "🥬", stage: "emerged", detail: "Growing well; staying hand until hearts mature further before plucking." },
                         { pos: "Crop•5", crop: "Late-Sept Patio Carrots", sigil: "🥕", stage: "emerged", detail: "Planted late September; progressing steadily alongside the herbs." }
                     ]
                 },
                 {
                     id: "patio-2",
+                    group: "patio",
                     name: "Patio Bed 2 (Left Patio — Pepper & Oregano Bed)",
                     sownDate: "2026-05-15",
                     solarExposure: "Warm Western Patio Sun",
@@ -1649,6 +1913,7 @@ Key Domain Lore:
                 },
                 {
                     id: "red-bed",
+                    group: "patio",
                     name: "3x3 ft 'Red Bed' (Raised Polyculture Sanctuary)",
                     sownDate: "2026-10-13",
                     solarExposure: "Open Autumn Sun",
@@ -1673,6 +1938,7 @@ Key Domain Lore:
                 },
                 {
                     id: "valencia-guild",
+                    group: "patio",
                     name: "24-Inch Valencia Orange Pot Guild",
                     sownDate: "2026-09-26",
                     solarExposure: "Full Patio Sun (Canopy + Understory)",
@@ -1692,6 +1958,7 @@ Key Domain Lore:
                 },
                 {
                     id: "meyer-lemon",
+                    group: "patio",
                     name: "Meyer Lemon Pot (Solo Ripening)",
                     sownDate: "2026-09-26",
                     solarExposure: "Full Sun",
@@ -1709,6 +1976,7 @@ Key Domain Lore:
                 },
                 {
                     id: "carrot-planter",
+                    group: "patio",
                     name: "Small Resilient Carrot Planter & Herb/Lettuce Pots",
                     sownDate: "2026-09-26",
                     solarExposure: "Filtered Sun",
@@ -1725,62 +1993,235 @@ Key Domain Lore:
                         { pos: "Pot•3", crop: "Cilantro & Flat-Leaf Parsley (10\")", sigil: "🌿", stage: "thriving", detail: "Cool-weather culinary herbs in 10-inch pot." }
                     ]
                 },
+
+                // --- POTTED ORCHARD & GROVE (group: "orchard") ---
                 {
-                    id: "potted-orchard",
-                    name: "Second-Season Potted Orchard & Tea Sanctuary",
+                    id: "orchard-barbados-cherry",
+                    group: "orchard",
+                    name: "Barbados Cherry Vessel (2nd-Season Acerola)",
                     sownDate: "2025-04-01",
-                    solarExposure: "Open Sun & Filtered Tea Shade",
-                    solarMultiplier: 1.0,
-                    nextRiteTitle: "Monitor 2 Indoor Tea Camellia Seeds & Spring Tea Flush",
-                    targetDate: "2026-12-15",
+                    solarExposure: "Warm Patio & Orchard Sun",
+                    solarMultiplier: 0.95,
+                    nextRiteTitle: "Protect Tropical Crown if Deep Freeze Threatens",
+                    targetDate: "2026-12-10",
                     shadeAdjustmentDays: 0,
-                    adjustmentNote: "2nd-season potted fruit trees & 2 Camellia sinensis tea bushes resting into autumn; 2 gifted tea seeds planted on trial in the indoor nursery.",
-                    contents: "2nd-Season Pots: 1 European Olive, 1 Barbados Cherry, 1 Dwarf Mulberry, 3 Turkey Figs, 2 Camellia sinensis (tea bushes) + 2 Camellia sinensis seeds in Indoor Nursery.",
-                    status: "Completed their second season in containers with minimal fuss; one Camellia sinensis gifted 2 seeds now planted indoors to test viability.",
+                    adjustmentNote: "Completed its second container season with minimal fuss; tropical acerola appreciates shelter during sharp freezes (<30°F).",
+                    contents: "Malpighia emarginata (Barbados Cherry / Acerola) — 2nd-season fruiting shrub in container.",
+                    status: "Thriving after a strong second summer season; resting comfortably in autumn warmth.",
                     cells: [
-                        { pos: "Pot•1", crop: "European Olive Tree", sigil: "🫒", stage: "thriving", detail: "Second-season potted Olea europaea; silvery evergreen crown thriving with low maintenance." },
-                        { pos: "Pot•2", crop: "Barbados Cherry & Dwarf Mulberry", sigil: "🍒", stage: "thriving", detail: "Second-season potted Barbados cherry (acerola) and dwarf mulberry vessels." },
-                        { pos: "Pot•3–5", crop: "3 Potted Turkey Figs", sigil: "🌳", stage: "thriving", detail: "Three second-season potted Turkey fig trees entering autumn repose." },
-                        { pos: "Tea•1–2", crop: "2 Potted Camellia sinensis", sigil: "🍵", stage: "thriving", detail: "Two second-season tea camellias raised for home-harvested tea; one gifted 2 seeds this season!" },
-                        { pos: "Nursery", crop: "2 Camellia sinensis Seeds", sigil: "🌰", stage: "indoor", detail: "Two home-collected tea camellia seeds planted in the indoor nursery—watching to see if they prove viable and germinate." }
+                        { pos: "Canopy", crop: "Barbados Cherry (Acerola)", sigil: "🍒", stage: "thriving", detail: "Second-season potted acerola shrub; vibrant vitamin-C-rich summer fruit bearer." },
+                        { pos: "Winter•Rite", crop: "Frost Vigil (<30°F)", sigil: "🛡️", stage: "shield", detail: "Container mobility allows tucking near the warm patio wall if a hard Gulf freeze rolls through." }
                     ]
                 },
                 {
-                    id: "coop-trellis",
-                    name: "Muscadine Trellis & The Four Hens' Coop Border",
-                    sownDate: "2025-11-15",
-                    solarExposure: "Full Sun & Coop Edge",
+                    id: "orchard-dwarf-mulberry",
+                    group: "orchard",
+                    name: "Dwarf Mulberry Vessel (2nd-Season Container)",
+                    sownDate: "2025-04-01",
+                    solarExposure: "Open Orchard Sun",
                     solarMultiplier: 1.0,
-                    nextRiteTitle: "Reinforce Muscadine Trellis with Heavy-Gauge Wire",
-                    targetDate: "2027-01-18",
+                    nextRiteTitle: "Late-Winter Structural Shaping Before Spring Budbreak",
+                    targetDate: "2027-01-20",
                     shadeAdjustmentDays: 0,
-                    adjustmentNote: "Magnolia muscadine vine overwhelmed thin trellis wire (repair in Jan dormancy); Coop houses Chicken-Cake & Poop Butt (Ameraucanas) and Chicken-Bingus & Nugget (Rhode Island Reds).",
-                    contents: "Magnolia muscadine vine on trellis + Chicken Coop (Chicken-Cake, Poop Butt, Chicken-Bingus & Nugget) bordered by 1 Arabian Jasmine & 5 cutting-grown native Rabbiteye Blueberries.",
-                    status: "Muscadine thriving; Chicken-Cake & Poop Butt (blue-green eggs) and Chicken-Bingus & Nugget (brown eggs) keeping watch over the Arabian jasmine & 5 Rabbiteye blueberries.",
+                    adjustmentNote: "Second-season potted dwarf mulberry entering autumn/winter dormancy; tip-pruning in late winter stimulates prolific spring berries.",
+                    contents: "Morus nigra / Dwarf Everbearing Mulberry — 2nd-season container fruit tree.",
+                    status: "Completed second season effortlessly; transitioning into natural late-autumn leaf drop.",
                     cells: [
-                        { pos: "Trellis", crop: "Magnolia Muscadine Vine", sigil: "🍇", stage: "thriving", detail: "In ground since late 2025; vigorous vines outmuscled the thin trellis wire—slated for winter trellis reinforcement." },
-                        { pos: "Coop•1", crop: "Arabian Jasmine", sigil: "🌼", stage: "thriving", detail: "Fragrant Jasminum sambac anchored in the garden bed border around the chicken coop." },
-                        { pos: "Coop•2–6", crop: "5 Native Rabbiteye Blueberries", sigil: "🫐", stage: "thriving", detail: "Five native Rabbiteye blueberry plants propagated from cuttings last year and thriving along the chicken coop border." },
-                        { pos: "Ameraucanas", crop: "Chicken-Cake & Poop Butt", sigil: "🥚", stage: "fruiting", detail: "Two Ameraucana hens laying blue-green eggs (Chicken-Cake is named after the household cat, Cake!)." },
-                        { pos: "Rhode Islands", crop: "Chicken-Bingus & Nugget", sigil: "🐓", stage: "fruiting", detail: "Two Rhode Island Red hens laying classic brown eggs (Chicken-Bingus is named after the household cat, Bingus!)." }
+                        { pos: "Crown", crop: "Dwarf Mulberry Tree", sigil: "🌳", stage: "thriving", detail: "Resilient second-season potted mulberry; low-fuss producer." },
+                        { pos: "Dormancy", crop: "Winter Rest & Jan Tip-Prune", sigil: "✂️", stage: "shield", detail: "Fruiting occurs on new spring wood; light January shaping keeps the container canopy compact." }
+                    ]
+                },
+                {
+                    id: "orchard-olive",
+                    group: "orchard",
+                    name: "European Olive Vessel (2nd-Season Olea europaea)",
+                    sownDate: "2025-04-01",
+                    solarExposure: "Full Sun & Dry Root Zone",
+                    solarMultiplier: 1.0,
+                    nextRiteTitle: "Winter Chill Accumulation & Sparse Watering",
+                    targetDate: "2026-12-21",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Silvery evergreen crown loves cool Zone 9a winter chill hours while keeping roots on the dry side.",
+                    contents: "Olea europaea — 2nd-season potted European olive tree.",
+                    status: "Silvery-green evergreen foliage thriving with virtually zero fuss.",
+                    cells: [
+                        { pos: "Canopy", crop: "European Olive (Olea europaea)", sigil: "🫒", stage: "thriving", detail: "Second-season potted olive; architectural silvery leaves gleaming in the autumn light." },
+                        { pos: "Roots", crop: "Mediterranean Drainage", sigil: "🏺", stage: "shield", detail: "Thrives on neglect and crisp winter air to set spring blossoms." }
+                    ]
+                },
+                {
+                    id: "orchard-potted-figs",
+                    group: "orchard",
+                    name: "3 Potted Turkey Figs (2nd-Season Vessels)",
+                    sownDate: "2025-04-01",
+                    solarExposure: "Open Orchard Sun",
+                    solarMultiplier: 1.0,
+                    nextRiteTitle: "Autumn Leaf Drop & Winter Dormant Rest",
+                    targetDate: "2026-12-05",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Three second-season potted Brown Turkey figs settling into winter repose after a smooth growing year.",
+                    contents: "3 Ficus carica 'Brown Turkey' trees in individual containers.",
+                    status: "Healthy woody branches hardening off for winter dormancy.",
+                    cells: [
+                        { pos: "Pot•1", crop: "Potted Turkey Fig #1", sigil: "🌳", stage: "thriving", detail: "Second-season container fig entering autumn repose." },
+                        { pos: "Pot•2", crop: "Potted Turkey Fig #2", sigil: "🌳", stage: "thriving", detail: "Second-season container fig; strong root crown." },
+                        { pos: "Pot•3", crop: "Potted Turkey Fig #3", sigil: "🌳", stage: "thriving", detail: "Second-season container fig; minimal winter watering needed once leaves drop." }
+                    ]
+                },
+                {
+                    id: "tea-sanctuary",
+                    group: "orchard",
+                    name: "Tea Camellia Sanctuary & Indoor Seed Trial (Camellia sinensis)",
+                    sownDate: "2025-04-01",
+                    solarExposure: "Filtered Dappled Shade",
+                    solarMultiplier: 0.9,
+                    nextRiteTitle: "Monitor 2 Indoor Tea Camellia Seeds & Spring Flush",
+                    targetDate: "2026-12-15",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "2 potted Camellia sinensis bushes resting in dappled shade; 2 home-collected tea seeds planted in the indoor nursery to test viability.",
+                    contents: "2 second-season potted Camellia sinensis tea bushes + 2 home-harvested tea seeds in the Indoor Nursery.",
+                    status: "Both evergreen tea bushes thriving; one gifted 2 round seeds this autumn now planted indoors!",
+                    cells: [
+                        { pos: "Tea•1", crop: "Camellia sinensis Bush #1", sigil: "🍵", stage: "thriving", detail: "Second-season evergreen tea bush raised for home-harvested leaf flushes." },
+                        { pos: "Tea•2", crop: "Camellia sinensis Bush #2 (Seed-Bearer)", sigil: "🍵", stage: "thriving", detail: "Gifted 2 mature tea seeds at the close of its second season!" },
+                        { pos: "Nursery•1–2", crop: "2 Home-Collected Tea Seeds", sigil: "🌰", stage: "indoor", detail: "Sown indoors in the nursery tray to test germination of hard-coated Camellia sinensis seeds." }
                     ]
                 },
                 {
                     id: "ancestral-grove",
-                    name: "60–70 Yr Forest Blueberry Grove & Front-Yard Figs",
+                    group: "orchard",
+                    name: "60–70 Yr Forest Blueberry Grove & 2 Front-Yard Figs",
                     sownDate: "1960-03-01",
                     solarExposure: "Forest Canopy & Front Yard Sun",
                     solarMultiplier: 0.85,
                     nextRiteTitle: "Optional Dormant Rejuvenation Pruning (9–12 ft Blueberries)",
                     targetDate: "2027-01-25",
                     shadeAdjustmentDays: 0,
-                    adjustmentNote: "Ancient 60–70 yr forest blueberries stand 9–12 ft tall; heading back 1/3 of the oldest canes in Jan/Feb dormancy brings fruit back within reach.",
-                    contents: "Forest Grove of 60–70 year old blueberry bushes (9–12 ft tall, harvested annually) + 2 self-reliant in-ground Turkey Figs in the front yard.",
+                    adjustmentNote: "Ancient 60–70 yr forest blueberries stand 9–12 ft tall; heading back 1–2 of the oldest canes in Jan/Feb dormancy brings fruit back within reach.",
+                    contents: "Forest Grove of 60–70 year old heirloom blueberry bushes (9–12 ft tall, harvested annually) + 2 self-reliant in-ground Turkey Figs in the front yard.",
                     status: "Ancient forest blueberry grove produces annually at 9–12 ft height; 2 front-yard in-ground Turkey figs thrive on their own devices.",
                     cells: [
                         { pos: "Forest•1", crop: "60–70 Yr Blueberry Grove (9–12 ft)", sigil: "🫐", stage: "thriving", detail: "Ancient heirloom forest blueberry bushes harvested annually; towering 9–12 ft canes make upper berries hard to reach." },
                         { pos: "Forest•2", crop: "Winter Rejuvenation Rite", sigil: "✂️", stage: "shield", detail: "Optional late-winter dormant care: prune 1–2 of the oldest 12 ft canes per bush per year so fresh fruiting wood sprouts at eye level." },
                         { pos: "Front•1–2", crop: "2 In-Ground Front Turkey Figs", sigil: "🌳", stage: "thriving", detail: "Two established Turkey fig trees in the front yard, thriving independently." }
+                    ]
+                },
+
+                // --- THE MINI-VINEYARD (group: "vineyard") ---
+                {
+                    id: "vineyard-magnolia-muscadine",
+                    group: "vineyard",
+                    name: "Magnolia Muscadine Trellis (Mini-Vineyard Anchor)",
+                    sownDate: "2025-11-15",
+                    solarExposure: "Full Southern Vineyard Sun",
+                    solarMultiplier: 1.0,
+                    nextRiteTitle: "Reinforce Trellis with Heavy-Gauge Wire & Plan Jan Expansion",
+                    targetDate: "2027-01-18",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Planted late 2025; vigorous Magnolia bronze muscadine vines outmuscled the initial thin trellis wire. Slated for heavy-gauge tensioned wire & vineyard expansion in January dormancy.",
+                    contents: "Vitis rotundifolia 'Magnolia' (Self-Fertile Bronze Muscadine) on trellis — inaugural anchor of the Mini-Vineyard.",
+                    status: "Vigorous canes established since late 2025; awaiting January dormant pruning, heavy-gauge wire upgrade, and companion vine additions.",
+                    cells: [
+                        { pos: "Cordon•1", crop: "Magnolia Bronze Muscadine", sigil: "🍇", stage: "thriving", detail: "In ground since late 2025; vigorous native Southern muscadine cultivar prized for sweet bronze fruit." },
+                        { pos: "Trellis•Rite", crop: "Heavy-Gauge Wire Upgrade (Jan)", sigil: "🛠️", stage: "shield", detail: "Current thin wire bowed under the vine's strength; upgrade to 9–12 gauge high-tensile wire with turnbuckles during January dormancy." },
+                        { pos: "Expansion", crop: "January Mini-Vineyard Expansion", sigil: "🌱", stage: "germinating", detail: "Dedicated space reserved to expand the trellis run and welcome new muscadine cultivars this winter." }
+                    ]
+                },
+
+                // --- THE FLOCK & COOP SANCTUARY (group: "flock") ---
+                {
+                    id: "hen-chicken-cake",
+                    group: "flock",
+                    name: "Chicken-Cake (Ameraucana Hen • Blue-Green Eggs)",
+                    sownDate: "2025-03-15",
+                    solarExposure: "Coop & Shaded Run",
+                    solarMultiplier: 1.0,
+                    nextRiteTitle: "Autumn Laying & Winter Feather Conditioning",
+                    targetDate: "2026-11-15",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Named in honor of indoor household cat Cake! Ameraucana layers naturally pace down slightly as autumn daylight dips toward 10h 30m.",
+                    contents: "Ameraucana hen (bearded/muffed blue-green egg layer) — namesake of indoor feline Cake.",
+                    status: "Healthy, alert, and keeping watch over the coop border garden alongside her sister Ameraucana, Poop Butt.",
+                    cells: [
+                        { pos: "Hen•1", crop: "Chicken-Cake (Ameraucana)", sigil: "🐓", stage: "fruiting", detail: "Named after indoor cat Cake; spirited Ameraucana hen." },
+                        { pos: "Nest•Box", crop: "Sky-Blue / Sea-Green Eggs", sigil: "🥚", stage: "fruiting", detail: "Signature pastel blue-green Ameraucana eggs." },
+                        { pos: "Lore", crop: "Namesake of Indoor Cat Cake", sigil: "🐈", stage: "thriving", detail: "While feline Cake stays blissfully indoors unaware of the birds, Chicken-Cake rules the outdoor roost." }
+                    ]
+                },
+                {
+                    id: "hen-poop-butt",
+                    group: "flock",
+                    name: "Poop Butt (Ameraucana Hen • Blue-Green Eggs)",
+                    sownDate: "2025-03-15",
+                    solarExposure: "Coop & Shaded Run",
+                    solarMultiplier: 1.0,
+                    nextRiteTitle: "Fluff Check & Autumn Nesting Refresh",
+                    targetDate: "2026-11-15",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Second Ameraucana of the flock; thick down feathers sometimes call for a tidy vent-fluff check as cooler weather settles in.",
+                    contents: "Ameraucana hen (blue-green egg layer) — companion to Chicken-Cake.",
+                    status: "Thriving and foraging happily along the jasmine-bordered coop run.",
+                    cells: [
+                        { pos: "Hen•2", crop: "Poop Butt (Ameraucana)", sigil: "🐓", stage: "fruiting", detail: "Affectionately dubbed Ameraucana hen with abundant fluffy plumage." },
+                        { pos: "Nest•Box", crop: "Pastel Blue-Green Eggs", sigil: "🥚", stage: "fruiting", detail: "Contributes pastel blue-green eggs to the household basket." },
+                        { pos: "Care", crop: "Autumn Plumage & Grit Check", sigil: "🌾", stage: "shield", detail: "Fresh bedding, oyster shell calcium, and autumn greens keep the flock in prime feather." }
+                    ]
+                },
+                {
+                    id: "hen-chicken-bingus",
+                    group: "flock",
+                    name: "Chicken-Bingus (Rhode Island Red • Brown Eggs)",
+                    sownDate: "2025-03-15",
+                    solarExposure: "Coop & Shaded Run",
+                    solarMultiplier: 1.0,
+                    nextRiteTitle: "Steady Autumn Brown-Egg Laying",
+                    targetDate: "2026-11-15",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Named in honor of indoor household cat Bingus! Heritage Rhode Island Reds are stalwart, cold-hardy autumn/winter layers.",
+                    contents: "Rhode Island Red hen (classic rich brown egg layer) — namesake of indoor feline Bingus.",
+                    status: "Glossy mahogany feathers and dependable laying cadence through the cooler autumn days.",
+                    cells: [
+                        { pos: "Hen•3", crop: "Chicken-Bingus (Rhode Island Red)", sigil: "🐓", stage: "fruiting", detail: "Named after indoor cat Bingus; bold, curious Rhode Island Red hen." },
+                        { pos: "Nest•Box", crop: "Classic Rich Brown Eggs", sigil: "🥚", stage: "fruiting", detail: "Reliable brown-egg layer even as autumn days shorten." },
+                        { pos: "Lore", crop: "Namesake of Indoor Cat Bingus", sigil: "🐈", stage: "thriving", detail: "Carries the banner of indoor feline Bingus out in the garden sanctuary." }
+                    ]
+                },
+                {
+                    id: "hen-nugget",
+                    group: "flock",
+                    name: "Nugget (Rhode Island Red • Brown Eggs)",
+                    sownDate: "2025-03-15",
+                    solarExposure: "Coop & Shaded Run",
+                    solarMultiplier: 1.0,
+                    nextRiteTitle: "Autumn Foraging & Roost Check",
+                    targetDate: "2026-11-15",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Second Rhode Island Red of the flock; hardy, inquisitive, and a steady partner to Chicken-Bingus.",
+                    contents: "Rhode Island Red hen (classic brown egg layer) — fourth member of the coop quartet.",
+                    status: "Scratching contentedly and laying rich brown eggs alongside Chicken-Bingus.",
+                    cells: [
+                        { pos: "Hen•4", crop: "Nugget (Rhode Island Red)", sigil: "🐓", stage: "fruiting", detail: "Sturdy mahogany-feathered Rhode Island Red hen." },
+                        { pos: "Nest•Box", crop: "Warm Brown Eggs", sigil: "🥚", stage: "fruiting", detail: "Rounds out the quartet's two-tone blue-green & brown egg harvest." },
+                        { pos: "Flock•Bond", crop: "Coop Quartet Anchor", sigil: "🛡️", stage: "shield", detail: "Part of the tight-knit four-hen flock with Chicken-Cake, Poop Butt, and Chicken-Bingus." }
+                    ]
+                },
+                {
+                    id: "coop-border-garden",
+                    group: "flock",
+                    name: "Coop Border Sanctuary (Arabian Jasmine & 5 Rabbiteye Blueberries)",
+                    sownDate: "2025-05-01",
+                    solarExposure: "Coop Edge Sun & Dappled Shade",
+                    solarMultiplier: 0.9,
+                    nextRiteTitle: "Mulch 5 Cutting-Grown Rabbiteye Blueberries for Winter",
+                    targetDate: "2026-12-01",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Five native Rabbiteye blueberries propagated from cuttings last year frame the coop alongside fragrant Arabian jasmine.",
+                    contents: "1 Arabian Jasmine (Jasminum sambac) & 5 cutting-grown native Rabbiteye Blueberry bushes bordering the chicken coop.",
+                    status: "All 5 cutting-grown Rabbiteye blueberries and the Arabian jasmine are thriving along the coop perimeter.",
+                    cells: [
+                        { pos: "Coop•1", crop: "Arabian Jasmine (Jasminum sambac)", sigil: "🌼", stage: "thriving", detail: "Fragrant evergreen/semi-evergreen jasmine perfuming the chicken coop border." },
+                        { pos: "Coop•2–6", crop: "5 Cutting-Grown Rabbiteye Blueberries", sigil: "🫐", stage: "thriving", detail: "Five native Rabbiteye blueberry bushes successfully propagated from cuttings last year!" },
+                        { pos: "Soil•Rite", crop: "Pine-Straw Acidic Mulch", sigil: "🍂", stage: "shield", detail: "Acidic pine-straw mulch keeps the young blueberry root zones cool and moist." }
                     ]
                 }
             ]
@@ -1806,8 +2247,8 @@ Key Domain Lore:
         };
 
         const FALLBACK_DATA = {
-            version: "2.2.0",
-            lastUpdated: "2026-11-02",
+            version: "2.3.0",
+            lastUpdated: "2026-11-03",
             hadesPersona: DEFAULT_HADES_PERSONA,
             journal: { entries: [] },
             garden: DEFAULT_WHEEL_GARDEN,
@@ -1815,10 +2256,10 @@ Key Domain Lore:
             roadmap: []
         };
 
-        // Ensures older Gist payloads without 4x4 `cells` or `vaults` are seamlessly upgraded
+        // Ensures older Gist payloads without 4x4 `cells`, `vaults`, or `2.3.0` unbundled guilds/UTF-8 sigils are seamlessly upgraded
         function upgradeGardenSchema(dataObj) {
             if (!dataObj.garden) dataObj.garden = JSON.parse(JSON.stringify(DEFAULT_WHEEL_GARDEN));
-            const needsCellRefresh = dataObj.garden.schemaRevision !== "2.1.7";
+            const needsCellRefresh = dataObj.garden.schemaRevision !== "2.3.0";
 
             const defaultQuadMap = {};
             DEFAULT_WHEEL_GARDEN.frontQuadBeds.forEach(b => { defaultQuadMap[b.id] = b; });
@@ -1838,10 +2279,22 @@ Key Domain Lore:
                             cells: JSON.parse(JSON.stringify(fallback.cells || []))
                         };
                     }
+                    const cleanCells = (Array.isArray(b.cells) && b.cells.length > 0)
+                        ? b.cells.map((c, cIdx) => {
+                            const fbCell = (fallback.cells && fallback.cells[cIdx]) ? fallback.cells[cIdx] : {};
+                            return {
+                                ...fbCell,
+                                ...c,
+                                sigil: (!c.sigil || c.sigil.includes('?')) ? (fbCell.sigil || '🌱') : c.sigil,
+                                pos: (c.pos && c.pos.includes('?')) ? (fbCell.pos || c.pos.replace(/\?/g, '•')) : c.pos,
+                                detail: (c.detail && c.detail.includes('?')) ? (fbCell.detail || c.detail) : c.detail
+                            };
+                        })
+                        : JSON.parse(JSON.stringify(fallback.cells || []));
                     return {
                         ...fallback,
                         ...b,
-                        cells: (Array.isArray(b.cells) && b.cells.length > 0) ? b.cells : JSON.parse(JSON.stringify(fallback.cells || []))
+                        cells: cleanCells
                     };
                 });
             }
@@ -1861,21 +2314,35 @@ Key Domain Lore:
                             ...g,
                             ...fallback,
                             id: fallback.id,
+                            group: fallback.group,
                             targetDate: g.targetDate || fallback.targetDate,
                             shadeAdjustmentDays: typeof g.shadeAdjustmentDays === 'number' ? g.shadeAdjustmentDays : fallback.shadeAdjustmentDays,
                             solarMultiplier: typeof g.solarMultiplier === 'number' ? g.solarMultiplier : fallback.solarMultiplier,
                             cells: JSON.parse(JSON.stringify(fallback.cells || []))
                         };
                     }
+                    const cleanCells = (Array.isArray(g.cells) && g.cells.length > 0)
+                        ? g.cells.map((c, cIdx) => {
+                            const fbCell = (fallback.cells && fallback.cells[cIdx]) ? fallback.cells[cIdx] : {};
+                            return {
+                                ...fbCell,
+                                ...c,
+                                sigil: (!c.sigil || c.sigil.includes('?')) ? (fbCell.sigil || '🌱') : c.sigil,
+                                pos: (c.pos && c.pos.includes('?')) ? (fbCell.pos || c.pos.replace(/\?/g, '•')) : c.pos,
+                                detail: (c.detail && c.detail.includes('?')) ? (fbCell.detail || c.detail) : c.detail
+                            };
+                        })
+                        : JSON.parse(JSON.stringify(fallback.cells || []));
                     return {
                         ...fallback,
                         ...g,
                         id: g.id || fallback.id || `vessel-${idx + 1}`,
-                        cells: (Array.isArray(g.cells) && g.cells.length > 0) ? g.cells : JSON.parse(JSON.stringify(fallback.cells || []))
+                        group: fallback.group || g.group || 'patio',
+                        cells: cleanCells
                     };
                 });
             }
-            dataObj.garden.schemaRevision = "2.1.7";
+            dataObj.garden.schemaRevision = "2.3.0";
 
             // Upgrade or initialize The Vaults of Plouton (v2.2.0)
             if (!dataObj.vaults) {
@@ -1920,6 +2387,45 @@ Key Domain Lore:
             const quadMatrixGrid = document.getElementById('quadMatrixGrid');
             const alcoveContainer = document.getElementById('alcoveContainer');
             const alcoveGrid = document.getElementById('alcoveGrid');
+            const orchardContainer = document.getElementById('orchardContainer');
+            const orchardGrid = document.getElementById('orchardGrid');
+            const vineyardContainer = document.getElementById('vineyardContainer');
+            const vineyardGrid = document.getElementById('vineyardGrid');
+            const flockContainer = document.getElementById('flockContainer');
+            const flockGrid = document.getElementById('flockGrid');
+
+            // --- FOUR-PILLAR TAB NAVIGATION & PERSISTENCE (v2.3.0) ---
+            function switchPillarTab(tabName, scrollToTop = false) {
+                const validTabs = ['hearth', 'sanctuary', 'earth', 'vaults'];
+                const targetTab = validTabs.includes(tabName) ? tabName : 'hearth';
+
+                document.querySelectorAll('.pillar-nav-btn[data-pillar-tab]').forEach(btn => {
+                    const isMatch = btn.getAttribute('data-pillar-tab') === targetTab;
+                    btn.classList.toggle('active', isMatch);
+                    btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+                });
+
+                document.querySelectorAll('.pillar-tab-panel[data-pillar-panel]').forEach(panel => {
+                    const isMatch = panel.getAttribute('data-pillar-panel') === targetTab;
+                    panel.classList.toggle('active', isMatch);
+                });
+
+                localStorage.setItem('underworld_active_pillar_tab', targetTab);
+                if (scrollToTop) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+
+            document.querySelectorAll('.pillar-nav-btn[data-pillar-tab]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    switchPillarTab(btn.getAttribute('data-pillar-tab'), true);
+                });
+            });
+
+            const savedPillarTab = localStorage.getItem('underworld_active_pillar_tab');
+            if (savedPillarTab) {
+                switchPillarTab(savedPillarTab, false);
+            }
 
             const ploutonMetricsGrid = document.getElementById('ploutonMetricsGrid');
             const ploutonCashflowBar = document.getElementById('ploutonCashflowBar');
@@ -2012,7 +2518,7 @@ Key Domain Lore:
                 setFerrymanState('syncing', 'Ferryman: Inscribing to Cloud...');
                 try {
                     const payloadToSave = {
-                        version: "2.2.0",
+                        version: "2.3.0",
                         lastUpdated: new Date().toISOString().split('T')[0],
                         hadesPersona: data.hadesPersona,
                         journal: data.journal,
@@ -2218,9 +2724,33 @@ Key Domain Lore:
                     .map(bed => buildBedCardHtml(bed, true))
                     .join('');
 
-                alcoveGrid.innerHTML = (data.garden?.containerGuilds || [])
+                const guilds = data.garden?.containerGuilds || [];
+                const patioGuilds = guilds.filter(g => !g.group || g.group === 'patio');
+                const orchardGuilds = guilds.filter(g => g.group === 'orchard');
+                const vineyardGuilds = guilds.filter(g => g.group === 'vineyard');
+                const flockGuilds = guilds.filter(g => g.group === 'flock');
+
+                alcoveGrid.innerHTML = patioGuilds
                     .map(vessel => buildBedCardHtml(vessel, false))
                     .join('');
+
+                if (orchardGrid) {
+                    orchardGrid.innerHTML = orchardGuilds
+                        .map(vessel => buildBedCardHtml(vessel, false))
+                        .join('');
+                }
+
+                if (vineyardGrid) {
+                    vineyardGrid.innerHTML = vineyardGuilds
+                        .map(vessel => buildBedCardHtml(vessel, false))
+                        .join('');
+                }
+
+                if (flockGrid) {
+                    flockGrid.innerHTML = flockGuilds
+                        .map(vessel => buildBedCardHtml(vessel, false))
+                        .join('');
+                }
 
                 // Attach click listeners for square-foot cells
                 document.querySelectorAll('.sqft-cell').forEach(cellEl => {
@@ -2410,10 +2940,11 @@ Key Domain Lore:
                 });
 
                 document.getElementById('consultHadesBedBtn').addEventListener('click', () => {
-                    const promptText = `Hades, let's look at ${bed.name} (${bed.crop}). Right now its solar cadence is set to "${bed.solarExposure}" (${bed.solarMultiplier}x pace) with "${bed.nextRiteTitle}" targeted for ${bed.targetDate}. Given how much shade it's getting right now, how should we adjust its countdown timer?`;
+                    const promptText = `Hades, let's look at ${bed.name} (${bed.crop || bed.contents}). Right now its solar cadence is set to "${bed.solarExposure}" (${bed.solarMultiplier}x pace) with "${bed.nextRiteTitle}" targeted for ${bed.targetDate}. Given how much shade it's getting right now, how should we adjust its countdown timer?`;
                     const chatInput = document.getElementById('chatInput');
                     chatInput.value = promptText;
-                    document.getElementById('hearthSection').scrollIntoView({ behavior: 'smooth' });
+                    localStorage.setItem('underworld_chat_draft', promptText);
+                    switchPillarTab('hearth', true);
                     chatInput.focus();
                 });
             }
@@ -2662,8 +3193,10 @@ Key Domain Lore:
                             ploutonInspector.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                         } else if (act === 'consult-assayer') {
                             const chatInput = document.getElementById('chatInput');
-                            chatInput.value = `Hades, survey The Vaults of Plouton—review our cash-flow outlook, upcoming recurring bills, and banished subscriptions, and tell me where our stewardship stands.`;
-                            document.getElementById('hearthSection').scrollIntoView({ behavior: 'smooth' });
+                            const promptText = `Hades, survey The Vaults of Plouton—review our cash-flow outlook, upcoming recurring bills, and banished subscriptions, and tell me where our stewardship stands.`;
+                            chatInput.value = promptText;
+                            localStorage.setItem('underworld_chat_draft', promptText);
+                            switchPillarTab('hearth', true);
                             chatInput.focus();
                         }
                     });
@@ -2878,8 +3411,10 @@ Key Domain Lore:
                 if (consultBtn) {
                     consultBtn.addEventListener('click', () => {
                         const chatInput = document.getElementById('chatInput');
-                        chatInput.value = `Hades, let's look at "${sub.vendor}" ($${sub.amount}/${sub.cadence}, currently marked "${sub.status}", next draft ${sub.nextDraftDate}). How should we handle this in The Vaults of Plouton?`;
-                        document.getElementById('hearthSection').scrollIntoView({ behavior: 'smooth' });
+                        const promptText = `Hades, let's look at "${sub.vendor}" ($${sub.amount}/${sub.cadence}, currently marked "${sub.status}", next draft ${sub.nextDraftDate}). How should we handle this in The Vaults of Plouton?`;
+                        chatInput.value = promptText;
+                        localStorage.setItem('underworld_chat_draft', promptText);
+                        switchPillarTab('hearth', true);
                         chatInput.focus();
                     });
                 }
@@ -2905,14 +3440,17 @@ Key Domain Lore:
                 renderPloutonInspector();
             });
 
-            // Tab switching for All / Quad / Alcove
+            // Tab switching for The Living Earth (All / Quad / Patio / Orchard / Vineyard / Flock)
             document.querySelectorAll('.wheel-tab[data-view]').forEach(tab => {
                 tab.addEventListener('click', () => {
                     document.querySelectorAll('.wheel-tab[data-view]').forEach(t => t.classList.remove('active'));
                     tab.classList.add('active');
                     const view = tab.getAttribute('data-view');
                     quadMatrixContainer.style.display = (view === 'all' || view === 'quad') ? 'block' : 'none';
-                    alcoveContainer.style.display = (view === 'all' || view === 'alcove') ? 'block' : 'none';
+                    alcoveContainer.style.display = (view === 'all' || view === 'patio' || view === 'alcove') ? 'block' : 'none';
+                    if (orchardContainer) orchardContainer.style.display = (view === 'all' || view === 'orchard') ? 'block' : 'none';
+                    if (vineyardContainer) vineyardContainer.style.display = (view === 'all' || view === 'vineyard') ? 'block' : 'none';
+                    if (flockContainer) flockContainer.style.display = (view === 'all' || view === 'flock') ? 'block' : 'none';
                 });
             });
 
@@ -3039,13 +3577,20 @@ Key Domain Lore:
             const riteBadge = document.getElementById('riteBadge');
             const clearChatBtn = document.getElementById('clearChatBtn');
 
+            // Persist half-typed Hearth messages across tab switches and reloads
+            const savedChatDraft = localStorage.getItem('underworld_chat_draft');
+            if (savedChatDraft) chatInput.value = savedChatDraft;
+            chatInput.addEventListener('input', () => {
+                localStorage.setItem('underworld_chat_draft', chatInput.value);
+            });
+
             let conversationHistory = [];
 
             function renderDefaultGreeting() {
                 chatStream.innerHTML = `
                     <div class="msg hades">
                         <span class="msg-sender">Hades &bull; Keeper of the Threshold</span>
-                        The torches along the obsidian gallery are lit, Persephone. <strong>The Wheel of Demeter &amp; Persephone</strong> and <strong>The Vaults of Plouton</strong> stand ready below. Speak <em>"Hello, Underworld"</em> whenever you wish to perform the Opening Rites, or ask me to recalibrate any garden timer or subscription in the Ledger.
+                        The torches along the obsidian gallery are lit, Persephone. Our sanctuary now stands across four dedicated chambers above: <strong>🔥 The Hearth</strong>, <strong>📜 The Sanctuary</strong>, <strong>🌿 The Living Earth</strong>, and <strong>🏛️ Vaults of Plouton</strong>. Speak <em>"Hello, Underworld"</em> whenever you wish to perform the Opening Rites, or ask me to recalibrate any garden timer or subscription in the Ledger.
                     </div>
                 `;
             }
@@ -3222,7 +3767,7 @@ Today's Date: ${todayIso}.
   ]
 }
 </wheel-rite>
-Valid bed IDs: "bed-1", "bed-2", "bed-3", "bed-4", "patio-1", "patio-2", "red-bed", "valencia-guild", "meyer-lemon", "carrot-planter", "potted-orchard", "coop-trellis", "ancestral-grove".
+Valid bed IDs: "bed-1", "bed-2", "bed-3", "bed-4", "patio-1-rosemary", "patio-1-oregano", "patio-1-mint", "patio-1-basil", "patio-1-apothecary", "patio-2", "red-bed", "valencia-guild", "meyer-lemon", "carrot-planter", "orchard-barbados-cherry", "orchard-dwarf-mulberry", "orchard-olive", "orchard-potted-figs", "tea-sanctuary", "ancestral-grove", "vineyard-magnolia-muscadine", "hen-chicken-cake", "hen-poop-butt", "hen-chicken-bingus", "hen-nugget", "coop-border-garden".
 
 2. THE VAULTS OF PLOUTON (<plouton-rite>): Whenever Persephone asks to update, add, audit, or banish a subscription/bill, or adjust 30-day cash flow figures, respond in your warm Counsel Mode voice first, AND at the end of your message append:
 <plouton-rite>
@@ -3255,6 +3800,7 @@ Valid subscription statuses: "essential", "active", "review", "banished". Only e
 
                 appendMessage('user', text);
                 chatInput.value = '';
+                localStorage.removeItem('underworld_chat_draft');
 
                 const apiKey = localStorage.getItem('underworld_gemini_key');
                 const modelName = (localStorage.getItem('underworld_gemini_model') || 'gemini-3.8-flash').replace(/^models\//, '');
