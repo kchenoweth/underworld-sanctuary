@@ -1,0 +1,9 @@
+# Private local data & scripts (never pushed to public GitHub Pages repo)
+dashboard_data.json
+dashboard_data.js
+underworld_scroll_export.json
+ferryman_sync.py
+plouton_ingest.py
+.env
+__pycache__/
+*.pyc

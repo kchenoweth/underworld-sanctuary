@@ -9,7 +9,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="The Underworld">
     <title>The Underworld Command Center</title>
-    <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="pomegranate_source.png">
     <link rel="apple-touch-icon" href="pomegranate_source.png">
     <link rel="icon" type="image/svg+xml"
@@ -29,6 +28,12 @@
             --accent-pomegranate: #6e141d;
             --accent-pomegranate-bright: #9e222f;
             --gold-glow: rgba(201, 164, 92, 0.16);
+            --stage-emerged: #52946b;
+            --stage-germinating: #b8863b;
+            --stage-indoor: #8765b8;
+            --stage-thriving: #c9a45c;
+            --stage-fruiting: #c93b4b;
+            --stage-shield: #7a4955;
         }
 
         * {
@@ -286,6 +291,18 @@
             text-align: right;
         }
 
+        .rite-seal-notice {
+            margin-top: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            background: rgba(201, 164, 92, 0.14);
+            border: 1px solid var(--border-gold);
+            border-radius: 4px;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.76rem;
+            color: var(--border-gold-bright);
+            letter-spacing: 0.04em;
+        }
+
         .rite-bar {
             display: flex;
             gap: 0.5rem;
@@ -441,48 +458,465 @@
             color: var(--text-muted);
         }
 
-        .garden-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.1rem;
-        }
-
-        .garden-card {
-            background-color: var(--surface-charcoal);
+        /* ============================================================================
+           PILLAR II: THE WHEEL OF DEMETER & PERSEPHONE (4x4 BED GRIDS & SEASONAL TIMERS)
+           ============================================================================ */
+        .solstice-dial {
+            background: linear-gradient(90deg, rgba(18, 20, 26, 0.95), rgba(38, 18, 24, 0.65), rgba(18, 20, 26, 0.95));
             border: 1px solid var(--border-gold-subtle);
-            border-radius: 4px;
-            padding: 1.1rem;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
         }
 
-        .garden-card:hover {
-            transform: translateY(-2px);
+        .solstice-dial-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .solstice-title {
+            color: var(--border-gold-bright);
+            font-size: 0.92rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .solstice-metrics {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.76rem;
+            color: var(--text-primary);
+        }
+
+        .solstice-metric-pill {
+            background: rgba(10, 11, 14, 0.65);
+            border: 1px solid rgba(201, 164, 92, 0.3);
+            padding: 0.22rem 0.65rem;
+            border-radius: 20px;
+        }
+
+        .solstice-track {
+            height: 7px;
+            background: #0d0f14;
+            border: 1px solid rgba(201, 164, 92, 0.22);
+            border-radius: 999px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .solstice-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #c9a45c 0%, #9e222f 65%, #4a2a6b 100%);
+            border-radius: 999px;
+            transition: width 0.4s ease;
+        }
+
+        .solstice-caption {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Wheel Controls: Filter Tabs & Legend */
+        .wheel-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.85rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .wheel-tabs {
+            display: flex;
+            gap: 0.45rem;
+            flex-wrap: wrap;
+        }
+
+        .wheel-tab {
+            background: var(--surface-charcoal);
+            color: var(--text-muted);
+            border: 1px solid var(--border-gold-subtle);
+            padding: 0.4rem 0.85rem;
+            border-radius: 4px;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.76rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .wheel-tab.active,
+        .wheel-tab:hover {
+            background: rgba(201, 164, 92, 0.16);
+            color: var(--border-gold-bright);
             border-color: var(--border-gold);
         }
 
-        .garden-card h3 {
+        .stage-legend {
+            display: flex;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .legend-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+        /* Interactive Inspector Drawer */
+        .wheel-inspector {
+            display: none;
+            background: linear-gradient(145deg, #161922, #1b1318);
+            border: 1px solid var(--border-gold);
+            border-radius: 6px;
+            padding: 1.25rem;
+            margin-bottom: 1.4rem;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.75);
+        }
+
+        .wheel-inspector.active {
+            display: block;
+        }
+
+        .inspector-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.75rem;
+            border-bottom: 1px solid rgba(201, 164, 92, 0.2);
+            padding-bottom: 0.65rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .inspector-title {
             color: var(--border-gold-bright);
-            font-size: 0.98rem;
-            margin-bottom: 0.4rem;
+            font-size: 1.05rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        .inspector-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .inspector-box {
+            background: rgba(10, 11, 14, 0.65);
+            border: 1px solid rgba(201, 164, 92, 0.22);
+            border-radius: 4px;
+            padding: 0.85rem;
+        }
+
+        .inspector-box h4 {
+            color: var(--border-gold);
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.73rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .pill-group {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-top: 0.45rem;
+        }
+
+        .mini-pill {
+            background: var(--surface-charcoal);
+            color: var(--text-primary);
+            border: 1px solid var(--border-gold-subtle);
+            padding: 0.26rem 0.58rem;
+            border-radius: 4px;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.73rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .mini-pill:hover,
+        .mini-pill.active {
+            background: var(--border-gold);
+            color: var(--bg-obsidian);
+            border-color: var(--border-gold-bright);
+        }
+
+        /* 13x13 Front Quad-Bed Matrix Layout */
+        .quad-compass-banner {
+            text-align: center;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.73rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 0.35rem 0.75rem;
+            background: rgba(18, 20, 26, 0.8);
+            border: 1px dashed rgba(201, 164, 92, 0.22);
+            border-radius: 4px;
+            margin-bottom: 0.85rem;
+        }
+
+        .quad-matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 960px) {
+            .quad-matrix-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bed-sanctuary-card {
+            background-color: var(--surface-charcoal);
+            border: 1px solid var(--border-gold-subtle);
+            border-radius: 6px;
+            padding: 1.15rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .bed-sanctuary-card:hover {
+            border-color: rgba(201, 164, 92, 0.6);
+        }
+
+        .bed-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .bed-card-title {
+            color: var(--border-gold-bright);
+            font-size: 1rem;
             font-weight: 400;
             letter-spacing: 0.04em;
         }
 
-        .garden-card p {
+        .bed-card-pos {
+            display: block;
             color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-bottom: 0.55rem;
+            font-size: 0.75rem;
+            font-style: italic;
         }
 
-        .action-tag {
-            display: inline-block;
-            background-color: rgba(110, 20, 29, 0.35);
-            color: #f2a6af;
-            font-size: 0.75rem;
-            padding: 0.25rem 0.55rem;
-            border-radius: 3px;
-            border: 1px solid rgba(158, 34, 47, 0.55);
+        .solar-badge {
             font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.71rem;
+            padding: 0.22rem 0.55rem;
+            border-radius: 4px;
+            background: rgba(201, 164, 92, 0.12);
+            border: 1px solid rgba(201, 164, 92, 0.35);
+            color: var(--border-gold-bright);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        /* Seasonal Countdown Timer Banner inside each Bed */
+        .seasonal-timer-box {
+            background: linear-gradient(135deg, rgba(110, 20, 29, 0.28), rgba(18, 20, 26, 0.9));
+            border: 1px solid rgba(158, 34, 47, 0.55);
+            border-radius: 5px;
+            padding: 0.65rem 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .seasonal-timer-box:hover {
+            border-color: var(--border-gold);
+            box-shadow: 0 0 12px rgba(201, 164, 92, 0.15);
+        }
+
+        .timer-row-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .timer-rite-name {
+            font-size: 0.84rem;
+            color: #f6e6e8;
+            font-weight: 600;
+        }
+
+        .timer-countdown-pill {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.74rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            padding: 0.18rem 0.55rem;
+            border-radius: 3px;
+            background: rgba(201, 164, 92, 0.2);
+            border: 1px solid var(--border-gold);
+            color: var(--border-gold-bright);
+        }
+
+        .timer-note {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        /* 4x4 Square-Foot Matrix Grid */
+        .sqft-grid-4x4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.42rem;
+            background: #0b0d12;
+            padding: 0.55rem;
+            border-radius: 5px;
+            border: 1px solid rgba(201, 164, 92, 0.18);
+        }
+
+        .sqft-grid-3x3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.42rem;
+            background: #0b0d12;
+            padding: 0.55rem;
+            border-radius: 5px;
+            border: 1px solid rgba(201, 164, 92, 0.18);
+        }
+
+        .sqft-grid-flex {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+            gap: 0.42rem;
+            background: #0b0d12;
+            padding: 0.55rem;
+            border-radius: 5px;
+            border: 1px solid rgba(201, 164, 92, 0.18);
+        }
+
+        .sqft-cell {
+            background: #141720;
+            border: 1px solid rgba(201, 164, 92, 0.22);
+            border-radius: 4px;
+            padding: 0.42rem 0.3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.16s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 62px;
+            position: relative;
+        }
+
+        .sqft-cell:hover,
+        .sqft-cell.selected {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.65);
+            border-color: var(--border-gold-bright) !important;
+            background: #1d2230;
+        }
+
+        .sqft-cell.stage-emerged {
+            border-color: var(--stage-emerged);
+            background: linear-gradient(180deg, rgba(82, 148, 107, 0.16), rgba(20, 23, 32, 0.95));
+        }
+
+        .sqft-cell.stage-germinating {
+            border-color: var(--stage-germinating);
+            background: linear-gradient(180deg, rgba(184, 134, 59, 0.15), rgba(20, 23, 32, 0.95));
+        }
+
+        .sqft-cell.stage-indoor {
+            border-color: var(--stage-indoor);
+            background: linear-gradient(180deg, rgba(135, 101, 184, 0.17), rgba(20, 23, 32, 0.95));
+        }
+
+        .sqft-cell.stage-thriving {
+            border-color: var(--stage-thriving);
+            background: linear-gradient(180deg, rgba(201, 164, 92, 0.18), rgba(20, 23, 32, 0.95));
+        }
+
+        .sqft-cell.stage-fruiting {
+            border-color: var(--stage-fruiting);
+            background: linear-gradient(180deg, rgba(201, 59, 75, 0.22), rgba(20, 23, 32, 0.95));
+        }
+
+        .sqft-cell.stage-shield {
+            border-color: var(--stage-shield);
+            background: linear-gradient(180deg, rgba(122, 73, 85, 0.16), rgba(20, 23, 32, 0.95));
+        }
+
+        .cell-pos {
+            position: absolute;
+            top: 2px;
+            left: 4px;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.58rem;
+            color: rgba(155, 152, 144, 0.7);
+        }
+
+        .cell-sigil {
+            font-size: 1.15rem;
+            line-height: 1.1;
+            margin-top: 0.2rem;
+        }
+
+        .cell-crop {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.65rem;
+            color: var(--text-primary);
+            line-height: 1.15;
+            margin-top: 0.2rem;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .alcove-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.25rem;
         }
 
         /* Modal for Vault & Ferryman Setup */
@@ -569,13 +1003,13 @@
     <div class="sanctuary-layout">
 
         <!-- CENTERPIECE: The Hearth of Aidoneus -->
-        <section class="counsel-chamber">
+        <section class="counsel-chamber" id="hearthSection">
             <div class="section-header">
                 <h2>&#9876; The Hearth of Aidoneus</h2>
                 <span class="rite-status-badge" id="riteBadge">Awaiting Opening Rite</span>
             </div>
-            <p class="subtitle">Speak "Hello, Underworld" to perform the Opening Rites and summon Hades with full
-                awareness of your Sanctuary Scroll and Living Earth.</p>
+            <p class="subtitle">Speak "Hello, Underworld" to perform the Opening Rites, or ask Hades to recalibrate any
+                garden timer or solar cadence on the Wheel below.</p>
 
             <div class="chat-stream" id="chatStream"></div>
 
@@ -583,15 +1017,15 @@
                 <button class="rite-pill" data-rite="Hello, Underworld">&#10022; Invoke Opening Rite: "Hello,
                     Underworld"</button>
                 <button class="rite-pill"
-                    data-rite="Hades, survey the Living Earth and tell me what needs my attention this week.">&#9752;
-                    Survey the Living Earth</button>
+                    data-rite="Hades, survey the Wheel of Demeter & Persephone and tell me if any countdown timers should be adjusted for our current autumn sunlight.">&#9788;
+                    Audit Sunlight &amp; Timers</button>
                 <button class="rite-pill" id="clearChatBtn" style="margin-left:auto; opacity:0.75;">Clear
                     Chamber</button>
             </div>
 
             <div class="chat-input-row">
                 <textarea id="chatInput" class="chat-input"
-                    placeholder="Speak to Hades (or type 'Hello, Underworld' to begin)..."></textarea>
+                    placeholder="Speak to Hades (or ask him to shift any bed's countdown timer)..."></textarea>
                 <button class="btn" id="sendChatBtn">Speak</button>
             </div>
         </section>
@@ -629,14 +1063,55 @@
 
         </div>
 
-        <!-- FULL-WIDTH BOTTOM: Pillar II: The Living Earth -->
-        <section class="full-width">
+        <!-- FULL-WIDTH BOTTOM: Pillar II: The Wheel of Demeter & Persephone -->
+        <section class="full-width" id="wheelSection">
             <div class="section-header">
-                <h2>&#10048; The Living Earth</h2>
+                <h2>&#10048; The Wheel of Demeter &amp; Persephone</h2>
+                <span style="font-size:0.76rem; color:var(--border-gold); font-family:system-ui,sans-serif; letter-spacing:0.06em; text-transform:uppercase;">
+                    Interactive 4&times;4 Sanctuary Grids &bull; Solar Cadence &amp; Seasonal Timers
+                </span>
             </div>
-            <p class="subtitle">Active botanical registry for the 13&times;13 ft Front Quad-Bed Garden, Patio Beds, and
-                companion container guilds.</p>
-            <div class="garden-grid" id="gardenGrid"></div>
+            <p class="subtitle">Click any square foot or countdown timer to inspect, adjust for pine shade, or consult
+                Hades directly in the Hearth.</p>
+
+            <!-- 1. The Dial of the Descent (Solstice & Daylight Bar) -->
+            <div class="solstice-dial" id="solsticeDial"></div>
+
+            <!-- 2. Filter Tabs & Biological Stage Legend -->
+            <div class="wheel-toolbar">
+                <div class="wheel-tabs">
+                    <button class="wheel-tab active" data-view="all">&#10022; All Sanctuaries</button>
+                    <button class="wheel-tab" data-view="quad">&#8862; 13&times;13 Quad-Bed Matrix (64 sq ft)</button>
+                    <button class="wheel-tab" data-view="alcove">&#9904; Patio, Red Bed, Orchard &amp; Grove</button>
+                </div>
+                <div class="stage-legend">
+                    <span class="legend-item"><i class="legend-dot" style="background:var(--stage-emerged);"></i>Emerged</span>
+                    <span class="legend-item"><i class="legend-dot" style="background:var(--stage-germinating);"></i>Germinating</span>
+                    <span class="legend-item"><i class="legend-dot" style="background:var(--stage-indoor);"></i>Indoor Nursery</span>
+                    <span class="legend-item"><i class="legend-dot" style="background:var(--stage-thriving);"></i>Thriving</span>
+                    <span class="legend-item"><i class="legend-dot" style="background:var(--stage-fruiting);"></i>Ripening Fruit</span>
+                    <span class="legend-item"><i class="legend-dot" style="background:var(--stage-shield);"></i>Shield / Buffer</span>
+                </div>
+            </div>
+
+            <!-- 3. Interactive Square & Timer Inspector Drawer -->
+            <div class="wheel-inspector" id="wheelInspector"></div>
+
+            <!-- 4. The 13x13 Quad-Bed Matrix (Beds 1–4) -->
+            <div id="quadMatrixContainer">
+                <div class="quad-compass-banner">
+                    &#9728; South / House-Facing Front (Full Sun: Beds 1 &amp; 2) &mdash; 24&Prime; Pine-Straw Cross Pathways &mdash; North / Tall Pines Back (Evening Shade: Beds 3 &amp; 4) &#127794;
+                </div>
+                <div class="quad-matrix-grid" id="quadMatrixGrid"></div>
+            </div>
+
+            <!-- 5. The Patio, Red Bed, Potted Orchard & Estate Perennials -->
+            <div id="alcoveContainer">
+                <div class="quad-compass-banner" style="margin-top:0.5rem;">
+                    &#9904; The Patio Apothecary, 3&times;3 Red Bed, Second-Season Potted Orchard &amp; Estate Perennials
+                </div>
+                <div class="alcove-grid" id="alcoveGrid"></div>
+            </div>
         </section>
 
     </div>
@@ -657,7 +1132,7 @@
             <hr style="border:none; border-top:1px solid var(--border-gold-subtle); margin: 0.8rem 0 1rem 0;">
 
             <label class="modal-label">Secret Gist ID (The Cloud Vault)</label>
-            <input type="text" id="gistIdInput" class="modal-input" placeholder="e.g. 8f3a9b2c1d4e5f6a7b8c9d0e1f2a3b4c">
+            <input type="text" id="gistIdInput" class="modal-input" placeholder="e.g. c8331faf3457ca3c8ee4b2022df49416">
 
             <label class="modal-label">The Ferryman's Obol (GitHub Classic Token with 'gist' scope)</label>
             <input type="password" id="gistTokenInput" class="modal-input" placeholder="ghp_...">
@@ -677,20 +1152,405 @@
 Your Tone & Posture (Counsel Mode): Wry, perceptive, steady, unhurried, and deeply grounded. You maintain order in the quiet subterranean foundation without Olympian drama. Prioritize psychological depth, dry warmth, and genuine reflection over rushed bulleted advice.
 Key Domain Lore:
 - Our workspace was inaugurated with the phrase "Hello, Underworld." When Persephone speaks "Hello, Underworld," you are performing the Opening Rites: welcoming her back across the threshold, reflecting perceptively on her latest Sanctuary Scroll entries and garden state (provided in the system context), and asking where her mind is resting tonight.
-- The Covenant of Unhurried Trust: Just like her shaded Bed 4 collards and indoor starts, the deepest roots form in the dark first and are never rushed.
-- Household Boundaries: Krysten is a Medical Assistant (promoted May 2026) married to Justin. Justin's home brewing/fermentation gear belongs strictly to him; Krysten has zero interest in brewing.`;
+- The Covenant of Unhurried Trust: Just like her shaded Bed 4 collards and indoor starts, the deepest roots form in the dark first and are never rushed. We honor biological cadence and 'The Persephone Period' (slower autumn/winter solar metabolism) over rigid seed-packet clocks.
+- Biographical & Household Lore: Krysten grew up in the countryside of Decatur, Mississippi (where solitude and books forged her love of fine prose; she loves Cormac McCarthy's 'The Road' ['carrying the fire'], Leigh Bardugo's 'The Familiar', and has Susanna Clarke's 'Piranesi' queued next on Audible). She is a Medical Assistant (promoted May 2026) married to Justin (Justin's brewing gear is strictly his). On Oct 31 she took a restorative family boat trip with her brother Ricky, their dad, and Ricky's family to a remote sandbar off Dauphin Island watching sand crabs ahead of her Sunday Nov 1 All Saints Day feast.
+- Cats & Flock: Indoor cats Bingus and Cake ("silly babes" kept strictly indoors and blissfully unaware of the birds outside). Four hens at the coop (bordered by Arabian jasmine & 5 cutting-grown Rabbiteye blueberries): two Ameraucanas laying blue-green eggs named Chicken-Cake and Poop Butt, and two Rhode Island Reds laying brown eggs named Chicken-Bingus and Nugget.`;
+
+        const DEFAULT_WHEEL_GARDEN = {
+            schemaRevision: "2.1.7",
+            frontQuadBeds: [
+                {
+                    id: "bed-1",
+                    name: "Bed 1: High Sun / Root Zone",
+                    position: "Front-Left Quadrant (South/House-Facing)",
+                    crop: "4 Offset Rows of Softneck Garlic (~6 Bulbs/Row, Back) + 3 Generous Rows of Nantes Carrots (Front)",
+                    sownDate: "2026-10-18",
+                    solarExposure: "High Southern Sun",
+                    solarMultiplier: 1.0,
+                    nextRiteTitle: "Industrious Thinning of 3 Emerged Nantes Carrot Rows",
+                    targetDate: "2026-11-18",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Full southern sun exposure (1.0× autumn pace); many carrot seedlings have emerged across the 3 front rows, and most of the 4 offset back rows of garlic (~6 bulbs/row) have breached the surface.",
+                    status: "Many Nantes carrot seedlings have emerged across the 3 generously seeded front rows! Behind them, 4 offset rows of garlic (~6 bulbs per row) have mostly surfaced, with a few bulbs still preparing to breach.",
+                    actionItem: "Apply an industrious thinning to the 3 front rows of emerged Nantes carrots around Nov 18; monitor final garlic bulbs breaching in the 4 offset back rows.",
+                    cells: [
+                        { pos: "R1•C1", crop: "Garlic Offset Row 1 (~6 Bulbs)", sigil: "🧄", stage: "emerged", detail: "Back offset garlic row 1 of 4 (~6 bulbs/row, Sicilian Artichoke & Inchelium Red); green spears actively lengthening." },
+                        { pos: "R1•C2", crop: "Garlic Offset Row 1 (~6 Bulbs)", sigil: "🧄", stage: "emerged", detail: "Back offset garlic row 1 of 4; vigorous softneck shoots in full southern sun." },
+                        { pos: "R1•C3", crop: "Garlic Offset Row 2 (~6 Bulbs)", sigil: "🧄", stage: "emerged", detail: "Offset garlic row 2 of 4 (~6 bulbs/row); green spears pierced the pine-straw mulch." },
+                        { pos: "R1•C4", crop: "Garlic Offset Row 2 (Awaiting Breach)", sigil: "🧄", stage: "germinating", detail: "Offset garlic row 2 of 4; a few bulbs in the row still rooting beneath mulch before breaching the surface." },
+                        { pos: "R2•C1", crop: "Garlic Offset Row 3 (~6 Bulbs)", sigil: "🧄", stage: "emerged", detail: "Offset garlic row 3 of 4 (~6 bulbs/row, behind the carrots); emerged and drinking in full sun." },
+                        { pos: "R2•C2", crop: "Garlic Offset Row 3 (~6 Bulbs)", sigil: "🧄", stage: "emerged", detail: "Offset garlic row 3 of 4; steady autumn root and shoot development." },
+                        { pos: "R2•C3", crop: "Garlic Offset Row 4 (~6 Bulbs)", sigil: "🧄", stage: "emerged", detail: "Offset garlic row 4 of 4 (~6 bulbs/row, just behind the carrot band); green shoots emerged." },
+                        { pos: "R2•C4", crop: "Garlic Offset Row 4 (Awaiting Breach)", sigil: "🧄", stage: "germinating", detail: "Offset garlic row 4 of 4; waiting on the last few uncounted cloves to breach the surface." },
+                        { pos: "R3•C1", crop: "Nantes Carrots (Row 1 of 3)", sigil: "🥕", stage: "emerged", detail: "Back carrot row (Row 1 of 3 in front half of bed); seeded generously Oct 18—many seedlings have emerged!" },
+                        { pos: "R3•C2", crop: "Nantes Carrots (Row 1 of 3)", sigil: "🥕", stage: "emerged", detail: "Row 1 of 3 generously seeded carrot band; lush emergence—industrious thinning ahead." },
+                        { pos: "R3•C3", crop: "Nantes Carrots (Row 2 of 3)", sigil: "🥕", stage: "emerged", detail: "Middle carrot row (Row 2 of 3 in front half of bed); many delicate green plumes have emerged!" },
+                        { pos: "R3•C4", crop: "Nantes Carrots (Row 2 of 3)", sigil: "🥕", stage: "emerged", detail: "Row 2 of 3 generously seeded carrot band; thriving in full sun—awaiting mid-November thinning." },
+                        { pos: "R4•C1", crop: "Nantes Carrots (Row 3 of 3)", sigil: "🥕", stage: "emerged", detail: "Front-most carrot row (Row 3 of 3 along front edge); seeded generously with many seedlings now emerged!" },
+                        { pos: "R4•C2", crop: "Nantes Carrots (Row 3 of 3)", sigil: "🥕", stage: "emerged", detail: "Front carrot row (Row 3 of 3); thick seedling carpet ready for an industrious thinning when true leaves settle." },
+                        { pos: "R4•C3", crop: "Nantes Carrots (Row 3 of 3)", sigil: "🥕", stage: "emerged", detail: "Front carrot row (Row 3 of 3); basking in full southern exposure." },
+                        { pos: "R4•C4", crop: "Nantes Carrots (Row 3 of 3)", sigil: "🥕", stage: "emerged", detail: "Front-right carrot row (Row 3 of 3); emerged and slated for mid-November thinning." }
+                    ]
+                },
+                {
+                    id: "bed-2",
+                    name: "Bed 2: High Sun / Allium & Herb Zone",
+                    position: "Front-Right Quadrant (South/House-Facing)",
+                    crop: "King Richard Leeks & Nasturtium Culinary Border (3 of 4 Sprouted)",
+                    sownDate: "2026-10-18",
+                    solarExposure: "High Sun (Bed) / Low Indoor Light (Starts)",
+                    solarMultiplier: 0.8,
+                    nextRiteTitle: "Dibble-Transplant King Richard Leeks (4–6\" Deep)",
+                    targetDate: "2026-12-20",
+                    shadeAdjustmentDays: 7,
+                    adjustmentNote: "Leggier indoor leek starts trimmed to ~1\" height (doing well!); outdoors, 3 of the 4 front nasturtiums germinated.",
+                    status: "3 of 4 front nasturtiums germinated and growing; indoors, leggier leek starts were trimmed to ~1\" in height on Nov 2 and are responding well.",
+                    actionItem: "Nurture trimmed indoor leek starts under lights; dibble-transplant around Dec 20.",
+                    cells: [
+                        { pos: "R1•C1", crop: "King Richard Leek Bed", sigil: "🌱", stage: "indoor", detail: "Amended soil awaiting December dibble-transplant; leggier indoor starts trimmed to ~1\" height Nov 2 and doing well." },
+                        { pos: "R1•C2", crop: "King Richard Leek Bed", sigil: "🌱", stage: "indoor", detail: "Amended soil prepared; indoor starts thickening after 1\" trim." },
+                        { pos: "R1•C3", crop: "King Richard Leek Bed", sigil: "🌱", stage: "indoor", detail: "Amended soil prepared; indoor start emerging." },
+                        { pos: "R1•C4", crop: "King Richard Leek Bed", sigil: "🌱", stage: "indoor", detail: "Amended soil prepared; indoor start in germination." },
+                        { pos: "R2•C1", crop: "King Richard Leek Bed", sigil: "🌱", stage: "indoor", detail: "Center leek trench zone; indoor starts given first 1\" haircut Nov 2." },
+                        { pos: "R2•C2", crop: "King Richard Leek Bed", sigil: "🌱", stage: "indoor", detail: "Center leek zone; 1-inch haircut completed on leggier starts Nov 2." },
+                        { pos: "R2•C3", crop: "King Richard Leek Bed", sigil: "🌱", stage: "indoor", detail: "Center leek zone; protected by front nasturtium row." },
+                        { pos: "R2•C4", crop: "King Richard Leek Bed", sigil: "🌱", stage: "indoor", detail: "Center leek zone." },
+                        { pos: "R3•C1", crop: "King Richard Leek Bed", sigil: "🌱", stage: "indoor", detail: "Front leek row (~26 total leeks across 12 sq ft)." },
+                        { pos: "R3•C2", crop: "King Richard Leek Bed", sigil: "🌱", stage: "indoor", detail: "Front leek row." },
+                        { pos: "R3•C3", crop: "King Richard Leek Bed", sigil: "🌱", stage: "indoor", detail: "Front leek row." },
+                        { pos: "R3•C4", crop: "King Richard Leek Bed", sigil: "🌱", stage: "indoor", detail: "Front leek row." },
+                        { pos: "R4•C1", crop: "Black Velvet Nasturtium (1/3)", sigil: "🌺", stage: "emerged", detail: "Pitch-dark velvety culinary bloom border (1 of 3 sprouted in this bed)—growing well!" },
+                        { pos: "R4•C2", crop: "Peach Melba Nasturtium (2/3)", sigil: "🌸", stage: "emerged", detail: "Creamy raspberry-throated culinary border (2 of 3 sprouted in this bed)—growing well!" },
+                        { pos: "R4•C3", crop: "Black Velvet Nasturtium (3/3)", sigil: "🌺", stage: "emerged", detail: "Third germinated nasturtium along front walkway edge (3 of 4 seeds sprouted)." },
+                        { pos: "R4•C4", crop: "Peach Melba (Ungerminated)", sigil: "🌰", stage: "germinating", detail: "4th nasturtium station (did not germinate; 3 of 4 sprouted in this bed)." }
+                    ]
+                },
+                {
+                    id: "bed-3",
+                    name: "Bed 3: Evening Pine Shade / Heading Brassicas",
+                    position: "Back-Left Quadrant (North/Pine-Shaded Afternoon)",
+                    crop: "6 Copenhagen Market Cabbages (Back) & Front Row of Nasturtiums (3 of 4 Sprouted)",
+                    sownDate: "2026-10-10",
+                    solarExposure: "Evening Pine Shade",
+                    solarMultiplier: 0.75,
+                    nextRiteTitle: "Harden Off & Transplant 6 Cabbages Behind Front Nasturtium Row",
+                    targetDate: "2026-11-20",
+                    shadeAdjustmentDays: 6,
+                    adjustmentNote: "All 6 indoor cabbage seedlings now have a second pair of little leaves as of Nov 2! Outdoors, 3 of the 4 front nasturtiums germinated.",
+                    status: "All 6 indoor cabbage starts now sporting their second pair of little leaves! Outdoors, 3 of the 4 front nasturtiums germinated along the front edge.",
+                    actionItem: "Feed 1/4-strength kelp/fish now that second leaves have unfolded; transplant the 6 cabbages behind the nasturtium row ~Nov 20.",
+                    cells: [
+                        { pos: "R1•C1", crop: "Copenhagen Cabbage #1", sigil: "🥬", stage: "indoor", detail: "Back Row (behind nasturtiums): Cabbage #1—now sporting its second pair of little leaves indoors (Nov 2)!" },
+                        { pos: "R1•C2", crop: "Airflow & Head Expansion Space", sigil: "🍂", stage: "shield", detail: "Generous mulched spacing in back row so the 6 cabbages have ample room behind the front nasturtium row." },
+                        { pos: "R1•C3", crop: "Copenhagen Cabbage #2", sigil: "🥬", stage: "indoor", detail: "Back Row (behind nasturtiums): Cabbage #2—second pair of little leaves unfolded indoors (Nov 2)!" },
+                        { pos: "R1•C4", crop: "Copenhagen Cabbage #3", sigil: "🥬", stage: "indoor", detail: "Back Row (behind nasturtiums): Cabbage #3—second pair of little leaves unfolded indoors (Nov 2)!" },
+                        { pos: "R2•C1", crop: "Airflow & Dew-Drying Buffer", sigil: "🍂", stage: "shield", detail: "Open pine-straw buffer between staggered cabbage rows for fungal airflow." },
+                        { pos: "R2•C2", crop: "Copenhagen Cabbage #4", sigil: "🥬", stage: "indoor", detail: "Middle Row (behind nasturtiums): Cabbage #4—second pair of little leaves unfolded indoors (Nov 2)!" },
+                        { pos: "R2•C3", crop: "Airflow & Dew-Drying Buffer", sigil: "🍂", stage: "shield", detail: "Open mulched spacing between staggered cabbage stations." },
+                        { pos: "R2•C4", crop: "Copenhagen Cabbage #5", sigil: "🥬", stage: "indoor", detail: "Middle Row (behind nasturtiums): Cabbage #5—second pair of little leaves unfolded indoors (Nov 2)!" },
+                        { pos: "R3•C1", crop: "Airflow & Head Expansion Space", sigil: "🍂", stage: "shield", detail: "Breathing room between the front nasturtium vanguard and the cabbage stations." },
+                        { pos: "R3•C2", crop: "Airflow & Head Expansion Space", sigil: "🍂", stage: "shield", detail: "Open mulched space behind the front nasturtium row." },
+                        { pos: "R3•C3", crop: "Copenhagen Cabbage #6", sigil: "🥬", stage: "indoor", detail: "Forward Brassica Station (behind front nasturtium row): Cabbage #6—second pair of little leaves unfolded indoors (Nov 2)!" },
+                        { pos: "R3•C4", crop: "Airflow & Head Expansion Space", sigil: "🍂", stage: "shield", detail: "Open mulched space behind the front nasturtium row." },
+                        { pos: "R4•C1", crop: "Black Velvet Nasturtium (1/3)", sigil: "🌺", stage: "emerged", detail: "Front-side nasturtium row (1 of 3 sprouted in this bed)—emerged and growing!" },
+                        { pos: "R4•C2", crop: "Peach Melba Nasturtium (2/3)", sigil: "🌸", stage: "emerged", detail: "Front-side nasturtium row (2 of 3 sprouted in this bed)—emerged and growing!" },
+                        { pos: "R4•C3", crop: "Black Velvet Nasturtium (3/3)", sigil: "🌺", stage: "emerged", detail: "Front-side nasturtium row (3 of 3 sprouted in this bed)—emerged and growing!" },
+                        { pos: "R4•C4", crop: "Peach Melba (Ungerminated)", sigil: "🌰", stage: "germinating", detail: "4th nasturtium station (did not germinate; 3 of 4 sprouted in this bed)." }
+                    ]
+                },
+                {
+                    id: "bed-4",
+                    name: "Bed 4: Evening Pine Shade / Tall Greens",
+                    position: "Back-Right Quadrant (North/Coolest Pine Shade)",
+                    crop: "4 Georgia Southern Collard Plantings (Emerged!) & 4/4 Front Nasturtiums",
+                    sownDate: "2026-10-18",
+                    solarExposure: "Deep Evening Pine Shade",
+                    solarMultiplier: 0.68,
+                    nextRiteTitle: "Thin Emerged Collard Plantings to Strongest Crown",
+                    targetDate: "2026-11-26",
+                    shadeAdjustmentDays: 12,
+                    adjustmentNote: "The collards made their entrance on Nov 1! All 4 of the 4 front nasturtiums sprouted and are growing well ahead of the spacious collard canopy.",
+                    status: "Collards emerged Nov 1! All 4 of 4 alternating Black Velvet & Peach Melba nasturtiums along the front row sprouted and are thriving.",
+                    actionItem: "Watch the newly emerged collards establish in the cool pine shade; thin each planting to the strongest crown around Nov 26.",
+                    cells: [
+                        { pos: "R1•C1", crop: "Collard Expansion Canopy (NW)", sigil: "🍃", stage: "shield", detail: "Back-left expansion space left intentionally open for the 2.5–3 ft Georgia Southern collard wingspan." },
+                        { pos: "R1•C2", crop: "Collard Planting #1 (Emerged!)", sigil: "🌿", stage: "emerged", detail: "Planting 1 of 4 behind the nasturtium row—made its entrance Nov 1! Plenty of surrounding space to expand." },
+                        { pos: "R1•C3", crop: "Collard Expansion Canopy (NE)", sigil: "🍃", stage: "shield", detail: "Back-center expansion space reserved for tall winter collard leaves." },
+                        { pos: "R1•C4", crop: "Collard Planting #2 (Emerged!)", sigil: "🌿", stage: "emerged", detail: "Planting 2 of 4 behind the nasturtium row—made its entrance Nov 1 in the cool pine-shaded soil!" },
+                        { pos: "R2•C1", crop: "Collard Expansion Canopy", sigil: "🍃", stage: "shield", detail: "Generous mid-bed breathing room so the 4 collards never crowd one another." },
+                        { pos: "R2•C2", crop: "Collard Expansion Canopy", sigil: "🍃", stage: "shield", detail: "Open pine-straw mulched space for full rosette expansion." },
+                        { pos: "R2•C3", crop: "Collard Expansion Canopy", sigil: "🍃", stage: "shield", detail: "Open pine-straw mulched space for airflow and leaf harvest access." },
+                        { pos: "R2•C4", crop: "Collard Expansion Canopy", sigil: "🍃", stage: "shield", detail: "Generous mid-bed breathing room." },
+                        { pos: "R3•C1", crop: "Collard Planting #3 (Emerged!)", sigil: "🌿", stage: "emerged", detail: "Planting 3 of 4 behind the front nasturtium row—made its entrance Nov 1 with ample room to spread!" },
+                        { pos: "R3•C2", crop: "Collard Expansion Canopy (SW)", sigil: "🍃", stage: "shield", detail: "Open buffer between collard plantings #3 and #4 behind the nasturtium vanguard." },
+                        { pos: "R3•C3", crop: "Collard Planting #4 (Emerged!)", sigil: "🌿", stage: "emerged", detail: "Planting 4 of 4 behind the front nasturtium row—made its entrance Nov 1 right on its own biological schedule!" },
+                        { pos: "R3•C4", crop: "Collard Expansion Canopy (SE)", sigil: "🍃", stage: "shield", detail: "Open expansion space behind the front nasturtium row." },
+                        { pos: "R4•C1", crop: "Black Velvet Nasturtium (1/4)", sigil: "🌺", stage: "emerged", detail: "Front-side row of 4 nasturtiums (1 of 4—all 4 sprouted in this bed and are growing well!)." },
+                        { pos: "R4•C2", crop: "Peach Melba Nasturtium (2/4)", sigil: "🌸", stage: "emerged", detail: "Front-side row of 4 nasturtiums (2 of 4—all 4 sprouted in this bed and are growing well!)." },
+                        { pos: "R4•C3", crop: "Black Velvet Nasturtium (3/4)", sigil: "🌺", stage: "emerged", detail: "Front-side row of 4 nasturtiums (3 of 4—all 4 sprouted in this bed and are growing well!)." },
+                        { pos: "R4•C4", crop: "Peach Melba Nasturtium (4/4)", sigil: "🌸", stage: "emerged", detail: "Front-side row of 4 nasturtiums (4 of 4—100% germination in the collard bed!)." }
+                    ]
+                }
+            ],
+            containerGuilds: [
+                {
+                    id: "patio-1",
+                    name: "Patio Bed 1 (Right Patio — Herb & Mixed Apothecary)",
+                    sownDate: "2026-09-26",
+                    solarExposure: "Filtered Patio Sun",
+                    solarMultiplier: 0.85,
+                    nextRiteTitle: "First Mature Bok Choy Leaf Harvest",
+                    targetDate: "2026-11-16",
+                    shadeAdjustmentDays: 5,
+                    adjustmentNote: "Allowing late-Sept bok choy hearts to swell fully before plucking outer leaves (+5d autumn buffer).",
+                    contents: "Greek oregano, Genovese basil, sweet mint, rosemary, lemon balm, plus late-Sept bok choy & carrot seedlings.",
+                    status: "Herbs flourishing; bok choy and carrots progressing well.",
+                    cells: [
+                        { pos: "Herb•1", crop: "Rosemary & Greek Oregano", sigil: "🌿", stage: "thriving", detail: "Fresh rosemary harvested for Nov 1 All Saints honey-cinnamon butternut squash." },
+                        { pos: "Herb•2", crop: "Genovese Basil & Sweet Mint", sigil: "🍃", stage: "thriving", detail: "Aromatic kitchen herbs thriving on right side of front patio." },
+                        { pos: "Herb•3", crop: "Lemon Balm", sigil: "🌱", stage: "thriving", detail: "Lush perennial citrus-scented herb." },
+                        { pos: "Crop•4", crop: "Late-Sept Bok Choy", sigil: "🥬", stage: "emerged", detail: "Growing well; staying hand until hearts mature further before plucking." },
+                        { pos: "Crop•5", crop: "Late-Sept Patio Carrots", sigil: "🥕", stage: "emerged", detail: "Planted late September; progressing steadily alongside the herbs." }
+                    ]
+                },
+                {
+                    id: "patio-2",
+                    name: "Patio Bed 2 (Left Patio — Pepper & Oregano Bed)",
+                    sownDate: "2026-05-15",
+                    solarExposure: "Warm Western Patio Sun",
+                    solarMultiplier: 0.95,
+                    nextRiteTitle: "Ongoing Autumn Pepper Harvest",
+                    targetDate: "2026-11-08",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Warm patio microclimate keeps peppers ripening steadily into November.",
+                    contents: "Large Greek oregano, Marcano red pepper plant, and orange snacking pepper variety.",
+                    status: "Flourishing and ripening fruit regularly despite autumn temperatures.",
+                    cells: [
+                        { pos: "Left•1", crop: "Marcano Red Pepper", sigil: "🌶️", stage: "fruiting", detail: "Continuously ripening sweet red fruit in the autumn air." },
+                        { pos: "Left•2", crop: "Orange Snacking Pepper", sigil: "🫑", stage: "fruiting", detail: "Flourishing and producing bright orange peppers regularly." },
+                        { pos: "Left•3", crop: "Large Greek Oregano", sigil: "🌿", stage: "thriving", detail: "Established, sprawling Mediterranean oregano anchor." }
+                    ]
+                },
+                {
+                    id: "red-bed",
+                    name: "3x3 ft 'Red Bed' (Raised Polyculture Sanctuary)",
+                    sownDate: "2026-10-13",
+                    solarExposure: "Open Autumn Sun",
+                    solarMultiplier: 0.9,
+                    nextRiteTitle: "Pea Tendrils Grip Cages & Thin Center Carrot Furrow",
+                    targetDate: "2026-11-10",
+                    shadeAdjustmentDays: 3,
+                    adjustmentNote: "Several little Nantes carrot seedlings peeking up in the 20\" center furrow as of Nov 2! Outer double pea rows at ~2\", framed by 4 corner onion parentheses & 8 Little Gems.",
+                    contents: "Outer double rows of Easy Peasy shelling peas (tomato cages), center long furrow of Nantes carrots (peeking up Nov 2!), 4 corner parenthesis furrows of Tokyo Long bunching onions, and 8 Little Gem lettuces (4 front, 4 back).",
+                    status: "Several little carrot seedlings peeking up in the center furrow as of Nov 2! Peas climbing along the outer double rows alongside corner onion parentheses and front/back Little Gems.",
+                    cells: [
+                        { pos: "NW (•", crop: "( Tokyo Onions (NW)", sigil: "🧅", stage: "emerged", detail: "Northwest corner parenthesis '(' furrow seeded with Tokyo Long White bunching onions." },
+                        { pos: "N • Back 6\"", crop: "4 Little Gems (Back)", sigil: "🥬", stage: "emerged", detail: "Back 6-inch border strip seeded with 4 Little Gem mini-romaine lettuces." },
+                        { pos: "NE •)", crop: "Tokyo Onions ) (NE)", sigil: "🧅", stage: "emerged", detail: "Northeast corner parenthesis ')' furrow seeded with Tokyo Long White bunching onions." },
+                        { pos: "W • Outer", crop: "Left Double Pea Row", sigil: "🌱", stage: "emerged", detail: "West outer edge (~3\" margin, front-to-back): Double row of Easy Peasy shelling peas (~2\" tall, supported by tomato cages)." },
+                        { pos: "Center 20\"", crop: "Center Carrots (Peeking Up!)", sigil: "🥕", stage: "emerged", detail: "20-inch central channel: Several little Nantes carrot seedlings peeking up along the center furrow as of Nov 2!" },
+                        { pos: "E • Outer", crop: "Right Double Pea Row", sigil: "🌱", stage: "emerged", detail: "East outer edge (~3\" margin, front-to-back): Double row of Easy Peasy shelling peas (~2\" tall, supported by tomato cages)." },
+                        { pos: "SW (•", crop: "( Tokyo Onions (SW)", sigil: "🧅", stage: "emerged", detail: "Southwest corner parenthesis '(' furrow seeded with Tokyo Long White bunching onions." },
+                        { pos: "S • Front 6\"", crop: "4 Little Gems (Front)", sigil: "🥬", stage: "emerged", detail: "Front 6-inch border strip seeded with 4 Little Gem mini-romaine lettuces." },
+                        { pos: "SE •)", crop: "Tokyo Onions ) (SE)", sigil: "🧅", stage: "emerged", detail: "Southeast corner parenthesis ')' furrow seeded with Tokyo Long White bunching onions." }
+                    ]
+                },
+                {
+                    id: "valencia-guild",
+                    name: "24-Inch Valencia Orange Pot Guild",
+                    sownDate: "2026-09-26",
+                    solarExposure: "Full Patio Sun (Canopy + Understory)",
+                    solarMultiplier: 0.9,
+                    nextRiteTitle: "Choko Bok Choy & Mesclun Outer Leaf Harvest",
+                    targetDate: "2026-11-14",
+                    shadeAdjustmentDays: 4,
+                    adjustmentNote: "Waiting for Choko bok choy to reach full stature before harvesting leaves.",
+                    contents: "Valencia orange tree, perimeter Tokyo Long White bunching onions, 4 Choko bok choy, mesclun mix living mulch.",
+                    status: "Thriving; bok choy growing well across all planters.",
+                    cells: [
+                        { pos: "Canopy", crop: "Valencia Orange Tree", sigil: "🍊", stage: "thriving", detail: "Primary citrus centerpiece in 24-inch vessel." },
+                        { pos: "Ring", crop: "Tokyo Long White Onions", sigil: "🧅", stage: "emerged", detail: "Allium perimeter pest deterrent." },
+                        { pos: "Under•1", crop: "4 Choko Bok Choy", sigil: "🥬", stage: "thriving", detail: "Growing vigorously; maturing before first leaf harvest." },
+                        { pos: "Mulch", crop: "Mesclun Mix Lettuce", sigil: "🥗", stage: "emerged", detail: "Living shallow-root groundcover mulch." }
+                    ]
+                },
+                {
+                    id: "meyer-lemon",
+                    name: "Meyer Lemon Pot (Solo Ripening)",
+                    sownDate: "2026-09-26",
+                    solarExposure: "Full Sun",
+                    solarMultiplier: 1.0,
+                    nextRiteTitle: "Harvest First Golden Meyer Lemons",
+                    targetDate: "2026-11-22",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Surface companion guild retired in stride; tree directing all energy into ripening fruit.",
+                    contents: "Meyer lemon tree (solo; surface companion plants perished and guild retired).",
+                    status: "Meyer lemon fruits have begun to ripen!",
+                    cells: [
+                        { pos: "Canopy", crop: "Ripening Meyer Lemons", sigil: "🍋", stage: "fruiting", detail: "Fruits turning gold as of Oct 28!" },
+                        { pos: "Soil", crop: "Mulched Root Crown", sigil: "🍂", stage: "shield", detail: "Companion guild retired cleanly; solo citrus focus." }
+                    ]
+                },
+                {
+                    id: "carrot-planter",
+                    name: "Small Resilient Carrot Planter & Herb/Lettuce Pots",
+                    sownDate: "2026-09-26",
+                    solarExposure: "Filtered Sun",
+                    solarMultiplier: 0.78,
+                    nextRiteTitle: "Check Resilient Carrot Root Swell & Little Gems",
+                    targetDate: "2026-11-28",
+                    shadeAdjustmentDays: 10,
+                    adjustmentNote: "+10 days recovery buffer for the 7 carrot seedlings after a creature nibbled their inaugural leaves.",
+                    contents: "Small Carrot Planter (~7 resilient seedlings), 12\" Little Gem Pot (4 plants), 10\" Herb Pot (cilantro & parsley).",
+                    status: "7 carrot seedlings bounced back from a creature's nibble with a fresh set of young leaves.",
+                    cells: [
+                        { pos: "Pot•1", crop: "7 Resilient Carrots", sigil: "🥕", stage: "emerged", detail: "Inaugural leaves nibbled, but pushed out a defiant second set of true leaves!" },
+                        { pos: "Pot•2", crop: "4 Little Gem Romaines (12\")", sigil: "🥬", stage: "thriving", detail: "Compact mini-romaine heads in 12-inch pot." },
+                        { pos: "Pot•3", crop: "Cilantro & Flat-Leaf Parsley (10\")", sigil: "🌿", stage: "thriving", detail: "Cool-weather culinary herbs in 10-inch pot." }
+                    ]
+                },
+                {
+                    id: "potted-orchard",
+                    name: "Second-Season Potted Orchard & Tea Sanctuary",
+                    sownDate: "2025-04-01",
+                    solarExposure: "Open Sun & Filtered Tea Shade",
+                    solarMultiplier: 1.0,
+                    nextRiteTitle: "Monitor 2 Indoor Tea Camellia Seeds & Spring Tea Flush",
+                    targetDate: "2026-12-15",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "2nd-season potted fruit trees & 2 Camellia sinensis tea bushes resting into autumn; 2 gifted tea seeds planted on trial in the indoor nursery.",
+                    contents: "2nd-Season Pots: 1 European Olive, 1 Barbados Cherry, 1 Dwarf Mulberry, 3 Turkey Figs, 2 Camellia sinensis (tea bushes) + 2 Camellia sinensis seeds in Indoor Nursery.",
+                    status: "Completed their second season in containers with minimal fuss; one Camellia sinensis gifted 2 seeds now planted indoors to test viability.",
+                    cells: [
+                        { pos: "Pot•1", crop: "European Olive Tree", sigil: "🫒", stage: "thriving", detail: "Second-season potted Olea europaea; silvery evergreen crown thriving with low maintenance." },
+                        { pos: "Pot•2", crop: "Barbados Cherry & Dwarf Mulberry", sigil: "🍒", stage: "thriving", detail: "Second-season potted Barbados cherry (acerola) and dwarf mulberry vessels." },
+                        { pos: "Pot•3–5", crop: "3 Potted Turkey Figs", sigil: "🌳", stage: "thriving", detail: "Three second-season potted Turkey fig trees entering autumn repose." },
+                        { pos: "Tea•1–2", crop: "2 Potted Camellia sinensis", sigil: "🍵", stage: "thriving", detail: "Two second-season tea camellias raised for home-harvested tea; one gifted 2 seeds this season!" },
+                        { pos: "Nursery", crop: "2 Camellia sinensis Seeds", sigil: "🌰", stage: "indoor", detail: "Two home-collected tea camellia seeds planted in the indoor nursery—watching to see if they prove viable and germinate." }
+                    ]
+                },
+                {
+                    id: "coop-trellis",
+                    name: "Muscadine Trellis & The Four Hens' Coop Border",
+                    sownDate: "2025-11-15",
+                    solarExposure: "Full Sun & Coop Edge",
+                    solarMultiplier: 1.0,
+                    nextRiteTitle: "Reinforce Muscadine Trellis with Heavy-Gauge Wire",
+                    targetDate: "2027-01-18",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Magnolia muscadine vine overwhelmed thin trellis wire (repair in Jan dormancy); Coop houses Chicken-Cake & Poop Butt (Ameraucanas) and Chicken-Bingus & Nugget (Rhode Island Reds).",
+                    contents: "Magnolia muscadine vine on trellis + Chicken Coop (Chicken-Cake, Poop Butt, Chicken-Bingus & Nugget) bordered by 1 Arabian Jasmine & 5 cutting-grown native Rabbiteye Blueberries.",
+                    status: "Muscadine thriving; Chicken-Cake & Poop Butt (blue-green eggs) and Chicken-Bingus & Nugget (brown eggs) keeping watch over the Arabian jasmine & 5 Rabbiteye blueberries.",
+                    cells: [
+                        { pos: "Trellis", crop: "Magnolia Muscadine Vine", sigil: "🍇", stage: "thriving", detail: "In ground since late 2025; vigorous vines outmuscled the thin trellis wire—slated for winter trellis reinforcement." },
+                        { pos: "Coop•1", crop: "Arabian Jasmine", sigil: "🌼", stage: "thriving", detail: "Fragrant Jasminum sambac anchored in the garden bed border around the chicken coop." },
+                        { pos: "Coop•2–6", crop: "5 Native Rabbiteye Blueberries", sigil: "🫐", stage: "thriving", detail: "Five native Rabbiteye blueberry plants propagated from cuttings last year and thriving along the chicken coop border." },
+                        { pos: "Ameraucanas", crop: "Chicken-Cake & Poop Butt", sigil: "🥚", stage: "fruiting", detail: "Two Ameraucana hens laying blue-green eggs (Chicken-Cake is named after the household cat, Cake!)." },
+                        { pos: "Rhode Islands", crop: "Chicken-Bingus & Nugget", sigil: "🐓", stage: "fruiting", detail: "Two Rhode Island Red hens laying classic brown eggs (Chicken-Bingus is named after the household cat, Bingus!)." }
+                    ]
+                },
+                {
+                    id: "ancestral-grove",
+                    name: "60–70 Yr Forest Blueberry Grove & Front-Yard Figs",
+                    sownDate: "1960-03-01",
+                    solarExposure: "Forest Canopy & Front Yard Sun",
+                    solarMultiplier: 0.85,
+                    nextRiteTitle: "Optional Dormant Rejuvenation Pruning (9–12 ft Blueberries)",
+                    targetDate: "2027-01-25",
+                    shadeAdjustmentDays: 0,
+                    adjustmentNote: "Ancient 60–70 yr forest blueberries stand 9–12 ft tall; heading back 1/3 of the oldest canes in Jan/Feb dormancy brings fruit back within reach.",
+                    contents: "Forest Grove of 60–70 year old blueberry bushes (9–12 ft tall, harvested annually) + 2 self-reliant in-ground Turkey Figs in the front yard.",
+                    status: "Ancient forest blueberry grove produces annually at 9–12 ft height; 2 front-yard in-ground Turkey figs thrive on their own devices.",
+                    cells: [
+                        { pos: "Forest•1", crop: "60–70 Yr Blueberry Grove (9–12 ft)", sigil: "🫐", stage: "thriving", detail: "Ancient heirloom forest blueberry bushes harvested annually; towering 9–12 ft canes make upper berries hard to reach." },
+                        { pos: "Forest•2", crop: "Winter Rejuvenation Rite", sigil: "✂️", stage: "shield", detail: "Optional late-winter dormant care: prune 1–2 of the oldest 12 ft canes per bush per year so fresh fruiting wood sprouts at eye level." },
+                        { pos: "Front•1–2", crop: "2 In-Ground Front Turkey Figs", sigil: "🌳", stage: "thriving", detail: "Two established Turkey fig trees in the front yard, thriving independently." }
+                    ]
+                }
+            ]
+        };
 
         const FALLBACK_DATA = {
-            version: "2.0.0",
-            lastUpdated: "2026-10-29",
+            version: "2.1.7",
+            lastUpdated: "2026-11-02",
             hadesPersona: DEFAULT_HADES_PERSONA,
             journal: { entries: [] },
-            garden: { frontQuadBeds: [], containerGuilds: [] },
+            garden: DEFAULT_WHEEL_GARDEN,
             roadmap: []
         };
 
+        // Ensures older Gist payloads without 4x4 `cells` or pre-2.1.7 layouts are seamlessly upgraded
+        function upgradeGardenSchema(dataObj) {
+            if (!dataObj.garden) dataObj.garden = JSON.parse(JSON.stringify(DEFAULT_WHEEL_GARDEN));
+            const needsCellRefresh = dataObj.garden.schemaRevision !== "2.1.7";
+
+            const defaultQuadMap = {};
+            DEFAULT_WHEEL_GARDEN.frontQuadBeds.forEach(b => { defaultQuadMap[b.id] = b; });
+
+            if (!Array.isArray(dataObj.garden.frontQuadBeds) || dataObj.garden.frontQuadBeds.length === 0) {
+                dataObj.garden.frontQuadBeds = JSON.parse(JSON.stringify(DEFAULT_WHEEL_GARDEN.frontQuadBeds));
+            } else {
+                dataObj.garden.frontQuadBeds = dataObj.garden.frontQuadBeds.map((b, idx) => {
+                    const fallback = defaultQuadMap[b.id] || DEFAULT_WHEEL_GARDEN.frontQuadBeds[idx] || {};
+                    if (needsCellRefresh) {
+                        return {
+                            ...b,
+                            ...fallback,
+                            targetDate: b.targetDate || fallback.targetDate,
+                            shadeAdjustmentDays: typeof b.shadeAdjustmentDays === 'number' ? b.shadeAdjustmentDays : fallback.shadeAdjustmentDays,
+                            solarMultiplier: typeof b.solarMultiplier === 'number' ? b.solarMultiplier : fallback.solarMultiplier,
+                            cells: JSON.parse(JSON.stringify(fallback.cells || []))
+                        };
+                    }
+                    return {
+                        ...fallback,
+                        ...b,
+                        cells: (Array.isArray(b.cells) && b.cells.length > 0) ? b.cells : JSON.parse(JSON.stringify(fallback.cells || []))
+                    };
+                });
+            }
+
+            if (!Array.isArray(dataObj.garden.containerGuilds) || dataObj.garden.containerGuilds.length === 0) {
+                dataObj.garden.containerGuilds = JSON.parse(JSON.stringify(DEFAULT_WHEEL_GARDEN.containerGuilds));
+            } else {
+                const existingMap = {};
+                dataObj.garden.containerGuilds.forEach(g => {
+                    if (g && g.id) existingMap[g.id] = g;
+                });
+                dataObj.garden.containerGuilds = DEFAULT_WHEEL_GARDEN.containerGuilds.map((fallback, idx) => {
+                    const g = existingMap[fallback.id] || dataObj.garden.containerGuilds.find(x => x.name === fallback.name) || null;
+                    if (!g) return JSON.parse(JSON.stringify(fallback));
+                    if (needsCellRefresh) {
+                        return {
+                            ...g,
+                            ...fallback,
+                            id: fallback.id,
+                            targetDate: g.targetDate || fallback.targetDate,
+                            shadeAdjustmentDays: typeof g.shadeAdjustmentDays === 'number' ? g.shadeAdjustmentDays : fallback.shadeAdjustmentDays,
+                            solarMultiplier: typeof g.solarMultiplier === 'number' ? g.solarMultiplier : fallback.solarMultiplier,
+                            cells: JSON.parse(JSON.stringify(fallback.cells || []))
+                        };
+                    }
+                    return {
+                        ...fallback,
+                        ...g,
+                        id: g.id || fallback.id || `vessel-${idx + 1}`,
+                        cells: (Array.isArray(g.cells) && g.cells.length > 0) ? g.cells : JSON.parse(JSON.stringify(fallback.cells || []))
+                    };
+                });
+            }
+            dataObj.garden.schemaRevision = "2.1.7";
+
+            // Ensure Task #7 is marked done if roadmap exists
+            if (Array.isArray(dataObj.roadmap)) {
+                const t7 = dataObj.roadmap.find(r => r.id === 7);
+                if (t7) t7.done = true;
+            }
+            return dataObj;
+        }
+
         document.addEventListener('DOMContentLoaded', async () => {
-            let data = window.UNDERWORLD_DATA || FALLBACK_DATA;
+            let data = upgradeGardenSchema(window.UNDERWORLD_DATA || FALLBACK_DATA);
             if (!data.hadesPersona) data.hadesPersona = DEFAULT_HADES_PERSONA;
 
             const ferrymanStatusBtn = document.getElementById('ferrymanStatusBtn');
@@ -699,8 +1559,17 @@ Key Domain Lore:
             const inscribeBtn = document.getElementById('inscribeBtn');
             const exportScrollBtn = document.getElementById('exportScrollBtn');
             const journalFeed = document.getElementById('journalFeed');
-            const gardenGrid = document.getElementById('gardenGrid');
             const roadmapList = document.getElementById('roadmapList');
+
+            const solsticeDial = document.getElementById('solsticeDial');
+            const wheelInspector = document.getElementById('wheelInspector');
+            const quadMatrixContainer = document.getElementById('quadMatrixContainer');
+            const quadMatrixGrid = document.getElementById('quadMatrixGrid');
+            const alcoveContainer = document.getElementById('alcoveContainer');
+            const alcoveGrid = document.getElementById('alcoveGrid');
+
+            let selectedBedId = null;
+            let selectedCellIdx = null;
 
             // --- THE AUTOMATED FERRYMAN (GITHUB GIST CLOUD SYNC) ---
             function setFerrymanState(state, message) {
@@ -710,7 +1579,6 @@ Key Domain Lore:
                 ferrymanStatusText.textContent = message;
             }
 
-            // Helper: Automatically extracts the pure Gist ID even if a full URL or "username/id" was pasted
             function cleanGistId(rawInput) {
                 if (!rawInput) return '';
                 const trimmed = rawInput.trim().replace(/\/+$/, '');
@@ -751,7 +1619,11 @@ Key Domain Lore:
 
                     if (fileObj && fileObj.content) {
                         const cloudData = JSON.parse(fileObj.content);
-                        data = { ...data, ...cloudData, hadesPersona: cloudData.hadesPersona || data.hadesPersona || DEFAULT_HADES_PERSONA };
+                        data = upgradeGardenSchema({
+                            ...data,
+                            ...cloudData,
+                            hadesPersona: cloudData.hadesPersona || data.hadesPersona || DEFAULT_HADES_PERSONA
+                        });
                         localStorage.setItem('underworld_cached_cloud_data', JSON.stringify(data));
                         setFerrymanState('synced', `Ferryman Bound • Synced ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
                     } else {
@@ -777,8 +1649,9 @@ Key Domain Lore:
                 setFerrymanState('syncing', 'Ferryman: Inscribing to Cloud...');
                 try {
                     const payloadToSave = {
-                        version: data.version || "2.0.0",
+                        version: "2.1.0",
                         lastUpdated: new Date().toISOString().split('T')[0],
+                        hadesPersona: data.hadesPersona,
                         journal: data.journal,
                         garden: data.garden,
                         roadmap: data.roadmap,
@@ -811,7 +1684,7 @@ Key Domain Lore:
             function loadLocalCustomizations() {
                 const cachedCloud = localStorage.getItem('underworld_cached_cloud_data');
                 if (cachedCloud) {
-                    try { data = JSON.parse(cachedCloud); } catch (e) { }
+                    try { data = upgradeGardenSchema(JSON.parse(cachedCloud)); } catch (e) { }
                 }
                 const storedEntries = localStorage.getItem('underworld_inscribed_entries');
                 if (storedEntries) {
@@ -825,7 +1698,374 @@ Key Domain Lore:
 
             ferrymanStatusBtn.addEventListener('click', () => pullFromGist());
 
-            // --- RENDER FUNCTIONS ---
+            // --- HELPER: FIND BED OR VESSEL BY ID ---
+            function getAllBedsAndVessels() {
+                return [...(data.garden?.frontQuadBeds || []), ...(data.garden?.containerGuilds || [])];
+            }
+
+            function findBedById(id) {
+                if (!id) return null;
+                const norm = String(id).toLowerCase().trim();
+                return getAllBedsAndVessels().find(b =>
+                    String(b.id).toLowerCase() === norm ||
+                    String(b.name).toLowerCase().includes(norm)
+                ) || null;
+            }
+
+            function daysBetween(dateStrA, dateStrB) {
+                const a = new Date(dateStrA + 'T00:00:00');
+                const b = new Date(dateStrB + 'T00:00:00');
+                return Math.round((b - a) / (1000 * 60 * 60 * 24));
+            }
+
+            function addDaysToIso(isoDate, daysToAdd) {
+                const d = new Date((isoDate || new Date().toISOString().split('T')[0]) + 'T12:00:00');
+                d.setDate(d.getDate() + Number(daysToAdd));
+                return d.toISOString().split('T')[0];
+            }
+
+            function formatShortDate(isoDate) {
+                if (!isoDate) return 'TBD';
+                const d = new Date(isoDate + 'T12:00:00');
+                if (isNaN(d)) return isoDate;
+                return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            }
+
+            // --- 1. RENDER SOLSTICE & DAYLIGHT DIAL (COASTAL ALABAMA ~30.6°N) ---
+            function renderSolsticeDial() {
+                const now = new Date();
+                const todayIso = now.toISOString().split('T')[0];
+                const year = now.getFullYear();
+
+                // Approx day-of-year calculation for 30.6°N latitude (Mobile Bay / Coastal AL)
+                const startOfYear = new Date(year, 0, 0);
+                const dayOfYear = Math.floor((now - startOfYear) / (1000 * 60 * 60 * 24));
+                const radians = ((2 * Math.PI) / 365) * (dayOfYear - 80);
+                const daylightHoursFloat = 12.12 + 1.95 * Math.sin(radians);
+                const hrs = Math.floor(daylightHoursFloat);
+                const mins = Math.round((daylightHoursFloat - hrs) * 60);
+
+                const winterSolsticeIso = `${year}-12-21`;
+                const daysToSolstice = daysBetween(todayIso, winterSolsticeIso);
+                const autumnEquinoxIso = `${year}-09-22`;
+                const totalDescentDays = Math.max(1, daysBetween(autumnEquinoxIso, winterSolsticeIso));
+                const elapsedDescent = Math.min(totalDescentDays, Math.max(0, daysBetween(autumnEquinoxIso, todayIso)));
+                const pct = Math.round((elapsedDescent / totalDescentDays) * 100);
+
+                const solsticeLabel = daysToSolstice > 0
+                    ? `${daysToSolstice} days until Winter Solstice (Dec 21 — The Return of the Light)`
+                    : daysToSolstice === 0
+                        ? `Today is the Winter Solstice — The Light Begins to Return`
+                        : `The Light is Waxing Toward Spring`;
+
+                solsticeDial.innerHTML = `
+                    <div class="solstice-dial-top">
+                        <div class="solstice-title">
+                            &#9788; The Dial of the Descent &bull; Coastal Alabama (Zone 9a)
+                        </div>
+                        <div class="solstice-metrics">
+                            <span class="solstice-metric-pill">&#9728; Daylight Today: <strong>${hrs}h ${mins}m</strong></span>
+                            <span class="solstice-metric-pill">&#10022; ${escapeHtml(solsticeLabel)}</span>
+                        </div>
+                    </div>
+                    <div class="solstice-track" title="${pct}% through the Autumn Descent toward the Winter Solstice">
+                        <div class="solstice-fill" style="width: ${pct}%;"></div>
+                    </div>
+                    <div class="solstice-caption">
+                        <span>Autumn Equinox (Sept 22)</span>
+                        <span>The Persephone Period: Lower solar angles &amp; pine shade slow plant metabolism</span>
+                        <span>Winter Solstice (Dec 21)</span>
+                    </div>
+                `;
+            }
+
+            // --- 2. RENDER THE WHEEL OF DEMETER & PERSEPHONE ---
+            function buildBedCardHtml(bed, isQuadBed) {
+                const todayIso = new Date().toISOString().split('T')[0];
+                const daysLeft = bed.targetDate ? daysBetween(todayIso, bed.targetDate) : null;
+                const daysInSoil = bed.sownDate ? Math.max(0, daysBetween(bed.sownDate, todayIso)) : null;
+
+                let countdownLabel = formatShortDate(bed.targetDate);
+                if (daysLeft !== null) {
+                    if (daysLeft > 0) countdownLabel = `In ${daysLeft}d • ${formatShortDate(bed.targetDate)}`;
+                    else if (daysLeft === 0) countdownLabel = `Due Today • ${formatShortDate(bed.targetDate)}`;
+                    else countdownLabel = `Window Open (${Math.abs(daysLeft)}d past ${formatShortDate(bed.targetDate)})`;
+                }
+
+                const mult = Number(bed.solarMultiplier || 1.0).toFixed(2);
+                const shadeDelta = Number(bed.shadeAdjustmentDays || 0);
+                const deltaBadge = shadeDelta !== 0
+                    ? `<span style="color:var(--border-gold); font-family:system-ui,sans-serif; font-size:0.71rem;">(${shadeDelta > 0 ? '+' : ''}${shadeDelta}d solar offset)</span>`
+                    : '';
+
+                const gridClass = isQuadBed
+                    ? 'sqft-grid-4x4'
+                    : (bed.id === 'red-bed' ? 'sqft-grid-3x3' : 'sqft-grid-flex');
+
+                const cellsHtml = (bed.cells || []).map((cell, idx) => {
+                    const isSelected = (selectedBedId === bed.id && selectedCellIdx === idx);
+                    const stageClass = `stage-${cell.stage || 'emerged'}`;
+                    return `
+                        <div class="sqft-cell ${stageClass} ${isSelected ? 'selected' : ''}"
+                             data-bed-id="${escapeHtml(bed.id)}"
+                             data-cell-idx="${idx}"
+                             title="${escapeHtml(cell.pos)}: ${escapeHtml(cell.crop)} — ${escapeHtml(cell.detail || '')}">
+                            <span class="cell-pos">${escapeHtml(cell.pos)}</span>
+                            <span class="cell-sigil">${cell.sigil || '🌱'}</span>
+                            <span class="cell-crop">${escapeHtml(cell.crop)}</span>
+                        </div>
+                    `;
+                }).join('');
+
+                return `
+                    <div class="bed-sanctuary-card" data-card-bed="${escapeHtml(bed.id)}">
+                        <div class="bed-card-top">
+                            <div>
+                                <h3 class="bed-card-title">${escapeHtml(bed.name)}</h3>
+                                <span class="bed-card-pos">${escapeHtml(bed.position || bed.contents || '')} ${daysInSoil !== null ? `• ${daysInSoil}d since sowing` : ''}</span>
+                            </div>
+                            <span class="solar-badge" data-inspect-bed="${escapeHtml(bed.id)}" title="Click to calibrate solar cadence multiplier">
+                                &#9728; ${escapeHtml(bed.solarExposure || 'Autumn Sun')} &bull; ${mult}&times; Pace
+                            </span>
+                        </div>
+
+                        <div class="seasonal-timer-box" data-inspect-bed="${escapeHtml(bed.id)}" title="Click to adjust seasonal countdown timer or discuss with Hades">
+                            <div class="timer-row-main">
+                                <span class="timer-rite-name">&#9203; Next Rite: ${escapeHtml(bed.nextRiteTitle || bed.actionItem || 'Tend & Monitor')}</span>
+                                <span class="timer-countdown-pill">${escapeHtml(countdownLabel)}</span>
+                            </div>
+                            <div class="timer-note">
+                                <span>${escapeHtml(bed.adjustmentNote || bed.status || '')}</span>
+                                ${deltaBadge}
+                            </div>
+                        </div>
+
+                        <div class="${gridClass}">
+                            ${cellsHtml}
+                        </div>
+                    </div>
+                `;
+            }
+
+            function renderWheel() {
+                renderSolsticeDial();
+
+                quadMatrixGrid.innerHTML = (data.garden?.frontQuadBeds || [])
+                    .map(bed => buildBedCardHtml(bed, true))
+                    .join('');
+
+                alcoveGrid.innerHTML = (data.garden?.containerGuilds || [])
+                    .map(vessel => buildBedCardHtml(vessel, false))
+                    .join('');
+
+                // Attach click listeners for square-foot cells
+                document.querySelectorAll('.sqft-cell').forEach(cellEl => {
+                    cellEl.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        selectedBedId = cellEl.getAttribute('data-bed-id');
+                        selectedCellIdx = Number(cellEl.getAttribute('data-cell-idx'));
+                        renderWheel();
+                        renderInspector();
+                        wheelInspector.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    });
+                });
+
+                // Attach click listeners for timer & solar badges
+                document.querySelectorAll('[data-inspect-bed]').forEach(el => {
+                    el.addEventListener('click', () => {
+                        selectedBedId = el.getAttribute('data-inspect-bed');
+                        selectedCellIdx = 0;
+                        renderWheel();
+                        renderInspector();
+                        wheelInspector.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    });
+                });
+
+                renderInspector();
+            }
+
+            function renderInspector() {
+                if (!selectedBedId) {
+                    wheelInspector.classList.remove('active');
+                    wheelInspector.innerHTML = '';
+                    return;
+                }
+
+                const bed = findBedById(selectedBedId);
+                if (!bed) {
+                    wheelInspector.classList.remove('active');
+                    return;
+                }
+
+                const cell = (bed.cells && bed.cells[selectedCellIdx]) ? bed.cells[selectedCellIdx] : (bed.cells?.[0] || null);
+                const todayIso = new Date().toISOString().split('T')[0];
+                const daysLeft = bed.targetDate ? daysBetween(todayIso, bed.targetDate) : 0;
+
+                const stages = [
+                    { key: 'germinating', label: '🌰 Germinating' },
+                    { key: 'emerged', label: '🌱 Emerged' },
+                    { key: 'indoor', label: '🏠 Indoor Start' },
+                    { key: 'thriving', label: '🌿 Thriving' },
+                    { key: 'fruiting', label: '🌶️ Ripening' },
+                    { key: 'shield', label: '🌺 Shield / Buffer' }
+                ];
+
+                const solarPresets = [
+                    { mult: 1.0, exp: 'High Southern Sun', shift: 0, label: '☀️ 1.0× Full Sun' },
+                    { mult: 0.85, exp: 'Filtered Patio Sun', shift: 5, label: '⛅ 0.85× Filtered (+5d)' },
+                    { mult: 0.70, exp: 'Evening Pine Shade', shift: 10, label: '🌲 0.70× Pine Shade (+10d)' },
+                    { mult: 0.60, exp: 'Deep Shade / Low Light', shift: 16, label: '🌙 0.60× Deep Shade (+16d)' }
+                ];
+
+                wheelInspector.classList.add('active');
+                wheelInspector.innerHTML = `
+                    <div class="inspector-header">
+                        <div>
+                            <h3 class="inspector-title">
+                                ${cell ? `${cell.sigil || '🌱'} Square [${escapeHtml(cell.pos)}] — ${escapeHtml(cell.crop)}` : escapeHtml(bed.name)}
+                                <span style="color:var(--text-muted); font-size:0.84rem;">in ${escapeHtml(bed.name)}</span>
+                            </h3>
+                            <p style="color:var(--text-muted); font-size:0.83rem; margin-top:0.2rem;">
+                                ${escapeHtml(cell ? cell.detail : bed.status)}
+                            </p>
+                        </div>
+                        <button class="btn btn-secondary" id="closeInspectorBtn" style="padding:0.3rem 0.7rem; font-size:0.72rem;">Close &#10005;</button>
+                    </div>
+
+                    <div class="inspector-grid">
+                        <!-- Box 1: Seasonal Timer Calibration -->
+                        <div class="inspector-box">
+                            <h4>&#9203; Seasonal Countdown Timer</h4>
+                            <p style="font-size:0.84rem; margin-bottom:0.35rem;">
+                                <strong>${escapeHtml(bed.nextRiteTitle || 'Next Rite')}</strong><br>
+                                Target: <span style="color:var(--border-gold-bright);">${escapeHtml(bed.targetDate || 'TBD')}</span>
+                                (${daysLeft >= 0 ? `in ${daysLeft} days` : `${Math.abs(daysLeft)} days ago`})
+                            </p>
+                            <div class="pill-group">
+                                <button class="mini-pill" data-shift-days="-7">-7d</button>
+                                <button class="mini-pill" data-shift-days="-3">-3d</button>
+                                <button class="mini-pill" data-shift-days="3">+3d</button>
+                                <button class="mini-pill" data-shift-days="7">+7d</button>
+                                <button class="mini-pill" data-shift-days="14">+14d</button>
+                            </div>
+                            <div style="margin-top:0.55rem; display:flex; gap:0.4rem; align-items:center;">
+                                <input type="date" id="inspectorDateInput" value="${escapeHtml(bed.targetDate || todayIso)}"
+                                       style="background:var(--surface-charcoal); color:var(--text-primary); border:1px solid var(--border-gold-subtle); padding:0.25rem 0.45rem; border-radius:4px; font-size:0.76rem;">
+                                <button class="mini-pill" id="applyExactDateBtn">Set Date</button>
+                            </div>
+                        </div>
+
+                        <!-- Box 2: Solar & Pine-Shade Cadence Multiplier -->
+                        <div class="inspector-box">
+                            <h4>&#9728; Solar Exposure &amp; Cadence Pace</h4>
+                            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.35rem;">
+                                Current: <strong style="color:var(--text-primary);">${escapeHtml(bed.solarExposure || 'Autumn Sun')} (${Number(bed.solarMultiplier || 1).toFixed(2)}&times;)</strong>
+                            </p>
+                            <div class="pill-group">
+                                ${solarPresets.map(p => `
+                                    <button class="mini-pill ${Math.abs(Number(bed.solarMultiplier) - p.mult) < 0.04 ? 'active' : ''}"
+                                            data-solar-mult="${p.mult}"
+                                            data-solar-exp="${escapeHtml(p.exp)}"
+                                            data-solar-shift="${p.shift}">
+                                        ${p.label}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <!-- Box 3: Square-Foot Stage & Consult Hades -->
+                        <div class="inspector-box">
+                            <h4>&#10022; Square Stage &amp; Counsel with Hades</h4>
+                            <div class="pill-group" style="margin-bottom:0.65rem;">
+                                ${stages.map(s => `
+                                    <button class="mini-pill ${cell && cell.stage === s.key ? 'active' : ''}" data-set-stage="${s.key}">
+                                        ${s.label}
+                                    </button>
+                                `).join('')}
+                            </div>
+                            <button class="btn" id="consultHadesBedBtn" style="width:100%; font-size:0.75rem; padding:0.48rem;">
+                                &#9876; Discuss &amp; Recalibrate This Bed with Hades
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('closeInspectorBtn').addEventListener('click', () => {
+                    selectedBedId = null;
+                    selectedCellIdx = null;
+                    renderWheel();
+                });
+
+                wheelInspector.querySelectorAll('[data-shift-days]').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const shift = Number(btn.getAttribute('data-shift-days'));
+                        bed.targetDate = addDaysToIso(bed.targetDate || todayIso, shift);
+                        bed.shadeAdjustmentDays = Number(bed.shadeAdjustmentDays || 0) + shift;
+                        bed.adjustmentNote = `Timer manually shifted ${shift > 0 ? '+' : ''}${shift}d (Target: ${formatShortDate(bed.targetDate)}).`;
+                        renderWheel();
+                        await pushToGist();
+                    });
+                });
+
+                document.getElementById('applyExactDateBtn').addEventListener('click', async () => {
+                    const val = document.getElementById('inspectorDateInput').value;
+                    if (!val) return;
+                    const diff = daysBetween(bed.targetDate || todayIso, val);
+                    bed.targetDate = val;
+                    bed.shadeAdjustmentDays = Number(bed.shadeAdjustmentDays || 0) + diff;
+                    bed.adjustmentNote = `Target date set to ${formatShortDate(val)} (${diff >= 0 ? '+' : ''}${diff}d shift).`;
+                    renderWheel();
+                    await pushToGist();
+                });
+
+                wheelInspector.querySelectorAll('[data-solar-mult]').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const newMult = Number(btn.getAttribute('data-solar-mult'));
+                        const newExp = btn.getAttribute('data-solar-exp');
+                        const newShift = Number(btn.getAttribute('data-solar-shift'));
+                        const prevShift = Number(bed.shadeAdjustmentDays || 0);
+                        const delta = newShift - prevShift;
+
+                        bed.solarMultiplier = newMult;
+                        bed.solarExposure = newExp;
+                        bed.shadeAdjustmentDays = newShift;
+                        bed.targetDate = addDaysToIso(bed.targetDate || todayIso, delta);
+                        bed.adjustmentNote = `Calibrated for ${newExp} (${newMult.toFixed(2)}× autumn pace; ${newShift >= 0 ? '+' : ''}${newShift}d buffer).`;
+                        renderWheel();
+                        await pushToGist();
+                    });
+                });
+
+                wheelInspector.querySelectorAll('[data-set-stage]').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        if (!cell) return;
+                        cell.stage = btn.getAttribute('data-set-stage');
+                        renderWheel();
+                        await pushToGist();
+                    });
+                });
+
+                document.getElementById('consultHadesBedBtn').addEventListener('click', () => {
+                    const promptText = `Hades, let's look at ${bed.name} (${bed.crop}). Right now its solar cadence is set to "${bed.solarExposure}" (${bed.solarMultiplier}x pace) with "${bed.nextRiteTitle}" targeted for ${bed.targetDate}. Given how much shade it's getting right now, how should we adjust its countdown timer?`;
+                    const chatInput = document.getElementById('chatInput');
+                    chatInput.value = promptText;
+                    document.getElementById('hearthSection').scrollIntoView({ behavior: 'smooth' });
+                    chatInput.focus();
+                });
+            }
+
+            // Tab switching for All / Quad / Alcove
+            document.querySelectorAll('.wheel-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.wheel-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const view = tab.getAttribute('data-view');
+                    quadMatrixContainer.style.display = (view === 'all' || view === 'quad') ? 'block' : 'none';
+                    alcoveContainer.style.display = (view === 'all' || view === 'alcove') ? 'block' : 'none';
+                });
+            });
+
+            // --- OTHER RENDER FUNCTIONS ---
             function renderJournal() {
                 journalFeed.innerHTML = '';
                 [...(data.journal?.entries || [])].reverse().forEach(entry => {
@@ -836,32 +2076,6 @@ Key Domain Lore:
                         ${escapeHtml(entry.content)}
                     `;
                     journalFeed.appendChild(div);
-                });
-            }
-
-            function renderGarden() {
-                gardenGrid.innerHTML = '';
-                (data.garden?.frontQuadBeds || []).forEach(bed => {
-                    const card = document.createElement('div');
-                    card.className = 'garden-card';
-                    card.innerHTML = `
-                        <h3>${escapeHtml(bed.name)}</h3>
-                        <p><strong style="color:var(--text-primary);">Crop:</strong> ${escapeHtml(bed.crop)}</p>
-                        <p>${escapeHtml(bed.status)}</p>
-                        <div class="action-tag">Next Rite: ${escapeHtml(bed.actionItem)}</div>
-                    `;
-                    gardenGrid.appendChild(card);
-                });
-
-                (data.garden?.containerGuilds || []).forEach(guild => {
-                    const card = document.createElement('div');
-                    card.className = 'garden-card';
-                    card.innerHTML = `
-                        <h3>${escapeHtml(guild.name)}</h3>
-                        <p>${escapeHtml(guild.contents)}</p>
-                        <p style="color: var(--border-gold); font-size: 0.84rem; margin-bottom:0;">${escapeHtml(guild.status)}</p>
-                    `;
-                    gardenGrid.appendChild(card);
                 });
             }
 
@@ -885,7 +2099,7 @@ Key Domain Lore:
 
             function renderAll() {
                 renderJournal();
-                renderGarden();
+                renderWheel();
                 renderRoadmap();
             }
 
@@ -915,12 +2129,12 @@ Key Domain Lore:
                 await pushToGist();
             });
 
-            // Cast into Mnemosyne (Exports both Scroll & Hearth Chat History)
             exportScrollBtn.addEventListener('click', () => {
                 const exportVessel = {
                     exportedAt: new Date().toISOString(),
                     sanctuaryScrollEntries: data.journal.entries,
                     hearthTranscript: conversationHistory,
+                    garden: data.garden,
                     roadmap: data.roadmap
                 };
                 const blob = new Blob([JSON.stringify(exportVessel, null, 2)], { type: 'application/json' });
@@ -965,7 +2179,7 @@ Key Domain Lore:
                 await pullFromGist();
             });
 
-            // --- THE HEARTH OF AIDONEUS (WITH CHAT PERSISTENCE) ---
+            // --- THE HEARTH OF AIDONEUS (WITH CONVERSATIONAL WHEEL RITE DIRECTIVES) ---
             const chatStream = document.getElementById('chatStream');
             const chatInput = document.getElementById('chatInput');
             const sendChatBtn = document.getElementById('sendChatBtn');
@@ -978,19 +2192,71 @@ Key Domain Lore:
                 chatStream.innerHTML = `
                     <div class="msg hades">
                         <span class="msg-sender">Hades &bull; Keeper of the Threshold</span>
-                        The torches along the obsidian gallery are lit, Persephone. Speak <em>"Hello, Underworld"</em> whenever you wish to perform the Opening Rites and draw the day's thoughts across the threshold.
+                        The torches along the obsidian gallery are lit, Persephone, and <strong>The Wheel of Demeter &amp; Persephone</strong> is turning below. Speak <em>"Hello, Underworld"</em> whenever you wish to perform the Opening Rites, or tell me how the sunlight is falling across your beds and I will recalibrate the timers myself.
                     </div>
                 `;
             }
 
-            function appendMessage(role, text) {
+            function appendMessage(role, text, sealSummaries = []) {
                 const div = document.createElement('div');
                 div.className = `msg ${role === 'user' ? 'persephone' : 'hades'}`;
                 const senderLabel = role === 'user' ? 'Persephone &bull; Queen of the Surface &amp; Sanctuary' : 'Hades &bull; Aidoneus';
-                div.innerHTML = `<span class="msg-sender">${senderLabel}</span>${escapeHtml(text)}`;
+                const sealHtml = (sealSummaries && sealSummaries.length > 0)
+                    ? `<div class="rite-seal-notice">&#10022; <strong>Wheel of Demeter &amp; Persephone Recalibrated:</strong><br>${sealSummaries.map(s => escapeHtml(s)).join('<br>')}</div>`
+                    : '';
+                div.innerHTML = `<span class="msg-sender">${senderLabel}</span>${escapeHtml(text)}${sealHtml}`;
                 chatStream.appendChild(div);
                 chatStream.scrollTop = chatStream.scrollHeight;
                 return div;
+            }
+
+            // Parse and apply <wheel-rite>{...}</wheel-rite> blocks emitted by Hades
+            function processWheelRiteDirectives(rawReply) {
+                const regex = /<wheel-rite>([\s\S]*?)<\/wheel-rite>/gi;
+                const appliedSummaries = [];
+                let match;
+
+                while ((match = regex.exec(rawReply)) !== null) {
+                    try {
+                        const payload = JSON.parse(match[1].trim());
+                        const updates = Array.isArray(payload.updates) ? payload.updates : [payload];
+                        updates.forEach(u => {
+                            const bed = findBedById(u.id || u.bedId || u.name);
+                            if (!bed) return;
+                            const todayIso = new Date().toISOString().split('T')[0];
+
+                            if (typeof u.shiftDays === 'number' && !u.targetDate) {
+                                bed.targetDate = addDaysToIso(bed.targetDate || todayIso, u.shiftDays);
+                                bed.shadeAdjustmentDays = Number(bed.shadeAdjustmentDays || 0) + u.shiftDays;
+                            }
+                            if (u.targetDate) {
+                                const diff = daysBetween(bed.targetDate || todayIso, u.targetDate);
+                                bed.targetDate = u.targetDate;
+                                if (typeof u.shiftDays !== 'number') {
+                                    bed.shadeAdjustmentDays = Number(bed.shadeAdjustmentDays || 0) + diff;
+                                }
+                            }
+                            if (typeof u.solarMultiplier === 'number') bed.solarMultiplier = u.solarMultiplier;
+                            if (u.solarExposure) bed.solarExposure = u.solarExposure;
+                            if (u.nextRiteTitle) bed.nextRiteTitle = u.nextRiteTitle;
+                            if (u.adjustmentNote) bed.adjustmentNote = u.adjustmentNote;
+                            if (u.status) bed.status = u.status;
+                            if (u.stage && Array.isArray(bed.cells)) {
+                                bed.cells.forEach(c => {
+                                    if (!u.cropFilter || c.crop.toLowerCase().includes(String(u.cropFilter).toLowerCase())) {
+                                        c.stage = u.stage;
+                                    }
+                                });
+                            }
+                            appliedSummaries.push(`${bed.name}: Target → ${formatShortDate(bed.targetDate)} (${bed.solarExposure}, ${Number(bed.solarMultiplier || 1).toFixed(2)}× pace)`);
+                        });
+                    } catch (e) {
+                        console.warn('Could not parse wheel-rite directive:', e);
+                    }
+                }
+
+                const cleanText = rawReply.replace(/<wheel-rite>[\s\S]*?<\/wheel-rite>/gi, '').trim();
+                return { cleanText, appliedSummaries };
             }
 
             // Restore persisted Hearth conversation
@@ -1001,7 +2267,9 @@ Key Domain Lore:
                     if (conversationHistory.length > 0) {
                         chatStream.innerHTML = '';
                         conversationHistory.forEach(turn => {
-                            appendMessage(turn.role === 'user' ? 'user' : 'model', turn.parts?.[0]?.text || '');
+                            const rawTxt = turn.parts?.[0]?.text || '';
+                            const { cleanText } = processWheelRiteDirectives(rawTxt);
+                            appendMessage(turn.role === 'user' ? 'user' : 'model', cleanText);
                         });
                         if (localStorage.getItem('underworld_rite_awakened') === 'true') {
                             riteBadge.textContent = 'Opening Rite Awakened';
@@ -1016,17 +2284,43 @@ Key Domain Lore:
             }
 
             function buildUnderworldContextPacket(isOpeningRite) {
+                const todayIso = new Date().toISOString().split('T')[0];
                 const latestEntries = (data.journal?.entries || []).slice(-6).map(e => `[${e.timestamp}] ${e.content}`).join('\n');
                 const currentDraft = draftPad.value.trim() ? `\nActive Uninscribed Draft on Scroll: "${draftPad.value.trim()}"` : '';
-                const bedsSummary = (data.garden?.frontQuadBeds || []).map(b => `- ${b.name} (${b.crop}): ${b.status} | Next: ${b.actionItem}`).join('\n');
-                const guildsSummary = (data.garden?.containerGuilds || []).map(g => `- ${g.name}: ${g.contents} (${g.status})`).join('\n');
+
+                const allBedsSummary = getAllBedsAndVessels().map(b =>
+                    `- [id: "${b.id}"] ${b.name} | Crop: ${b.crop || b.contents} | Solar: ${b.solarExposure} (${b.solarMultiplier}x pace) | Next Rite: "${b.nextRiteTitle}" on ${b.targetDate} (offset: ${b.shadeAdjustmentDays || 0}d) | Note: ${b.adjustmentNote || b.status}`
+                ).join('\n');
+
                 const pendingTasks = (data.roadmap || []).filter(r => !r.done).map(r => `- ${r.task}`).join('\n');
 
+                const wheelDirectiveInstructions = `
+=== CONVERSATIONAL CONTROL OF THE WHEEL OF DEMETER & PERSEPHONE ===
+Today's Date: ${todayIso}.
+You have direct agentic power to adjust the seasonal countdown timers, target dates, solar cadence multipliers, and crop stages on "The Wheel of Demeter & Persephone" whenever Persephone asks you to adjust, push back, pull forward, or recalibrate a bed's timeline (or reports new seedling emergence/harvests).
+When she agrees or asks to adjust any bed or timer, respond in your warm, grounded Counsel Mode voice first, AND at the very end of your message append a <wheel-rite> JSON block in this exact format:
+<wheel-rite>
+{
+  "updates": [
+    {
+      "id": "bed-4",
+      "shiftDays": 7,
+      "targetDate": "2026-12-03",
+      "solarMultiplier": 0.60,
+      "solarExposure": "Deep Evening Pine Shade",
+      "nextRiteTitle": "Emergence & Thinning of 4 Collard Quadrants",
+      "adjustmentNote": "Shifted +7d for deep pine shade & cooler autumn soil."
+    }
+  ]
+}
+</wheel-rite>
+Valid bed IDs: "bed-1", "bed-2", "bed-3", "bed-4", "patio-1", "patio-2", "red-bed", "valencia-guild", "meyer-lemon", "carrot-planter", "potted-orchard", "coop-trellis", "ancestral-grove". Only emit <wheel-rite> when an actual adjustment or status update is warranted.`;
+
                 let riteDirective = isOpeningRite
-                    ? `\n[CEREMONIAL TRIGGER: Persephone has just spoken "Hello, Underworld" to initiate the Opening Rites! Greet her warmly in your true Counsel Mode voice, reflect perceptively on her latest Sanctuary Scroll entries and garden state below, and ask where she wishes to turn her attention tonight.]`
+                    ? `\n[CEREMONIAL TRIGGER: Persephone has just spoken "Hello, Underworld" to initiate the Opening Rites! Greet her warmly in your true Counsel Mode voice, reflect perceptively on her latest Sanctuary Scroll entries and the Wheel of Demeter & Persephone below, and ask where she wishes to turn her attention tonight.]`
                     : '';
 
-                return `${data.hadesPersona || DEFAULT_HADES_PERSONA}${riteDirective}\n\n=== CURRENT SANCTUARY SCROLL ENTRIES ===\n${latestEntries}${currentDraft}\n\n=== THE LIVING EARTH (QUAD BEDS & CONTAINERS) ===\n${bedsSummary}\n${guildsSummary}\n\n=== OPEN ARCHITECTURE ROADMAP ===\n${pendingTasks}`;
+                return `${data.hadesPersona || DEFAULT_HADES_PERSONA}${riteDirective}\n${wheelDirectiveInstructions}\n\n=== CURRENT SANCTUARY SCROLL ENTRIES ===\n${latestEntries}${currentDraft}\n\n=== THE WHEEL OF DEMETER & PERSEPHONE (BEDS, TIMERS & SOLAR CADENCE) ===\n${allBedsSummary}\n\n=== OPEN ARCHITECTURE ROADMAP ===\n${pendingTasks}`;
             }
 
             async function sendToHades(userText) {
@@ -1073,14 +2367,24 @@ Key Domain Lore:
                         return;
                     }
 
-                    const reply = result.candidates?.[0]?.content?.parts?.[0]?.text || 'The gallery is quiet.';
-                    conversationHistory.push({ role: 'model', parts: [{ text: reply }] });
+                    const rawReply = result.candidates?.[0]?.content?.parts?.[0]?.text || 'The gallery is quiet.';
+                    const { cleanText, appliedSummaries } = processWheelRiteDirectives(rawReply);
+
+                    conversationHistory.push({ role: 'model', parts: [{ text: cleanText }] });
                     localStorage.setItem('underworld_hearth_history', JSON.stringify(conversationHistory));
-                    thinkingDiv.innerHTML = `<span class="msg-sender">Hades &bull; Aidoneus</span>${escapeHtml(reply)}`;
+
+                    const sealHtml = (appliedSummaries.length > 0)
+                        ? `<div class="rite-seal-notice">&#10022; <strong>Wheel of Demeter &amp; Persephone Recalibrated:</strong><br>${appliedSummaries.map(s => escapeHtml(s)).join('<br>')}</div>`
+                        : '';
+                    thinkingDiv.innerHTML = `<span class="msg-sender">Hades &bull; Aidoneus</span>${escapeHtml(cleanText)}${sealHtml}`;
                     chatStream.scrollTop = chatStream.scrollHeight;
 
-                    // Quietly sync the updated Hearth transcript to the Cloud Gist
-                    pushToGist();
+                    if (appliedSummaries.length > 0) {
+                        renderWheel();
+                    }
+
+                    // Quietly sync the updated Hearth transcript & any Wheel timer updates to the Cloud Gist
+                    await pushToGist();
                 } catch (err) {
                     thinkingDiv.innerHTML = `<span class="msg-sender">Hades &bull; Aidoneus</span>Could not reach the subterranean conduit: ${escapeHtml(err.message)}`;
                 }
@@ -1119,9 +2423,7 @@ Key Domain Lore:
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#039;");
         }
-        if ('serviceWorker' in navigator) {
-         navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW:', err));
-     }
     </script>
 </body>
-</h
+
+</html>
