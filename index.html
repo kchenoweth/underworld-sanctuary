@@ -1749,11 +1749,12 @@ Your Tone & Posture (Counsel Mode): Wry, perceptive, steady, unhurried, and deep
 Key Domain Lore:
 - Our workspace was inaugurated with the phrase "Hello, Underworld." When Persephone speaks "Hello, Underworld," you are performing the Opening Rites: welcoming her back across the threshold, reflecting perceptively on her latest Sanctuary Scroll entries and garden state (provided in the system context), and asking where her mind is resting tonight.
 - The Covenant of Unhurried Trust: Just like her shaded Bed 4 collards and indoor starts, the deepest roots form in the dark first and are never rushed. We honor biological cadence and 'The Persephone Period' (slower autumn/winter solar metabolism) over rigid seed-packet clocks.
-- Biographical & Household Lore: Krysten grew up in the countryside of Decatur, Mississippi (where solitude and books forged her love of fine prose; she loves Cormac McCarthy's 'The Road' ['carrying the fire'], Leigh Bardugo's 'The Familiar', and has Susanna Clarke's 'Piranesi' queued next on Audible). She is a Medical Assistant (promoted May 2026) married to Justin (Justin's brewing gear is strictly his). On Oct 31 she took a restorative family boat trip with her brother Ricky, their dad, and Ricky's family to a remote sandbar off Dauphin Island watching sand crabs ahead of her Sunday Nov 1 All Saints Day feast.
+- Biographical & Household Lore: Krysten (birthday at the beginning of March, when the makeshift winter greenhouse comes down for spring!) grew up in the countryside of Decatur, Mississippi (where solitude and books forged her love of fine prose; she loves Cormac McCarthy's 'The Road' ['carrying the fire'], Leigh Bardugo's 'The Familiar', and has Susanna Clarke's 'Piranesi' queued next on Audible). She is a Medical Assistant (promoted May 2026) married to Justin (Justin's brewing gear is strictly his). On Oct 31 she took a restorative family boat trip with her brother Ricky, their dad, and Ricky's family to a remote sandbar off Dauphin Island watching sand crabs ahead of her Sunday Nov 1 All Saints Day feast.
+- Citrus & Potted Orchard Lore: Around Thanksgiving each November, Krysten and Justin construct a makeshift winter greenhouse to shelter the potted orchard until her birthday in early March. Her 3-season-old Valencia Orange tree (in the 24" guild pot with 4 Choko bok choy, Tokyo Long White onions & mesclun) flowered with hundreds of blossoms in Jan 2026, was hand-thinned to <=3 fruits per branch, and currently holds ~38 baseball-sized green oranges ripening over winter for a Spring 2027 harvest (plus a fragrant Nov blossom flush to be pinched at pea-stage to spare the bowed branches extra weight). Her 2nd-season Meyer Lemon tree is leaning under 10–15 ripening golden lemons.
 - Cats & Flock: Indoor cats Bingus and Cake ("silly babes" kept strictly indoors and blissfully unaware of the birds outside). Four hens at the coop (bordered by Arabian jasmine & 5 cutting-grown Rabbiteye blueberries): two Ameraucanas laying blue-green eggs named Chicken-Cake and Poop Butt, and two Rhode Island Reds laying brown eggs named Chicken-Bingus and Nugget.`;
 
         const DEFAULT_WHEEL_GARDEN = {
-            schemaRevision: "2.3.0",
+            schemaRevision: "2.3.1",
             frontQuadBeds: [
                 {
                     id: "bed-1",
@@ -2028,39 +2029,39 @@ Key Domain Lore:
                 {
                     id: "valencia-guild",
                     group: "patio",
-                    name: "24-Inch Valencia Orange Pot Guild",
+                    name: "24-Inch Valencia Orange Pot Guild (~38 Oranges • 3rd Season)",
                     sownDate: "2026-09-26",
-                    solarExposure: "Full Patio Sun (Canopy + Understory)",
+                    solarExposure: "Full Patio Sun -> Thanksgiving Greenhouse",
                     solarMultiplier: 0.9,
-                    nextRiteTitle: "Choko Bok Choy & Mesclun Outer Leaf Harvest",
+                    nextRiteTitle: "Pinch Nov Pea-Stage Fruitlets, Harvest Bok Choy & Raise Thanksgiving Shelter",
                     targetDate: "2026-11-14",
                     shadeAdjustmentDays: 4,
-                    adjustmentNote: "Waiting for Choko bok choy to reach full stature before harvesting leaves.",
-                    contents: "Valencia orange tree, perimeter Tokyo Long White bunching onions, 4 Choko bok choy, mesclun mix living mulch.",
-                    status: "Thriving; bok choy growing well across all planters.",
+                    adjustmentNote: "3-season-old tree holding ~38 baseball-sized green oranges from Jan bloom (hand-thinned to ≤3/branch) for Spring 2027 harvest! Pinch new Nov blossoms at pea-stage to spare bowed limbs extra weight; move into makeshift greenhouse around Thanksgiving until early-March birthday unveiling.",
+                    contents: "3-season Valencia orange tree (~38 baseball-sized green fruits + fragrant Nov blossom flush), perimeter Tokyo Long White onions, 4 Choko bok choy, mesclun living mulch.",
+                    status: "Sturdy upright trunk with branches bowing under ~38 baseball-sized green oranges ripening over winter toward Spring 2027; currently perfuming the patio with a bonus November flower flush.",
                     cells: [
-                        { pos: "Canopy", crop: "Valencia Orange Tree", sigil: "🍊", stage: "thriving", detail: "Primary citrus centerpiece in 24-inch vessel." },
-                        { pos: "Ring", crop: "Tokyo Long White Onions", sigil: "🧅", stage: "emerged", detail: "Allium perimeter pest deterrent." },
-                        { pos: "Under•1", crop: "4 Choko Bok Choy", sigil: "🥬", stage: "thriving", detail: "Growing vigorously; maturing before first leaf harvest." },
-                        { pos: "Mulch", crop: "Mesclun Mix Lettuce", sigil: "🥗", stage: "emerged", detail: "Living shallow-root groundcover mulch." }
+                        { pos: "Canopy", crop: "~38 Baseball-Sized Valencia Oranges", sigil: "🍊", stage: "fruiting", detail: "Set from a snowstorm January bloom and hand-thinned to ≤3 fruits/branch; will color-break over winter and sweeten for Spring 2027 harvest after the early-March greenhouse unveiling." },
+                        { pos: "Nov•Bloom", crop: "Fragrant Autumn Blossom Flush", sigil: "🌼", stage: "shield", detail: "Triggered by autumn guild care; enjoy the neroli fragrance, then pinch off tiny pea-stage fruitlets at petal drop so bowed branches don't carry extra tip leverage." },
+                        { pos: "Ring", crop: "Tokyo Long White Onions", sigil: "🧅", stage: "emerged", detail: "Allium perimeter pest deterrent sown Sept 26." },
+                        { pos: "Under•1", crop: "4 Choko Bok Choy & Mesclun", sigil: "🥬", stage: "thriving", detail: "4 Choko bok choy and mesclun living mulch growing vigorously; maturing before first outer-leaf harvest." }
                     ]
                 },
                 {
                     id: "meyer-lemon",
                     group: "patio",
-                    name: "Meyer Lemon Pot (Solo Ripening)",
+                    name: "Meyer Lemon Pot (2nd-Season • 10–15 Ripening Lemons)",
                     sownDate: "2026-09-26",
-                    solarExposure: "Full Sun",
+                    solarExposure: "Full Sun -> Thanksgiving Greenhouse",
                     solarMultiplier: 1.0,
-                    nextRiteTitle: "Harvest First Golden Meyer Lemons",
+                    nextRiteTitle: "Harvest Ripening Golden Lemons (Relieve Lean) & Thanksgiving Shelter",
                     targetDate: "2026-11-22",
                     shadeAdjustmentDays: 0,
-                    adjustmentNote: "Surface companion guild retired in stride; tree directing all energy into ripening fruit.",
-                    contents: "Meyer lemon tree (solo; surface companion plants perished and guild retired).",
-                    status: "Meyer lemon fruits have begun to ripen!",
+                    adjustmentNote: "2nd-season tree leaning under a heroic load of 10–15 ripening lemons! Each harvested golden lemon relieves torque off her trunk ahead of moving into the makeshift Thanksgiving-to-early-March greenhouse.",
+                    contents: "2nd-season Meyer lemon tree carrying 10–15 ripening fruits (solo; surface companion guild retired).",
+                    status: "Loaded with 10–15 lemons turning golden since Oct 28; leaning under the generous weight!",
                     cells: [
-                        { pos: "Canopy", crop: "Ripening Meyer Lemons", sigil: "🍋", stage: "fruiting", detail: "Fruits turning gold as of Oct 28!" },
-                        { pos: "Soil", crop: "Mulched Root Crown", sigil: "🍂", stage: "shield", detail: "Companion guild retired cleanly; solo citrus focus." }
+                        { pos: "Canopy", crop: "10–15 Ripening Golden Meyer Lemons", sigil: "🍋", stage: "fruiting", detail: "Second-season tree heavily laden with 10–15 lemons turning gold as of Oct 28; harvesting as they ripen naturally relieves the lean." },
+                        { pos: "Support", crop: "Stake Support & Thanksgiving Shelter", sigil: "🛡️", stage: "shield", detail: "Companion guild retired cleanly; overwinter inside the makeshift greenhouse from Thanksgiving until early March." }
                     ]
                 },
                 {
@@ -2089,17 +2090,17 @@ Key Domain Lore:
                     group: "orchard",
                     name: "Barbados Cherry Vessel (2nd-Season Acerola)",
                     sownDate: "2025-04-01",
-                    solarExposure: "Warm Patio & Orchard Sun",
+                    solarExposure: "Warm Patio -> Thanksgiving Greenhouse",
                     solarMultiplier: 0.95,
-                    nextRiteTitle: "Protect Tropical Crown if Deep Freeze Threatens",
-                    targetDate: "2026-12-10",
+                    nextRiteTitle: "Raise Makeshift Winter Greenhouse Around Thanksgiving",
+                    targetDate: "2026-11-26",
                     shadeAdjustmentDays: 0,
-                    adjustmentNote: "Completed its second container season with minimal fuss; tropical acerola appreciates shelter during sharp freezes (<30°F).",
+                    adjustmentNote: "Overwinters inside the makeshift greenhouse from Thanksgiving until Persephone's birthday at the beginning of March—the secret to how it sailed through last winter!",
                     contents: "Malpighia emarginata (Barbados Cherry / Acerola) — 2nd-season fruiting shrub in container.",
-                    status: "Thriving after a strong second summer season; resting comfortably in autumn warmth.",
+                    status: "Thriving after a strong second summer season; awaiting the Thanksgiving winter greenhouse raising.",
                     cells: [
                         { pos: "Canopy", crop: "Barbados Cherry (Acerola)", sigil: "🍒", stage: "thriving", detail: "Second-season potted acerola shrub; vibrant vitamin-C-rich summer fruit bearer." },
-                        { pos: "Winter•Rite", crop: "Frost Vigil (<30°F)", sigil: "🛡️", stage: "shield", detail: "Container mobility allows tucking near the warm patio wall if a hard Gulf freeze rolls through." }
+                        { pos: "Winter•Rite", crop: "Thanksgiving -> Early-March Greenhouse", sigil: "🛡️", stage: "shield", detail: "Sheltered inside the makeshift winter greenhouse from Thanksgiving until early March (Persephone's birthday)." }
                     ]
                 },
                 {
@@ -2345,10 +2346,10 @@ Key Domain Lore:
             roadmap: []
         };
 
-        // Ensures older Gist payloads without 4x4 `cells`, `vaults`, or `2.3.0` unbundled guilds/UTF-8 sigils are seamlessly upgraded
+        // Ensures older Gist payloads without 4x4 `cells`, `vaults`, or `2.3.1` unbundled guilds/citrus updates are seamlessly upgraded
         function upgradeGardenSchema(dataObj) {
             if (!dataObj.garden) dataObj.garden = JSON.parse(JSON.stringify(DEFAULT_WHEEL_GARDEN));
-            const needsCellRefresh = dataObj.garden.schemaRevision !== "2.3.0";
+            const needsCellRefresh = dataObj.garden.schemaRevision !== "2.3.1";
 
             const defaultQuadMap = {};
             DEFAULT_WHEEL_GARDEN.frontQuadBeds.forEach(b => { defaultQuadMap[b.id] = b; });
@@ -2431,7 +2432,7 @@ Key Domain Lore:
                     };
                 });
             }
-            dataObj.garden.schemaRevision = "2.3.0";
+            dataObj.garden.schemaRevision = "2.3.1";
 
             // Upgrade or initialize The Vaults of Plouton (v2.2.0)
             if (!dataObj.vaults) {
